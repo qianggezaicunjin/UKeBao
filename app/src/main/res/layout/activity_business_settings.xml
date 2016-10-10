@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.businessManage.businessSettings.BusinessSettingsViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_title_bar"
+            layout="@layout/include_title_bar_layout" />
+
+        <LinearLayout
+            android:id="@+id/ll_businessInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- 店铺名称 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:id="@+id/ll_businessInfo_name"
+                >
+
+                <LinearLayout
+                    android:id="@+id/ll_store_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x12">
+
+                    <TextView
+                        android:id="@+id/tv_store_name_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="店铺名称"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_store_name_detail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@{viewModel.businessInfo.businessName}"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+                <!-- 店内电话 -->
+
+                <LinearLayout
+                    android:id="@+id/ll_store_phone_number_setting"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y1"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x12">
+
+                    <TextView
+                        android:id="@+id/tv_store_phone_number_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="店内电话"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/et_store_phone_number_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@null"
+                        android:digits="0123456789()-"
+                        android:hint="请输入门店座机或手机"
+                        android:text="@{viewModel.businessInfo.tel}"
+                        android:inputType="number"
+                        android:maxLength="15"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color_black"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <!-- 联系人 -->
+
+                <LinearLayout
+                    android:id="@+id/ll_contacts_name_setting"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y1"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/x12">
+
+                    <TextView
+                        android:id="@+id/tv_contacts_name_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="联系人"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/et_contacts_name_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@null"
+                        android:hint="请输入联系人姓名"
+                        android:text="@{viewModel.businessInfo.name}"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color_black"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 店铺图标 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_store_icon_setting"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/y1"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/x5">
+
+                <ImageView
+                    android:id="@+id/iv_store_icon_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/x10"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/default_shops"
+                    app:imageUrl="@{viewModel.businessImage}"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <!-- 行业类型 -->
+
+        <LinearLayout
+            android:id="@+id/ll_industry_type_setting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="@dimen/x12">
+
+            <TextView
+                android:id="@+id/tv_industry_type_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="行业类型"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_industry_tpye"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- 积分折扣 -->
+
+        <LinearLayout
+            android:id="@+id/ll_integral_discount_setting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y1"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_integral_discount_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="积分折扣"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/et_integral_discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- 店招相册 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_photo_album_setting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:background="@color/white"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/x12">
+
+            <TextView
+                android:id="@+id/tv_photo_album_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="店铺相册"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_photo_album_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_toLeftOf="@+id/iv_photo_album_arrow"
+                android:text="设置"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_photo_album_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/big_grey_arrow" />
+        </RelativeLayout>
+        <!-- 店铺地址 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_store_address_setting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y1"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/x12">
+
+            <TextView
+                android:id="@+id/tv_store_address_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="店铺地址"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_store_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_store_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_toLeftOf="@+id/iv_store_address_arrow"
+                android:text="设置"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_store_address_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/big_grey_arrow" />
+        </RelativeLayout>
+        <!-- 地理坐标 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_geography_coordinate_setting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y1"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/x12">
+
+            <TextView
+                android:id="@+id/tv_geography_coordinate_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地理坐标"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_geography_coordinate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_toLeftOf="@+id/iv_geography_coordinate_arrow"
+                android:text="设置"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_geography_coordinate_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/big_grey_arrow" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_store_setting_save"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/bg_send_security_code"
+            android:text="@string/save"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/x1"
+    android:background="@color/grey"
+    android:orientation="vertical">
+
+    <!-- 全部订单 -->
+
+    <TextView
+        android:id="@+id/tv_show_all_order"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:padding="@dimen/x12"
+        android:text="全部订单"
+        android:textColor="@color/text_color_grey"
+        android:textSize="15sp" />
+
+    <!-- 交易成功 -->
+
+    <TextView
+        android:id="@+id/tv_show_success_order"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:padding="@dimen/x12"
+        android:text="交易成功"
+        android:textColor="@color/text_color_grey"
+        android:textSize="15sp" />
+
+
+    <!-- 退款订单 -->
+
+    <TextView
+        android:layout_marginTop="@dimen/y1"
+        android:id="@+id/tv_show_refund_order"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:padding="@dimen/x12"
+        android:text="退款订单"
+        android:textColor="@color/text_color_grey"
+        android:textSize="15sp" />
+
+</LinearLayout>

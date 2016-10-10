@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical" >
+    <include layout="@layout/topbars_main"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/ll_marketManager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <!-- 卡券管理 -->
+
+        <LinearLayout
+            android:id="@+id/ll_manager_cardJuan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/iv_cardJuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/card_manager" />
+
+            <TextView
+                android:id="@+id/tv_cardJuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="卡券管理"
+                android:textColor="@color/text_color_black" />
+        </LinearLayout>
+        <!-- 红包管理 -->
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:id="@+id/ll_manager_redPacket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/iv_redPacket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red_packet" />
+
+            <TextView
+                android:id="@+id/tv_redPacket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="红包管理"
+                android:textColor="@color/text_color_black" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/grey" />
+        <!-- 超值兑换 -->
+
+        <LinearLayout
+            android:id="@+id/ll_manager_overflow_exchange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/iv_overflow_exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gift" />
+
+            <TextView
+                android:id="@+id/tv_overflow_exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="超值兑换"
+                android:textColor="@color/text_color_black" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

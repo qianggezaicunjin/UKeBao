@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/include_gridview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/x5"
+    android:background="@drawable/selector_gridview_item"
+    android:gravity="center_vertical"
+    >
+
+    <LinearLayout
+        android:padding="@dimen/x10"
+        android:id="@+id/ll_recordIntegral"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_weight="3"
+            android:id="@+id/tv_change_reason_recode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_color_grey" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_marginRight="@dimen/x5"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:id="@+id/tv_account_recode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_color_grey" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight="3"
+            android:id="@+id/tv_date_recode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_color_grey" />
+    </LinearLayout>
+
+</RelativeLayout>

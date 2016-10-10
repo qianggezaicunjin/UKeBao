@@ -1,0 +1,197 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.login.SplashViewModel"/>
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- 用户头像 -->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/ll_user_login_input"
+        android:layout_marginBottom="@dimen/y10"
+        android:gravity="center" >
+
+        <com.HyKj.UKeBao.view.customView.CircleImageView
+            android:src="@drawable/default_login"
+            android:id="@+id/civ_login_user_icon"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            app:border_color="@color/transparent"
+            app:border_width="0dp" />
+    </RelativeLayout>
+    <!-- 登录输入 -->
+
+    <LinearLayout
+        android:id="@+id/ll_user_login_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:padding="@dimen/x10" >
+
+        <!-- 用户名输入 -->
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/ll_login_user_name"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="@dimen/x10" >
+
+            <ImageView
+                android:id="@+id/iv_user_name_icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/personal_settings" />
+
+            <EditText
+                android:padding="@dimen/x5"
+                android:id="@+id/et_user_name_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_weight="5"
+                android:background="@null"
+                android:hint="@string/user_name_input_hint"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/text_hint_color" />
+
+            <ImageView
+                android:id="@+id/iv_user_name_arrow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/login_big_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.8dp"
+            android:background="#55D6D6D6" />
+        <!-- 密码输入 -->
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/ll_login_user_password"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="@dimen/x10" >
+
+            <ImageView
+                android:id="@+id/iv_user_password_icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/password_lock" />
+
+            <EditText
+                android:id="@+id/et_user_password_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_weight="5"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/login_password_input_hint"
+                android:inputType="textPassword"
+                android:padding="@dimen/x5"
+                android:textColorHint="@color/text_hint_color" >
+
+                <requestFocus />
+            </EditText>
+
+<LinearLayout
+    android:id="@+id/ll_see_password"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+
+    android:layout_height="match_parent">
+
+     <ImageView
+                android:id="@+id/iv_user_password_visiable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x8"
+                android:clickable="true"
+                android:src="@drawable/eyes" />
+    </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.8dp"
+            android:background="#55D6D6D6" />
+    </LinearLayout>
+    <!-- 无法登录&申请联盟 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_user_login_input"
+        android:layout_marginTop="@dimen/y10"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/x20"
+        android:paddingRight="@dimen/x20" >
+
+        <Button
+            android:id="@+id/btn_user_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_login_button"
+            android:padding="@dimen/x15"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10" >
+
+            <!-- 无法登录 -->
+
+            <Button
+                android:id="@+id/btn_cannot_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@color/transparent"
+                android:text="@string/cannot_login"
+                android:textColor="@color/text_color_black"
+                android:textSize="16sp" />
+            <!-- 申请联盟 -->
+
+            <Button
+                android:id="@+id/btn_apply_alliance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@color/transparent"
+                android:text="@string/apply_alliance"
+                android:textColor="@color/text_color_black"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+</layout>

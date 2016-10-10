@@ -1,0 +1,112 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="-30dp"
+    android:clickable="true">
+
+    <!-- The main content view -->
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <!-- 标题栏 -->
+
+
+            <!-- 主页导航栏 -->
+
+            <RadioGroup
+                android:id="@+id/radioGroup_guide"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/dibu_01"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/y5">
+
+                <!-- 店铺管理 -->
+
+                <RadioButton
+                    android:id="@+id/radioButton_store_manager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/y2"
+                    android:layout_marginLeft="@dimen/x25"
+                    android:button="@null"
+                    android:drawablePadding="3dp"
+                    android:drawableTop="@drawable/selector_radiobutton__store"
+                    android:gravity="center_horizontal"
+                    android:text="@string/store_manager"
+                    android:textColor="@color/selector_radiobutton__textcolor"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y1"
+                    android:layout_weight="1" />
+                <!-- 揽 -->
+
+                <RadioButton
+                    android:id="@+id/radioButton_lang"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/y60"
+                    android:layout_marginTop="@dimen/y5"
+                    android:background="@drawable/lana1"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:drawablePadding="15dp" />
+
+                <!-- 营销管理 -->
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y1"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_market_manager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/y2"
+                    android:layout_marginRight="@dimen/x25"
+                    android:button="@null"
+                    android:drawablePadding="3dp"
+                    android:drawableTop="@drawable/selector_radiobutton__market"
+                    android:gravity="center_horizontal"
+                    android:text="@string/market_manager"
+                    android:textColor="@color/selector_radiobutton__textcolor"
+                    android:textSize="13sp" />
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@+id/fl_mainActivity"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@id/radioGroup_guide">
+                <!-- -15dp -->
+            </FrameLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <!-- Fragment 填充布局 -->
+
+
+    <FrameLayout
+        android:id="@+id/fl_leftMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="start"></FrameLayout>
+    <!-- The navigation view -->
+
+</android.support.v4.widget.DrawerLayout>

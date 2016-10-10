@@ -1,0 +1,189 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.login.regist.RegistViewModel"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:orientation="vertical"
+        tools:context=".view.activity.login.regist.RegistActivity"
+        android:fitsSystemWindows="true">
+
+        <!-- 注册标题栏 -->
+        <include layout="@layout/include_title_bar_layout"/>
+
+        <!-- 账号名输入，手机号 -->
+
+        <LinearLayout
+            android:id="@+id/ll_phone_number_input"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/x5" >
+
+            <TextView
+                android:id="@+id/tv_phone_number_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_weight="2"
+                android:text="@string/phone_number"
+                android:textColor="#9C9C9C"
+                android:textSize="16sp" />
+
+            <EditText
+                android:singleLine="true"
+                android:maxLength="11"
+                android:id="@+id/et_phone_number_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@null"
+                android:hint="@string/phone_number_input_hint"
+                android:inputType="phone"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- 验证码输入 -->
+
+        <LinearLayout
+            android:id="@+id/ll_register_security_code_input"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/y1"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/x5" >
+
+            <TextView
+                android:id="@+id/tv_register_security_code_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="2"
+                android:text="@string/security_code"
+                android:textColor="#9C9C9C"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_register_security_code_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@null"
+                android:inputType="number"
+                android:hint="@string/security_code_hint"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_send_register_security_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/bg_send_security_code"
+                android:layout_marginRight="@dimen/x10"
+                android:text="@string/send_security_code"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- 登录密码输入 -->
+
+        <LinearLayout
+            android:id="@+id/ll_login_password_input"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/x5" >
+
+            <TextView
+                android:id="@+id/tv_login_password_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_weight="2"
+                android:text="@string/login_password"
+                android:textColor="#9C9C9C"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_login_password_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@null"
+                android:hint="@string/login_password_hint"
+                android:inputType="textPassword"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- 确认密码输入 -->
+
+        <LinearLayout
+            android:id="@+id/ll_confirm_login_password_input"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/y1"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/x5" >
+
+            <TextView
+                android:id="@+id/tv_confirm__login_password_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_weight="2"
+                android:text="@string/login_password_confirm"
+                android:textColor="#9C9C9C"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_confirm_login_password_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@null"
+                android:hint="@string/login_password_confirm_hint"
+                android:inputType="textPassword"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_register_alliance"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/x20"
+            android:layout_weight="1"
+            android:background="@drawable/bg_send_security_code"
+            android:text="@string/register"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_weight="4"
+            android:textColor="#A0A0A0" />
+    </LinearLayout>
+</layout>

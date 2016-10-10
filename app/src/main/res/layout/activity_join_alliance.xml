@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <!-- 标题栏 -->
+
+    <include layout="@layout/include_title_bar_layout" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/iv_signIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x10"
+            android:gravity="center"
+            android:src="@drawable/edit_note" />
+
+        <TextView
+            android:id="@+id/tv_shopLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_marginTop="@dimen/y10"
+            android:text="店家入驻"
+            android:textColor="@color/text_color_black" />
+
+        <TextView
+            android:id="@+id/tv_signTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x5"
+            android:layout_marginTop="@dimen/y10"
+            android:text="本应用需在完成商家入驻后方可使用"
+            android:textColor="@color/text_hint_color" />
+
+        <!-- 店铺入驻 -->
+
+        <Button
+            android:id="@+id/btn_shopsEntrance"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/bg_send_security_code"
+            android:text="店铺入驻"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

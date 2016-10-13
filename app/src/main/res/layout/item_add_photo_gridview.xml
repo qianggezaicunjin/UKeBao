@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/x5"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addPhtoto_StoreAddActivity">
+
+        <ImageView
+            android:id="@+id/addphoto"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:layout_margin="@dimen/x12"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_businessimage"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/delephoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/addphoto"
+            android:layout_alignTop="@+id/addphoto"
+            android:layout_marginRight="-10dp"
+            android:layout_marginTop="-8dp"
+            android:src="@drawable/delete_photo"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

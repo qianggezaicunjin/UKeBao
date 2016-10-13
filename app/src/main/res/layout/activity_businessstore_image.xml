@@ -1,0 +1,72 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.HyKj.UKeBao.view.activity.businessManage.businessSettings.BusinessStoreImageActivity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+
+        android:orientation="vertical">
+
+        <!-- 店铺设置标题栏 -->
+
+        <include
+            android:id="@+id/title_bar"
+            layout="@layout/include_title_bar_layout" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_businessstore_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:setData="@{view.bean}"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:text="上传至少三张" />
+
+                <TextView
+                    android:id="@+id/imageCount_StorePhotoActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x10"
+                    android:text="0/5" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btImageToWeb_StorePhotoActivity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/bg_send_security_code"
+            android:text="上传照片"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</layout>

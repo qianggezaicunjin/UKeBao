@@ -26,6 +26,7 @@ public class MyApplication extends Application {
 
     public static boolean flag_pay=true;//判断点击通知栏是否打开订单界面的标记
 
+    public static Application mApplication;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,6 +40,7 @@ public class MyApplication extends Application {
         //Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(configuration);
 
+        mApplication=this;
 
         pauseOnScrollListener = new PicassoPauseOnScrollListener(false, true);
 

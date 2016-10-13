@@ -1,8 +1,26 @@
 package com.HyKj.UKeBao.data;
 
-import com.github.aurae.retrofit2.LoganSquareConverterFactory;
+import android.content.Context;
+
+import com.HyKj.UKeBao.MyApplication;
+import com.HyKj.UKeBao.R;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -18,15 +36,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitHelp {
 
-    //public final static String BASE_URL = "http://www.51ujf.cn/";//正式版端口
-    public  final static String  BASE_URL="https://test.51ujf.cn/";//测试端口
+//    public final static String BASE_URL = "https://www.51ujf.cn/";//正式版端口
+    public final static String BASE_URL = "https://test.51ujf.cn/";//测试端口
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(LoganSquareConverterFactory.create())
                     .addConverterFactory(FastJsonConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
@@ -48,9 +65,10 @@ public class RetrofitHelp {
                 }
             });
         }
-
         OkHttpClient client = httpClient.build();
+
         Retrofit retrofit = builder.client(client).build();
+
         return retrofit.create(netWorkService);
     }
 

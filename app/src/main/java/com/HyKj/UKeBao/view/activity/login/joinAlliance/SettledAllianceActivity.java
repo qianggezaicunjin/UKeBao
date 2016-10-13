@@ -2,7 +2,6 @@ package com.HyKj.UKeBao.view.activity.login.joinAlliance;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.HyKj.UKeBao.MyApplication;
-import com.baoyz.actionsheet.ActionSheet;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.HyKj.UKeBao.util.GalleryFinalUtil;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
@@ -32,11 +29,8 @@ import com.HyKj.UKeBao.view.activity.login.joinAlliance.StoreCoord.StoreCoordAct
 import com.HyKj.UKeBao.view.activity.login.joinAlliance.StoreSignage.StoreSignageActivity;
 import com.HyKj.UKeBao.view.activity.login.joinAlliance.VerifyInfo.VerifyInfoActivity;
 import com.HyKj.UKeBao.viewModel.login.joinAlliance.SettledAllianceViewModel;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -308,17 +302,17 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
                 break;
             //上传营业执照
             case R.id.iv_businessLicense:
-                go();//弹出冒泡框选择跳转方向
+                GalleryFinalUtil.go(this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 0;
                 break;
             //手持身份证
             case R.id.iv_identityCard_obverse:
-                go();//弹出冒泡框选择跳转方向
+                GalleryFinalUtil.go(this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 1;
                 break;
             //身份证背面
             case R.id.iv_identityCard_reverse:
-                go();//弹出冒泡框选择跳转方向
+                GalleryFinalUtil.go(this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 2;
                 break;
             //下一步
@@ -455,60 +449,6 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
             LogUtil.d("错误..........");
         }
     };
-
-
-    //弹出对话框
-    public void go() {
-        ActionSheet.createBuilder(SettledAllianceActivity.this, getSupportFragmentManager())
-                .setOtherButtonTitles("打开相册(Open Gallery)", "拍照(Camera)")
-                .setCancelableOnTouchOutside(true)
-                .setListener(new ActionSheet.ActionSheetListener() {
-                    @Override
-                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
-
-                    }
-
-                    @Override
-                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
-                        switch (index) {
-                            case 0:
-                                GalleryFinal.openGallerySingle(REQUEST_CODE_GALLERY, functionConfig, mOnHanlderResultCallback);
-                                break;
-                            case 1:
-                                GalleryFinal.openCamera(REQUEST_CODE_CAMERA, functionConfig, mOnHanlderResultCallback);
-                                break;
-                        }
-                    }
-                }).show();
-        initImageLoader(this);
-        initFresco();
-    }
-
-    //初始化图片加载器
-    private void initImageLoader(Context context) {
-        // This configuration tuning is custom. You can tune every option, you may tune some of them,
-        // or you can create default configuration by
-        //  ImageLoaderConfiguration.createDefault(this);
-        // method.
-        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
-        config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs(); // Remove for release app
-
-        // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config.build());
-    }
-
-    //初始化图像
-    private void initFresco() {
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
-                .setBitmapsConfig(Bitmap.Config.RGB_565)
-                .build();
-        Fresco.initialize(this, config);
-    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 

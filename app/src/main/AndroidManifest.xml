@@ -168,6 +168,7 @@
         <activity android:name=".view.activity.businessManage.financialManagement.FinancialManagementActivity" />
         <activity android:name=".view.activity.businessManage.payrecord.PayDetailsActivity"/>
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessSettingsActivity"/>
+        <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreImageActivity"/>
     </application>
 
 </manifest>

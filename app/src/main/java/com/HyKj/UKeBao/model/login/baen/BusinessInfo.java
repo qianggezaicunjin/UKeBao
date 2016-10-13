@@ -1,12 +1,9 @@
 package com.HyKj.UKeBao.model.login.baen;
 
 
-import com.bluelinelabs.logansquare.annotation.JsonObject;
-
 import java.io.Serializable;
 import java.util.List;
 
-@JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
 public class BusinessInfo implements Serializable {
 	private static final long serialVersionUID = -2587644784526787538L;
 	public boolean alreadyCollection;
@@ -313,7 +310,7 @@ public class BusinessInfo implements Serializable {
 		this.province = province;
 	}
 	public String getPtype() {
-		return ptype;
+		return ptype+"-";
 	}
 	public void setPtype(String ptype) {
 		this.ptype = ptype;
@@ -360,8 +357,8 @@ public class BusinessInfo implements Serializable {
 	public void setVip(String vip) {
 		this.vip = vip;
 	}
-	public double getBusinessDiscount() {
-		return businessDiscount;
+	public String getBusinessDiscount() {
+		return businessDiscount+"折";
 	}
 	public void setBusinessDiscount(double businessDiscount) {
 		this.businessDiscount = businessDiscount;

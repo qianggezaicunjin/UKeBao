@@ -40,16 +40,19 @@ public class BusinessSettingsViewModel extends BaseViewModel{
     @Override
     public void onRequestSuccess(ModelAction data) {
         //获取店铺信息请求成功后回调
-//        if(data.action== Action.BusinessManage_businessSettings_getbusinessInfo){
-//            businessInfo= (BusinessInfo) data.t;
-//
-//            businessImage=businessInfo.businessStoreImages.get(0);
-//
-//            LogUtil.d("店铺设置获取数据回调成功:"+businessInfo.toString());
-//
-//            notifyPropertyChanged(BR.businessImage);
-//
-//        }
+        if(data.action== Action.BusinessManage_businessSettings_getbusinessInfo){
+            businessInfo= (BusinessInfo) data.t;
+
+            businessImage=businessInfo.businessStoreImages.get(0);
+
+            mActivity.pictureList=businessInfo.getPictures();
+
+            LogUtil.d("店铺设置获取数据回调成功:"+businessInfo.toString());
+
+            notifyPropertyChanged(BR.businessInfo);
+
+            notifyPropertyChanged(BR.businessImage);
+        }
     }
 
     @Override

@@ -49,6 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:text="店铺名称"
+                        android:gravity="center"
                         android:textColor="@color/text_color_black"
                         android:textSize="15sp" />
 
@@ -57,6 +58,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
+                        android:gravity="center"
                         android:text="@{viewModel.businessInfo.businessName}"
                         android:textColor="@color/text_color_black"
                         android:textSize="15sp" />
@@ -89,6 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:background="@null"
+                        android:gravity="center"
                         android:digits="0123456789()-"
                         android:hint="请输入门店座机或手机"
                         android:text="@{viewModel.businessInfo.tel}"
@@ -128,6 +131,7 @@
                         android:layout_weight="5"
                         android:background="@null"
                         android:hint="请输入联系人姓名"
+                        android:gravity="center"
                         android:text="@{viewModel.businessInfo.name}"
                         android:singleLine="true"
                         android:textColor="@color/text_color_black"
@@ -152,7 +156,7 @@
                     android:id="@+id/iv_store_icon_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/x10"
+                    android:padding="@dimen/x10"
                     android:scaleType="fitXY"
                     android:src="@drawable/default_shops"
                     app:imageUrl="@{viewModel.businessImage}"/>
@@ -185,6 +189,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:text="@{viewModel.businessInfo.ptype+viewModel.businessInfo.stype}"
                 android:textColor="@color/text_color_black"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -214,6 +219,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:text="@{viewModel.businessInfo.businessDiscount}"
                 android:textColor="@color/text_color_black"
                 android:textSize="15sp" />
         </LinearLayout>

@@ -246,9 +246,4 @@ public interface NetWorkService {
     @POST("pay!refund.do")
     Observable<JSONObject> refund(@Query("orderId")int orderId,@Query("passwd")String passwd,@Query("token")String token);
 
-    /**
-     * 获取商家信息
-     */
-    @POST("businessStore!getById.do")
-    Observable<JsonObject> getBusinessInfo(@Query("token") String token);
 }

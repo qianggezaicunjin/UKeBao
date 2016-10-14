@@ -9,6 +9,7 @@ import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityBusinessSettingsBinding;
 import com.HyKj.UKeBao.model.businessManage.businessSettings.BusinessSettingsModel;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.PicassoImageLoader;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
@@ -38,15 +39,15 @@ public class BusinessSettingsActivity extends BaseActiviy {
 
     private BusinessSettingsViewModel viewModel;
 
-    private FunctionConfig functionConfig;
-
-    private cn.finalteam.galleryfinal.ImageLoader imageloade;
-
     public List<String> pictureList;
+
+    public static final int RESULT_Settings_Success = 9;
 
     @Override
     public void onCreateBinding() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_business_settings);
+
+        BufferCircleDialog.show(this, "正在获取店铺数据...", false, null);
 
         viewModel = new BusinessSettingsViewModel(this, new BusinessSettingsModel());
 
@@ -54,7 +55,6 @@ public class BusinessSettingsActivity extends BaseActiviy {
 
         mBinding.setViewModel(viewModel);
 
-        initGalleryFinal();
     }
 
     @Override
@@ -67,50 +67,37 @@ public class BusinessSettingsActivity extends BaseActiviy {
         mBinding.rlPhotoAlbumSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//          GalleryFinalUtil.openMuti(BusinessSettingsActivity.this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);
-            Intent intent=BusinessStoreImageActivity.getStartIntent(BusinessSettingsActivity.this);
+                Intent intent = BusinessStoreImageActivity.getStartIntent(BusinessSettingsActivity.this);
 
-                LogUtil.d("点击了进入店铺相册页面，获取数据:"+pictureList);
+                LogUtil.d("点击了进入店铺相册页面，获取数据:" + pictureList);
 
-            intent.putExtra("pictures", (Serializable) pictureList);
+                intent.putExtra("pictures", (Serializable) pictureList);
 
-            startActivity(intent);
+                startActivityForResult(intent, RESULT_Settings_Success);
             }
         });
     }
 
-    //初始化GalleryFinal
-    public void initGalleryFinal() {
-        //配置功能
-        functionConfig = new FunctionConfig.Builder()
-                .setMutiSelectMaxSize(5)
-                .setEnableCamera(false)
-                .setEnableEdit(true)
-                .setEnableCrop(true)
-                .setEnableRotate(true)
-                .setCropSquare(true)
-                .setEnablePreview(true)
-                .build();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        //配置imageloader
-        imageloade = new PicassoImageLoader();
-        CoreConfig coreConfig = new CoreConfig.Builder(this, imageloade, MyApplication.themeConfig)
-                .setFunctionConfig(functionConfig)
-                .setNoAnimcation(false)
-                .setPauseOnScrollListener(MyApplication.pauseOnScrollListener)
-                .build();
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RESULT_Settings_Success:
 
-        GalleryFinal.init(coreConfig);
+                    LogUtil.d("BusinessSettings回调成功");
+
+                    ArrayList<String> pictures = data.getStringArrayListExtra("pictures");
+
+                    if (pictures != null) {
+                        pictureList = pictures;
+
+                        mBinding.tvPhotoAlbumSetting.setText("修改/已设置");
+                    }
+
+                    break;
+            }
+        }
     }
-   private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback= new GalleryFinal.OnHanlderResultCallback(){
-       @Override
-       public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
-
-       }
-
-       @Override
-       public void onHanlderFailure(int requestCode, String errorMsg) {
-
-       }
-   };
 }

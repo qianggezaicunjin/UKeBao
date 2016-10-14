@@ -6,6 +6,9 @@
         <variable
             name="view"
             type="com.HyKj.UKeBao.view.activity.businessManage.businessSettings.BusinessStoreImageActivity" />
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.businessManage.businessSettings.BusinessStoreImageViewModel"/>
     </data>
 
     <LinearLayout
@@ -53,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/x10"
-                    android:text="0/5" />
+                    android:text="@{viewModel.pictureNum}" />
             </RelativeLayout>
         </LinearLayout>
 

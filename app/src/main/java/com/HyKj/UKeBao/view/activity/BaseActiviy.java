@@ -74,5 +74,7 @@ public abstract class BaseActiviy extends AppCompatActivity {
             }
         });
     }
+
+
 }
 

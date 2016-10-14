@@ -6,6 +6,7 @@ import com.HyKj.UKeBao.BR;
 import com.HyKj.UKeBao.model.businessManage.businessSettings.BusinessSettingsModel;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.util.Action;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.businessManage.businessSettings.BusinessSettingsActivity;
@@ -52,11 +53,15 @@ public class BusinessSettingsViewModel extends BaseViewModel{
             notifyPropertyChanged(BR.businessInfo);
 
             notifyPropertyChanged(BR.businessImage);
+
+            BufferCircleDialog.dialogcancel();
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
+        BufferCircleDialog.dialogcancel();
+
         mActivity.toast(erroinfo,mActivity);
     }
 

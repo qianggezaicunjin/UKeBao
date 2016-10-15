@@ -102,6 +102,8 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
         if (((pictureList.size() - 1) < 3)) {
             mActivitiy.toast("至少上传三张照片哦~亲", mActivitiy);
         } else {
+            BufferCircleDialog.show(mActivitiy,"上传中，请稍候..",false,null);
+
             getUpdataPosition();//上传图片到服务器
         }
     }
@@ -130,7 +132,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             for (int i = 0; i < data.size() - 1 - position; i++) {
                 File file = new File(data.get(position));
 
-                mModel.updataIamge(file);
+                mModel.updataIamgeVacancy(file);
             }
         } else {
             for (int i = 0; i < data.size() - position; i++) {
@@ -143,7 +145,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
 
     @Override
     public void onRequestSuccess(ModelAction data) {
-        if (data.action == Action.BusinessMange_businessSettings_updataImage) {
+        if (data.action == Action.BusinessManage_businessSettings_updataImage) {
             StoreSignage storeSignage = (StoreSignage) data.t;
 
             String url = storeSignage.getRows().getImagePrefix() + storeSignage.getRows().getImageSrc();
@@ -158,6 +160,22 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             if (position == pictureList.size()) {
                 mActivitiy.updataSuccess(pictureList);
             }
+
+        } else if (data.action == Action.BusinessManage_businessSettings_updataImageVacancy) {
+            StoreSignage storeSignage = (StoreSignage) data.t;
+
+            String url = storeSignage.getRows().getImagePrefix() + storeSignage.getRows().getImageSrc();
+
+            //把服务器返回的路径替换掉集合原来的本地路径
+            pictureList.set(position++, url);
+
+            LogUtil.d("Vacancy_position" + position);
+
+            LogUtil.d(pictureList.toString());
+
+            if (position == pictureList.size() - 1) {
+                mActivitiy.updataSuccess(pictureList);
+            }
         }
     }
 
@@ -165,6 +183,6 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
     public void onRequestErroInfo(String erroinfo) {
         BufferCircleDialog.dialogcancel();
 
-        mActivitiy.toast(erroinfo,mActivitiy);
+        mActivitiy.toast(erroinfo, mActivitiy);
     }
 }

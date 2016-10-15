@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.HyKj.UKeBao.R;
+import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.model.login.joinAlliance.ChooseCity.ChooseCityModel;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.viewModel.login.joinAlliance.ChooseCity.ChooseCityViewModel;
@@ -63,6 +64,9 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
         et_address_detail = (EditText) findViewById(R.id.et_address_detail);
 
         viewModel=new ChooseCityViewModel(new ChooseCityModel(),this);
+
+        //获取地址信息
+        getAddressInfo();
     }
 
     @Override
@@ -99,6 +103,22 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    private void getAddressInfo() {
+        Intent intent=getIntent();
+
+        BusinessInfo businessInfo= (BusinessInfo) intent.getSerializableExtra("businessInfo_address");
+
+        provinceName=businessInfo.province;
+
+        cityName=businessInfo.city;
+
+        area=businessInfo.area;
+
+        tv_province.setText(provinceName+cityName+area);
+
+        et_address_detail.setText(businessInfo.address);
     }
 
     //跳转到选择城市页面
@@ -145,11 +165,17 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
             return;
         }
         Intent intent =new Intent();
+
         intent.putExtra("cityName",cityName);
+
         intent.putExtra("provinceName",provinceName);
+
         intent.putExtra("area",area);
+
         intent.putExtra("areaDetail",address);
+
         setResult(RESULT_OK,intent);
+
         finish();
 
     }

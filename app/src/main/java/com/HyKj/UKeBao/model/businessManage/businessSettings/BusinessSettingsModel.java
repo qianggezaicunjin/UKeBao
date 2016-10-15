@@ -71,9 +71,19 @@ public class BusinessSettingsModel extends BaseModel {
 
                             businessInfo.stype = obj.getString("stype");
 
-                            businessInfo.businessDiscount = obj.getDouble("businessDiscount");
+                            businessInfo.city = obj.getString("city");
 
-                            List<String> pictureList=new ArrayList<String>();
+                            businessInfo.area = obj.getString("area");
+
+                            businessInfo.setLongitude(Double.valueOf(obj.getString("longitude")));
+
+                            businessInfo.setLatitude(Double.valueOf(obj.getString("latitude")));
+
+                            businessInfo.address = obj.getString("address");
+
+                            businessInfo.province=obj.getString("province");
+
+                            businessInfo.businessDiscount = obj.getDouble("businessDiscount");
 
                             businessInfo.pictures=JSON.parseArray(obj.getJSONArray("pictures").toString(),String.class);
 

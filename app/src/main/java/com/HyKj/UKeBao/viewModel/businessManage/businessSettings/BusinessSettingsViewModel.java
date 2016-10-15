@@ -34,6 +34,7 @@ public class BusinessSettingsViewModel extends BaseViewModel{
 
         mModel.setView(this);
     }
+
     //获取店铺信息
     public void getBusinessInfo() {
         mModel.getBusinessInfo();
@@ -46,7 +47,7 @@ public class BusinessSettingsViewModel extends BaseViewModel{
 
             businessImage=businessInfo.businessStoreImages.get(0);
 
-            mActivity.pictureList=businessInfo.getPictures();
+            mActivity.setBusinessInfo(businessInfo);
 
             LogUtil.d("店铺设置获取数据回调成功:"+businessInfo.toString());
 

@@ -55,6 +55,8 @@ public enum Action {
     BusinessManage_refund,
     //店铺设置-获取店铺信息
     BusinessManage_businessSettings_getbusinessInfo,
-    //店铺相册
-    BusinessMange_businessSettings_updataImage
+    //店铺相册(图片可添加状态)
+    BusinessManage_businessSettings_updataImageVacancy,
+    //店铺相册(图片占满状态)
+    BusinessManage_businessSettings_updataImage,
 }

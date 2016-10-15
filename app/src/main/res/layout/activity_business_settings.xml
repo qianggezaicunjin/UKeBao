@@ -156,8 +156,9 @@
                     android:id="@+id/iv_store_icon_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/x10"
                     android:scaleType="fitXY"
+                    android:paddingTop="@dimen/y10"
+                    android:paddingBottom="@dimen/y10"
                     android:src="@drawable/default_shops"
                     app:imageUrl="@{viewModel.businessImage}"/>
 

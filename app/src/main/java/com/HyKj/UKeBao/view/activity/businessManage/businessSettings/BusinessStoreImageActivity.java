@@ -82,8 +82,6 @@ public class BusinessStoreImageActivity extends BaseActiviy {
         mBinding.btImageToWebStorePhotoActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BufferCircleDialog.show(BusinessStoreImageActivity.this,"上传中，请稍候..",false,null);
-
                 viewModel.updataImage(data);
             }
         });

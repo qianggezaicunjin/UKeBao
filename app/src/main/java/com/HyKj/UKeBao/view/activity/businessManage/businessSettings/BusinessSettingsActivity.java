@@ -9,10 +9,13 @@ import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityBusinessSettingsBinding;
 import com.HyKj.UKeBao.model.businessManage.businessSettings.BusinessSettingsModel;
+import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.PicassoImageLoader;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
+import com.HyKj.UKeBao.view.activity.login.joinAlliance.ChooseCity.ChooseCityActivity;
+import com.HyKj.UKeBao.view.activity.login.joinAlliance.StoreCoord.StoreCoordActivity;
 import com.HyKj.UKeBao.viewModel.businessManage.businessSettings.BusinessSettingsViewModel;
 
 import java.io.Serializable;
@@ -27,7 +30,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 /**
  * Created by Administrator on 2016/10/8.
  */
-public class BusinessSettingsActivity extends BaseActiviy {
+public class BusinessSettingsActivity extends BaseActiviy implements View.OnClickListener{
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, BusinessSettingsActivity.class);
@@ -39,12 +42,17 @@ public class BusinessSettingsActivity extends BaseActiviy {
 
     private BusinessSettingsViewModel viewModel;
 
-    public List<String> pictureList;
+    private BusinessInfo businessInfo;
 
-    public static final int RESULT_Settings_Success = 9;
+    public final int RESULT_Settings_Success = 9;
+
+    public final int RESULT_Settings_ChooseCity = 8;
+
+    public final int RESULT_Settings_Coordinate =7 ;
 
     @Override
     public void onCreateBinding() {
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_business_settings);
 
         BufferCircleDialog.show(this, "正在获取店铺数据...", false, null);
@@ -64,20 +72,48 @@ public class BusinessSettingsActivity extends BaseActiviy {
 
     @Override
     public void setListeners() {
-        mBinding.rlPhotoAlbumSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mBinding.rlPhotoAlbumSetting.setOnClickListener(this);
+
+        mBinding.rlStoreAddressSetting.setOnClickListener(this);
+
+        mBinding.rlGeographyCoordinateSetting.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            //店铺照片
+            case R.id.rl_photo_album_setting:
                 Intent intent = BusinessStoreImageActivity.getStartIntent(BusinessSettingsActivity.this);
 
-                LogUtil.d("点击了进入店铺相册页面，获取数据:" + pictureList);
+                LogUtil.d("点击了进入店铺相册页面，获取数据:" + businessInfo.getPictures());
 
-                intent.putExtra("pictures", (Serializable) pictureList);
+                intent.putExtra("pictures", (Serializable) businessInfo.getPictures());
 
                 startActivityForResult(intent, RESULT_Settings_Success);
-            }
-        });
-    }
 
+                break;
+
+            case R.id.rl_store_address_setting:
+                Intent intent_chooseCity= ChooseCityActivity.getStartIntent(this);
+
+                intent_chooseCity.putExtra("businessInfo_address",businessInfo);
+
+                startActivityForResult(intent_chooseCity,RESULT_Settings_ChooseCity);
+
+                break;
+
+            case R.id.rl_geography_coordinate_setting:
+                Intent intent_coordinate= StoreCoordActivity.getStartIntent(this);
+
+                intent_coordinate.putExtra("longitude",businessInfo.getLongitude());
+
+                intent_coordinate.putExtra("latitude",businessInfo.getLatitude());
+
+                startActivityForResult(intent_coordinate,RESULT_Settings_Coordinate);
+
+                break;
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,13 +127,39 @@ public class BusinessSettingsActivity extends BaseActiviy {
                     ArrayList<String> pictures = data.getStringArrayListExtra("pictures");
 
                     if (pictures != null) {
-                        pictureList = pictures;
+                        businessInfo.setPictures(pictures);
 
                         mBinding.tvPhotoAlbumSetting.setText("修改/已设置");
                     }
 
                     break;
+                case RESULT_Settings_ChooseCity:
+
+                    businessInfo.setProvince(data.getStringExtra("provinceName"));
+
+                    businessInfo.setCity(data.getStringExtra("cityName"));
+
+                    businessInfo.setArea(data.getStringExtra("area"));
+
+                    businessInfo.setAddress(data.getStringExtra("areaDetail"));
+
+                    mBinding.tvStoreAddress.setText("修改/已设置");
+
+                    break;
+                case RESULT_Settings_Coordinate:
+
+                    businessInfo.setLatitude(data.getDoubleExtra("latitude",-1));
+
+                    businessInfo.setLongitude(data.getDoubleExtra("longitude",-1));
+
+                    mBinding.tvGeographyCoordinate.setText("修改/已设置");
+
+                    break;
             }
         }
     }
+    public void setBusinessInfo(BusinessInfo businessInfo) {
+        this.businessInfo = businessInfo;
+    }
+
 }

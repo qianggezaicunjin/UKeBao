@@ -5,7 +5,7 @@ package com.HyKj.UKeBao.util;
  */
 public enum Action {
 
-    /**LoginModule*/
+    /*LoginModule*/
     //登陆验证
     Login_UserLogin,
     //注册
@@ -34,7 +34,7 @@ public enum Action {
     //获取客服电话
     Login_Examine_getCostomerService,
 
-    /**Mainmodule*/
+    /*Mainmodule*/
     //获取当前版本号
     Main_getVersion_num,
     //获取系统公告信息
@@ -59,4 +59,18 @@ public enum Action {
     BusinessManage_businessSettings_updataImageVacancy,
     //店铺相册(图片占满状态)
     BusinessManage_businessSettings_updataImage,
+    //提交店铺设置
+    BusinessManage_businessSettings_commit,
+
+    /*MarketingManage*/
+    //获取会员数量
+    MarketingManage_GetMemberCount,
+    //获取营销管理
+    MarketingManage_GetBusinessInfo,
+    //红包和卡劵信息
+    MarketingManage_GetRedPacketsAndCard,
+    //获取单个卡劵详情
+    MarketingManage_GetSingCardDetail,
+    //获取单个红包详情
+    MarketingManage_GetSingRedPacketDetail,
 }

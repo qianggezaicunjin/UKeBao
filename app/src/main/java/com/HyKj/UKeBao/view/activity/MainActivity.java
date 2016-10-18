@@ -40,6 +40,7 @@ import com.HyKj.UKeBao.view.fragment.marketingManage.MarketManagerFragment;
 import com.HyKj.UKeBao.view.fragment.userInfoManage.LeftMenuFragment;
 import com.HyKj.UKeBao.view.listener.MainFragmentListener;
 import com.HyKj.UKeBao.viewModel.MainViewModel;
+import com.baidu.mapapi.SDKInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +134,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
     @Override
     public void onCreateBinding() {
-//        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(getApplicationContext());
 
         setContentView(R.layout.activity_main);
 

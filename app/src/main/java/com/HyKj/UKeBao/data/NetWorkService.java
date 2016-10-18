@@ -25,6 +25,7 @@ import rx.Observable;
  */
 public interface NetWorkService {
 
+    //注册模块
     /**
      * 登陆验证
      * 用户名
@@ -181,6 +182,7 @@ public interface NetWorkService {
     @POST("menber!getNameByPhone.do")
     Observable<JSONObject> getUserName(@Query("phone") String phone);
 
+    //店铺设置
     /**
      * 赠送积分
      * cash 现金
@@ -244,6 +246,61 @@ public interface NetWorkService {
      *  passwd 	是 	string 	商家密码
      * */
     @POST("pay!refund.do")
-    Observable<JSONObject> refund(@Query("orderId")int orderId,@Query("passwd")String passwd,@Query("token")String token);
+    Observable<JSONObject> refund(@Query("orderId") int orderId,@Query("passwd")String passwd,@Query("token")String token);
 
+    /**
+     *  提交店铺设置
+     *  tel 	是 	string 	店内电话
+     *  name 	是 	string 	联系人姓名
+     *  pictures 	否 	list 	店铺相册
+     *  address 	否 	string 	店铺地址
+     *  province 	否 	string 	省
+     *  city 	否 	string 	市
+     *  area 	否 	string 	区
+     *  longitude 	否 	double 	地理坐标 （精度）
+     *  latitude 	否 	double 	地理坐标 （纬度）
+     * */
+    @POST("businessStore!updateForeign.do")
+    Observable<JSONObject> commitBusinessSettings(@Query("tel")String tel,
+                                                  @Query("name")String name,
+                                                  @Query("pictures")List<String> pictures,
+                                                  @Query("address")String address,
+                                                  @Query("province")String province,
+                                                  @Query("city")String city,
+                                                  @Query("area")String area,
+                                                  @Query("longitude")double longitude,
+                                                  @Query("latitude")double latitude,
+                                                  @Query("token")String token);
+
+
+    //营销模块
+    /**   获取会员数量
+     *   discount  是 	double 	距离（单位：公里） 大于等于3公里
+     *  longitude 	是 	double 	精度
+     *  latitude 	是 	double 	纬度*/
+
+    @POST("menber!getMenberCount.do")
+    Observable<JSONObject> getMemberCount(@Query("discount")double discount,@Query("longitude")double longitude,
+                                          @Query("latitude")double latitude,@Query("token")String token);
+
+    /** 获取红包卡劵数量
+     *  page 	否 	int 	页数
+     *  rows 	否 	int 	每页行数 如果是10 则卡卷和红包的条数最多10条 最多共20条数据
+     * */
+    @POST("shopper/showmanship!enabledRedBag.do")
+    Observable<JSONObject> getRedPacketsAndCardInfo(@Query("page")int page,@Query("rows") int rows,@Query("token")String token);
+
+    /**
+     * 获取单个卡劵详情
+     * id 	是 	int 	主键
+     * */
+    @POST("coup!getByBusiness.do")
+    Observable<JSONObject> getSingCardDetail(@Query("id")int id,@Query("token")String token);
+
+    /**
+     * 获取单个红包详情
+     * id 	是 	int 	主键
+     * */
+    @POST("shopper/showmanship!getById.do")
+    Observable<JSONObject> getSingRedPacketDetail(@Query("id")int id,@Query("token")String token);
 }

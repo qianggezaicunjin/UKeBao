@@ -39,6 +39,20 @@ public class BusinessSettingsViewModel extends BaseViewModel{
     public void getBusinessInfo() {
         mModel.getBusinessInfo();
     }
+
+    //提交
+    public void commit(BusinessInfo businessInfo) {
+        mModel.commit(businessInfo.getTel(),
+                businessInfo.getName(),
+                businessInfo.getPictures(),
+                businessInfo.getAddress(),
+                businessInfo.getProvince(),
+                businessInfo.getCity(),
+                businessInfo.getArea(),
+                businessInfo.getLongitude(),
+                businessInfo.getLatitude());
+    }
+
     @Override
     public void onRequestSuccess(ModelAction data) {
         //获取店铺信息请求成功后回调
@@ -56,6 +70,10 @@ public class BusinessSettingsViewModel extends BaseViewModel{
             notifyPropertyChanged(BR.businessImage);
 
             BufferCircleDialog.dialogcancel();
+        }else if (data.action==Action.BusinessManage_businessSettings_commit){
+            BufferCircleDialog.dialogcancel();
+
+            mActivity.toast((String) data.t,mActivity);
         }
     }
 
@@ -65,6 +83,7 @@ public class BusinessSettingsViewModel extends BaseViewModel{
 
         mActivity.toast(erroinfo,mActivity);
     }
+
 
 
 }

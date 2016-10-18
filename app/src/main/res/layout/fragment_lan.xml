@@ -1,10 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fatherXml"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <include layout="@layout/topbars_main" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hellow baidu"
-        android:gravity="center"/>
+        android:layout_height="wrap_content" >
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+
+        <RelativeLayout
+            android:id="@+id/listCircle_lanFrament"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/a1_03" >
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/viewTop_lanfragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FDFDFDff"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="@dimen/x1"
+                android:layout_height="@dimen/y5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="@dimen/x13"
+                    android:layout_height="@dimen/y13"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginTop="@dimen/y2"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/address" />
+
+                <TextView
+                    android:id="@+id/currentLocation_LanFragment_MainActivity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:text="当前位置"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="@dimen/x10"
+                    android:layout_height="@dimen/y1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x10"
+                android:layout_height="@dimen/y1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/mapGradeRange_lanFragment_mainActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x33"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:text="范围小于"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/memberCount_LanFragment_MainActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="会员数量"
+                    android:textColor="@color/text_color_red"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x10"
+                android:layout_height="@dimen/y10" />
+        </LinearLayout>
+
+        <!-- 商店显示位置页面 -->
+
+        <LinearLayout
+            android:id="@+id/guideLocation_lanFragment_mainActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.9" />
+
+                <LinearLayout
+                    android:id="@+id/hideOrShow_Lanfragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/tall_prompt_box"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.05" />
+
+                    <TextView
+                        android:id="@+id/ventureName_lanFragment_maintAcitivy"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:hint="商家名字"
+                        android:textColor="@color/text_color_grey" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y1"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginRight="@dimen/x10"
+                        android:background="#eee" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.05" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.23"
+                        android:orientation="horizontal" >
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".5" />
+
+                        <TextView
+                            android:id="@+id/cardGuid_lanFragment_mainActivity"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/y10"
+                            android:layout_marginTop="@dimen/y10"
+                            android:layout_weight="5"
+                            android:background="@drawable/lan_kaquan"
+                            android:gravity="center"
+                            android:text="卡券引客"
+                            android:textColor="#fff" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/redPacket_lanFragment_mainActivity"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/y10"
+                            android:layout_marginTop="@dimen/y10"
+                            android:layout_weight="5"
+                            android:background="@drawable/lanred_pocket_red"
+                            android:gravity="center"
+                            android:text="红包揽客"
+                            android:textColor="#fff"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/currentLocationImg_LanFrament_MainActivity"
+                    android:layout_width="@dimen/x25"
+                    android:layout_height="@dimen/y25"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/location" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <!-- 商店显示位置结束 -->
+    </RelativeLayout>
+
 </LinearLayout>

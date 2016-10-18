@@ -81,11 +81,11 @@ public class BusinessSettingsModel extends BaseModel {
 
                             businessInfo.address = obj.getString("address");
 
-                            businessInfo.province=obj.getString("province");
+                            businessInfo.province = obj.getString("province");
 
                             businessInfo.businessDiscount = obj.getDouble("businessDiscount");
 
-                            businessInfo.pictures=JSON.parseArray(obj.getJSONArray("pictures").toString(),String.class);
+                            businessInfo.pictures = JSON.parseArray(obj.getJSONArray("pictures").toString(), String.class);
 
                             action.t = businessInfo;
 
@@ -93,6 +93,40 @@ public class BusinessSettingsModel extends BaseModel {
                         } else {
                             mRequestView.onRequestErroInfo("获取店铺数据失败，请稍候再试~");
                         }
+                    }
+                });
+    }
+
+    //提交店铺设置信息
+    public void commit(String tel, String name, List<String> pictures, String address,
+                       String province, String city, String area, double longitude, double latitude) {
+        Observable<JSONObject> observable = mDataManager.commitBusinessSettings(tel, name, pictures, address, province, city, area, longitude, latitude, MyApplication.token);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JSONObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.d("提交店铺设置信息异常："+e.toString());
+
+                        mRequestView.onRequestErroInfo("提交店铺设置失败，请重试~");
+                    }
+
+                    @Override
+                    public void onNext(JSONObject jsonObject) {
+                        LogUtil.d("提交店铺设置信息成功，返回信息为:"+jsonObject.toString());
+
+                        ModelAction action=new ModelAction();
+
+                        action.action=Action.BusinessManage_businessSettings_commit;
+
+                        action.t=jsonObject.getString("msg");
+
+                        mRequestView.onRequestSuccess(action);
                     }
                 });
     }

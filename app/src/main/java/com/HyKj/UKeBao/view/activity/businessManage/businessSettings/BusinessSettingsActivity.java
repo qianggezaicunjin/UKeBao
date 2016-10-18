@@ -77,6 +77,8 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
         mBinding.rlStoreAddressSetting.setOnClickListener(this);
 
         mBinding.rlGeographyCoordinateSetting.setOnClickListener(this);
+
+        mBinding.btnStoreSettingSave.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -92,7 +94,7 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                 startActivityForResult(intent, RESULT_Settings_Success);
 
                 break;
-
+            //店铺地址
             case R.id.rl_store_address_setting:
                 Intent intent_chooseCity= ChooseCityActivity.getStartIntent(this);
 
@@ -101,7 +103,7 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                 startActivityForResult(intent_chooseCity,RESULT_Settings_ChooseCity);
 
                 break;
-
+            //店铺坐标
             case R.id.rl_geography_coordinate_setting:
                 Intent intent_coordinate= StoreCoordActivity.getStartIntent(this);
 
@@ -112,6 +114,15 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                 startActivityForResult(intent_coordinate,RESULT_Settings_Coordinate);
 
                 break;
+            //保存提交
+            case R.id.btn_store_setting_save:
+                BufferCircleDialog.show(this,"正在提交~请稍候",false,null);
+
+                businessInfo.setTel(mBinding.etStorePhoneNumberInput.getText().toString());
+
+                businessInfo.setName(mBinding.tvStoreNameDetail.getText().toString());
+
+                viewModel.commit(businessInfo);
         }
     }
     @Override

@@ -169,6 +169,8 @@
         <activity android:name=".view.activity.businessManage.payrecord.PayDetailsActivity"/>
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessSettingsActivity"/>
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreImageActivity"/>
+        <activity android:name=".view.activity.MarketingManage.RedPacketAttractCustomeActivity"/>
+        <activity android:name=".view.activity.MarketingManage.CardCustomerActivity"/>
     </application>
 
 </manifest>

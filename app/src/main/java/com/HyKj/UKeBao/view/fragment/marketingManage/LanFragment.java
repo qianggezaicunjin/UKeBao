@@ -3,6 +3,8 @@ package com.HyKj.UKeBao.view.fragment.marketingManage;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +33,10 @@ import com.HyKj.UKeBao.model.marketingManage.bean.LanBean;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetail;
 import com.HyKj.UKeBao.util.MapZoomUtils;
 import com.HyKj.UKeBao.view.activity.MainActivity;
+import com.HyKj.UKeBao.view.activity.MarketingManage.CardCustomerActivity;
+import com.HyKj.UKeBao.view.activity.MarketingManage.CardDetailActivity;
+import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketAttractCustomeActivity;
+import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketDetailActivity;
 import com.HyKj.UKeBao.view.fragment.BaseFragment;
 import com.HyKj.UKeBao.view.listener.MainFragmentListener;
 import com.HyKj.UKeBao.viewModel.marketingManage.LanFragmentViewModel;
@@ -49,6 +55,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.Projection;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -65,6 +72,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * 揽
  * Created by Administrator on 2016/9/21.
  */
 public class LanFragment extends BaseFragment implements OnClickListener, OnGetPoiSearchResultListener {
@@ -162,10 +170,10 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     private String fromWhere;
 
-    private int[] imagerArr = {R.drawable.a1_03, R.drawable.b1_03,
-            R.drawable.c1_03, R.drawable.a, R.drawable.b, R.drawable.c,
-            R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g,
-            R.drawable.i};
+    private int[] imagerArr = {R.drawable.a1_03, R.drawable.b1_03, R.drawable.c1_03,
+            R.drawable.a, R.drawable.b, R.drawable.c,
+            R.drawable.d, R.drawable.e, R.drawable.f,
+            R.drawable.g, R.drawable.i};
 
     private int countCheck;
 
@@ -209,6 +217,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
         super();
     }
 
+    @SuppressLint("ValidFragment")
     public LanFragment(Context context, MainFragmentListener listener) {
         imagListener = listener;
 
@@ -439,7 +448,88 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     @Override
     public void setListeners() {
+        imb_user.setOnClickListener(this);
 
+        cardGuid.setOnClickListener(this);
+
+        redPacket_lanFragment_mainActivity.setOnClickListener(this);
+
+        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+            private int grade;
+
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus) {
+                startLng = mapStatus.target;
+
+                currentLocationImg_LanFrament_MainActivity.setVisibility(View.VISIBLE);
+
+                circle_LanFragment_Show.setBackgroundResource(R.drawable.d1_03);
+            }
+
+            @Override
+            public void onMapStatusChangeFinish(MapStatus mapStatus) {
+                Random r = new Random();
+
+                countCheck = r.nextInt(imagerArr.length);
+
+                circle_LanFragment_Show.setBackgroundResource(imagerArr[countCheck]);
+
+                grade = (int) mBaiduMap.getMapStatus().zoom;
+
+                int zoom = (int) viewModel.getZoom(grade);
+
+                viewModel.getMemberCount(zoom, mapStatus.target.longitude, mapStatus.target.latitude);
+
+                finishLng = mapStatus.target;
+
+                if (startLng.latitude != finishLng.latitude || startLng.longitude != finishLng.longitude) {
+                    Projection ject = mBaiduMap.getProjection();
+
+                    Point startPoint = ject.toScreenLocation(startLng);
+
+                    Point finishPoint = ject.toScreenLocation(finishLng);
+
+                    double x = Math.abs(finishPoint.x - startPoint.x);
+
+                    double y = Math.abs(finishPoint.y - startPoint.y);
+                    if (x > moveDist || y > moveDist) {
+                        currentLocation_LanFragment_MainActivity.setText("正在获取位置信息...");
+                        // 设置滑动监听事件
+                        if (myBDLocation != null) {
+
+                            LatLng latlng = mBaiduMap.getMapStatus().target;
+
+                            if (latlng != null) {
+                                result = reverseCode.location(new LatLng(latlng.latitude, latlng.longitude));
+
+                                curryentLatitude = latlng.latitude;
+
+                                currryentLongtitude = latlng.longitude;
+
+                                geoCoder.reverseGeoCode(result);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onMapStatusChange(MapStatus mapStatus) {
+                grade = (int) mapStatus.zoom;
+
+                distance = MapZoomUtils.getZoomMap(grade) / 1000;
+
+                if (MapZoomUtils.getZoomMap(grade)>1000) {
+                    mapGradeRange_lanFragment_mainActivity.setText("范围<" + MapZoomUtils.getZoomMap(grade) / 1000 + "公里");
+                } else {
+                    mapGradeRange_lanFragment_mainActivity.setText("范围<" + MapZoomUtils.getZoomMap(grade) + "米");
+                }
+            }
+        });
+
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLngZoom(mBaiduMap.getMapStatus().target, 18);
+
+        mBaiduMap.setMapStatus(msu);
     }
 
     @Override
@@ -449,7 +539,118 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.redPacket_lanFragment_mainActivity:
+                if (null != mBaiduMap && !currentLocation_LanFragment_MainActivity.getText()
+                        .equals("")) {
+                    if (curryentLatitude != -1) {
+                        Intent intent = RedPacketAttractCustomeActivity.getStartIntent(getActivity());
 
+                        intent.putExtra("currylocation", locationgCurrent + "");
+
+                        intent.putExtra("membercount", memberCount.getText() + "");
+
+                        intent.putExtra("gradearrange", mapGradeRange_lanFragment_mainActivity.getText() + "");
+
+                        intent.putExtra("curryentLatitude", curryentLatitude);
+
+                        intent.putExtra("currryentLongtitude", currryentLongtitude);
+
+                        intent.putExtra("zoomMap", MapZoomUtils.getZoomMap(grade) + "");
+
+                        intent.putExtra("distance", distance);
+
+                        startActivity(intent);
+                    } else {
+                        toast("定位失败，无法根据位置发送揽客",getActivity());
+                    }
+                } else {
+                    toast("正在获取位置...",getActivity());
+                }
+                break;
+            case R.id.currentLocationImg_LanFrament_MainActivity:
+                if (clicImageFlag) {
+                    if (showOrHideFlag) {
+                        hideOrShow.setVisibility(View.INVISIBLE);
+
+                        v.getLocationOnScreen(location);
+
+                        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY,
+                                (location[0] + v.getWidth() / 2) - popupWidth / 2,
+                                location[1] - popupHeight + 20);
+
+                        showOrHideFlag = false;
+
+                        currentLocation_LanFragment_MainActivity.setFocusable(true);
+                    } else {
+                        hideOrShow.setVisibility(View.VISIBLE);
+
+                        popupWindow.dismiss();
+
+                        showOrHideFlag = true;
+                    }
+                }
+                break;
+            case R.id.cardGuid_lanFragment_mainActivity:
+
+                if (mBaiduMap != null && !currentLocation_LanFragment_MainActivity.getText().equals("")) {
+
+                    if (curryentLatitude != -0.0) {
+                        Intent i = CardCustomerActivity.getStartIntent(getActivity());
+
+                        i.putExtra("currylocation", locationgCurrent + "");
+
+                        i.putExtra("membercount", memberCount.getText() + "");
+
+                        i.putExtra("gradearrange", mapGradeRange_lanFragment_mainActivity.getText() + "");
+
+                        i.putExtra("curryentLatitude", curryentLatitude);
+
+                        i.putExtra("currryentLongtitude", currryentLongtitude);
+
+                        startActivity(i);
+                    } else {
+                        toast("定位失败，无法根据位置发送揽客",getActivity());
+                    }
+                } else {
+                    toast("正在获取位置...",getActivity());
+                }
+                break;
+            case R.id.toastPopUp_Lanfragment:
+                if (fromWhere.equals("红包")) {
+                    Intent intents = RedPacketDetailActivity.getStartIntent(getActivity());
+
+                    intents.putExtra("id", bean.getId());
+
+                    intents.putExtra("count", bean.getCount());
+
+                    intents.putExtra("context", bean.getContext() + "");
+
+                    intents.putExtra("surplusCount", bean.getSurplusCount());
+
+                    intents.putExtra("imageUrl", bean.getImageUrl());
+
+                    intents.putExtra("integralQuota", bean.getIntegralQuota());
+
+                    intents.putExtra("surplusQuota", bean.getSurplusQuota());
+
+                    startActivity(intents);
+                } else if (fromWhere.equals("卡券")) {
+                    Intent intents = CardDetailActivity.getStartIntent(getActivity());
+
+                    intents.putExtra("id", bean.getId() + "");
+
+                    startActivity(intents);
+                } else {
+                    return;
+                }
+                break;
+            case R.id.imb_user_icon:
+                imagListener.toastOutLeftFragment();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -459,7 +660,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     @Override
     public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-
+        poiDetailResult.getLocation();
     }
 
     //设置地图的中心点
@@ -474,10 +675,6 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatusss);
 
-        if (optst == null) {
-            optst = new LocationClientOption();
-        }
-
         optst.setIsNeedAddress(true);
 
         mLocationClient.setLocOption(optst);
@@ -487,6 +684,10 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
         result = reverseCode.location(new LatLng(curryentLatitude, currryentLongtitude));
 
         geoCoder.reverseGeoCode(result);
+
+        if (optst == null) {
+            optst = new LocationClientOption();
+        }
 
         if (mBaiduMap != null) {
             mBaiduMap.setMapStatus(mapStatusUpdate);

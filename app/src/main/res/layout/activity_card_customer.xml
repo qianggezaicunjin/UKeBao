@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_title_bar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/viewTop_lanfragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FDFDFDff"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="@dimen/x1"
+                    android:layout_height="@dimen/y5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="@dimen/x13"
+                        android:layout_height="@dimen/y13"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginTop="@dimen/y2"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/address" />
+
+                    <TextView
+                        android:id="@+id/currentLocationcard_CustomerMainActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_weight="2"
+                        android:gravity="left"
+                        android:singleLine="true"
+                        android:text="当前位置"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="@dimen/x10"
+                        android:layout_height="@dimen/y1" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/x10"
+                    android:layout_height="@dimen/y1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/mapGradeRange_cardCustomerMainActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x33"
+                        android:layout_marginTop="@dimen/y5"
+                        android:gravity="left"
+                        android:text="范围小于"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/memberCount_cardCustomerMainActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/x10"
+                        android:layout_marginTop="@dimen/y5"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="会员数量"
+                        android:textColor="@color/text_color_red"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/x10"
+                    android:layout_height="@dimen/y10"
+                    android:background="#fff" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y1"
+                android:layout_marginTop="@dimen/y4"
+                android:background="#ddd" />
+
+            <TextView
+                android:id="@+id/jibenxinxi__"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/x10"
+                android:text="基本信息"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/kaquanmiane__"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y1"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/x10" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:singleLine="true"
+                    android:text="卡券面额    "
+                    android:textColor="@color/text_color_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="满"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/lowestMoney_cardCustomerActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:hint="请输入金额"
+                        android:maxLength="10"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/y1"
+                        android:layout_marginTop="@dimen/y6"
+                        android:background="#ddd" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元"
+                    android:textColor="@color/text_color_grey" />
+
+                <TextView
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="减"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/cardMoney_cardCustomerActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@null"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center"
+                        android:hint="请输入金额"
+                        android:inputType="number"
+                        android:digits="0123456789"
+                        android:maxLength="10"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/y1"
+                        android:layout_marginTop="@dimen/y6"
+                        android:background="#ddd" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元"
+                    android:textColor="@color/text_color_grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kaquanshuliang__"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y1"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/x10" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="卡券数量    "
+                    android:textColor="@color/text_color_black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/cardCount_cardCustomerActivity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请输入卡券张数"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="张"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kaquanxianzhi__"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y1"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/x10" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="卡券限制    "
+                    android:textColor="@color/text_color_black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/limitCount_cardCustomerActivity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="每人限领张数"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="张"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/youxiaoqi__"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y1"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/x10"
+                android:paddingRight="@dimen/x10" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="有效期限  "
+                    android:textColor="@color/text_color_black"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/x10" >
+
+                    <EditText
+                        android:id="@+id/startTime_cardCustomerActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:hint="开始日期"
+                        android:inputType="none"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="至 "
+                        android:textColor="@color/text_color_grey"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/endTime_cardCustomerActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:gravity="right"
+                        android:hint="结束日期"
+                        android:inputType="none"
+                        android:textColorHint="@color/text_hint_color"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/shiyongguize__"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="@dimen/x10"
+                android:text="使用规则"
+                android:textColor="@color/text_color_black" />
+
+            <EditText
+                android:id="@+id/useRule_cardCustomerActivity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y100"
+                android:layout_marginTop="@dimen/y1"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="@string/card_customer_userule"
+                android:padding="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/complete_CardCustomerActivty"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/x20"
+                android:layout_weight="2"
+                android:background="@drawable/bg_send_security_code"
+                android:text="完成"
+                android:textColor="@color/white" />
+
+            <View
+                android:id="@+id/dibu__"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -140,6 +140,19 @@
             android:name="com.baidu.android.pushservice.PushKeepAlive"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
 
         <activity
             android:name=".view.activity.login.GuideActivity"
@@ -170,7 +183,10 @@
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessSettingsActivity"/>
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreImageActivity"/>
         <activity android:name=".view.activity.MarketingManage.RedPacketAttractCustomeActivity"/>
+        <activity android:name=".view.activity.MarketingManage.RedPacketDetailActivity"/>
         <activity android:name=".view.activity.MarketingManage.CardCustomerActivity"/>
+        <activity android:name=".view.activity.MarketingManage.CardDetailActivity"/>
+
     </application>
 
 </manifest>

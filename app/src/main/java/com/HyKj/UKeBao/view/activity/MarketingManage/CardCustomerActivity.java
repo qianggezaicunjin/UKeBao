@@ -7,6 +7,7 @@ import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 
 /**
+ *  卡劵揽客
  * Created by Administrator on 2016/10/19.
  */
 public class CardCustomerActivity extends BaseActiviy {
@@ -24,7 +25,7 @@ public class CardCustomerActivity extends BaseActiviy {
 
     @Override
     public void setUpView() {
-
+        setTitleTheme("卡劵揽客");
     }
 
     @Override

@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
 public class StoreSignageModel extends BaseModel{
     //上传照片到服务器
     public void uploadPictures(File file,int modelType){
-
+        //模块类型 1:产品图2:商家图3:临时图片4:广告图片
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
         Observable<JSONObject> observable=mDataManager.uploadPictures(requestBody,modelType,"店招");
         observable.subscribeOn(Schedulers.io())
@@ -43,10 +43,15 @@ public class StoreSignageModel extends BaseModel{
                     @Override
                     public void onNext(JSONObject jsonObject) {
                         ModelAction action=new ModelAction();
+
                         StoreSignage storeSignage= JSON.parseObject(jsonObject.toString(),StoreSignage.class);
+
                         LogUtil.d("上传图片成功，返回数据为:"+storeSignage.getRows().toString());
+
                         action.action= Action.Login_SettledAlliance_uploadPictures;
+
                         action.t=storeSignage;
+
                         mRequestView.onRequestSuccess(action);
                     }
                 });

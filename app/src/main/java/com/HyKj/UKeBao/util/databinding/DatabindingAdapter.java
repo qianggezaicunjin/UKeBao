@@ -5,11 +5,15 @@ import android.graphics.Bitmap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.model.bean.RecycleViewBaen;
 import com.HyKj.UKeBao.util.LogUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -26,7 +30,7 @@ public class DatabindingAdapter {
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView iv, String imageUrl) {
         LogUtil.d("iamgeUrl" + imageUrl);
-        if (imageUrl != null) {
+        if (!TextUtils.isEmpty(imageUrl)) {
             String tag = imageUrl.substring(0, 4);
             if (tag.equals("http")) {
                 Picasso.with(iv.getContext())
@@ -42,11 +46,15 @@ public class DatabindingAdapter {
                         .into(iv);
             }
         } else {
-            Picasso.with(iv.getContext())
-                    .load(imageUrl)
-                    .placeholder(R.drawable.default_picture)
-                    .error(R.drawable.default_picture)
-                    .into(iv);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.default_1)
+                    .showImageForEmptyUri(R.drawable.default_1)
+                    .showImageOnFail(R.drawable.default_1).cacheInMemory(true)
+                    .cacheOnDisk(true).considerExifParams(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .displayer(new FadeInBitmapDisplayer(388)).build();
+
+            ImageLoader.getInstance().displayImage(imageUrl, iv, options);
         }
     }
 

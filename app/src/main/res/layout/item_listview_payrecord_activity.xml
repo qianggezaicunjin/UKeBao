@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/x5"
-                android:hint="修理一枝花"
+                android:hint="hellow！优积分"
                 android:textColor="@color/text_color_grey" />
 
             <TextView

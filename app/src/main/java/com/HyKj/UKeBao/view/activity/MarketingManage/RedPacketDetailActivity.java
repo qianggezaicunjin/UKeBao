@@ -7,6 +7,7 @@ import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 
 /**
+ *  红包详情
  * Created by Administrator on 2016/10/19.
  */
 public class RedPacketDetailActivity extends BaseActiviy{

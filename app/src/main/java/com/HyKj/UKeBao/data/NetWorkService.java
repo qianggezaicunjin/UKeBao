@@ -303,4 +303,21 @@ public interface NetWorkService {
      * */
     @POST("shopper/showmanship!getById.do")
     Observable<JSONObject> getSingRedPacketDetail(@Query("id")int id,@Query("token")String token);
+
+    /**
+     * 发送揽客红包
+     *  count 	是 	int 	人数
+     *  integralQuota 	是 	double 	总积分
+     *  distance 	是 	double 	距离
+     *  image 	是 	string 	图片
+     *  context 	是 	string 	内容
+     *  latitude 	是 	double 	纬度
+     *  longitude 	是 	double 	经度
+     *  payType 	否 	short 	支付类型（默认0），0：积分 1：支付宝 2：微信3:现金
+     * */
+    @POST("shopper/showmanship!sendBusinessStoreShowmanship.do")
+    Observable<JSONObject> sendDataToWeb(@Query("count")String count,@Query("integralQuota")double integralQuota,
+                                         @Query("distance")double distance, @Query("image")String image,
+                                         @Query("context")String context,@Query("latitude")double latitude,
+                                         @Query("longitude")double longitude,@Query("payType")short payType,@Query("token")String token);
 }

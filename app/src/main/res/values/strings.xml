@@ -128,4 +128,5 @@
     <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
     <string name="register_title">注册账户</string>
     <string name="card_customer_userule">1.适用范围：本优惠券全场通用.\n2.本优惠券不设找零，不兑换现金.\n3.请在有效期内使用，过期作废.</string>
+    <string name="redpacket_rule">每人领到的金额随机(1≤红包个数≤总积分)</string>
 </resources>

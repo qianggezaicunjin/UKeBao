@@ -304,7 +304,7 @@ public class PayRecordActivity extends BaseActiviy implements View.OnClickListen
         //修改Activity背景为半透明
         WindowManager.LayoutParams params = getWindow().getAttributes();
 
-        params.alpha = 0.7f;
+        params.alpha = 0.5f;
 
         getWindow().setAttributes(params);
 

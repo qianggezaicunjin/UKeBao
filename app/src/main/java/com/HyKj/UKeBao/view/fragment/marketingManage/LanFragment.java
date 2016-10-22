@@ -546,19 +546,21 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
                     if (curryentLatitude != -1) {
                         Intent intent = RedPacketAttractCustomeActivity.getStartIntent(getActivity());
 
-                        intent.putExtra("currylocation", locationgCurrent + "");
+                        intent.putExtra("currylocation", locationgCurrent + "");//当前位置
 
-                        intent.putExtra("membercount", memberCount.getText() + "");
+                        intent.putExtra("membercount", memberCount.getText() + "");//会员人数
 
                         intent.putExtra("gradearrange", mapGradeRange_lanFragment_mainActivity.getText() + "");
 
-                        intent.putExtra("curryentLatitude", curryentLatitude);
+                        intent.putExtra("curryentLatitude", curryentLatitude);//当前纬度
 
-                        intent.putExtra("currryentLongtitude", currryentLongtitude);
+                        intent.putExtra("currryentLongtitude", currryentLongtitude);//当前精度
 
-                        intent.putExtra("zoomMap", MapZoomUtils.getZoomMap(grade) + "");
+                        intent.putExtra("zoomMap", MapZoomUtils.getZoomMap(grade) + "");//地图放大倍数
 
-                        intent.putExtra("distance", distance);
+                        intent.putExtra("distance", distance);//距离
+
+                        intent.putExtra("businessInfo",businessInfo);
 
                         startActivity(intent);
                     } else {
@@ -647,6 +649,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
                 break;
             case R.id.imb_user_icon:
                 imagListener.toastOutLeftFragment();
+
                 break;
             default:
                 break;
@@ -673,6 +676,10 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
         mapStatusss = new MapStatus.Builder().target(center).zoom(18).build();
 
+        if (optst == null) {
+            optst = new LocationClientOption();
+        }
+
         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatusss);
 
         optst.setIsNeedAddress(true);
@@ -685,9 +692,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
         geoCoder.reverseGeoCode(result);
 
-        if (optst == null) {
-            optst = new LocationClientOption();
-        }
+
 
         if (mBaiduMap != null) {
             mBaiduMap.setMapStatus(mapStatusUpdate);
@@ -833,6 +838,19 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                 break;
         }
+    }
+
+    //获取会员数据成功后更新会员人数
+    public void setMemberCount(int num) {
+        memberCount.setText("会员人数"+num+"人");
+    }
+
+    public void setBusinessInfo(BusinessInfo businessInfo) {
+        this.businessInfo = businessInfo;
+
+        ventureName.setText(businessInfo.getBusinessName() + "");
+
+        setMapCenter(businessInfo.getLatitude(),businessInfo.getLongitude());
     }
 
     private class MylocationListener implements BDLocationListener {

@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.HyKj.UKeBao.model.marketingManage.LanFragmentModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.CardDetail;
 import com.HyKj.UKeBao.model.marketingManage.bean.LanBean;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetail;
+import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.MapZoomUtils;
 import com.HyKj.UKeBao.view.activity.MainActivity;
 import com.HyKj.UKeBao.view.activity.MarketingManage.CardCustomerActivity;
@@ -48,6 +50,7 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -170,6 +173,11 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     private String fromWhere;
 
+    /**
+     * 发红包或者卡劵后返回地图判断是否改变中心点的标记
+     */
+    private boolean isSetCenter = true;
+
     private int[] imagerArr = {R.drawable.a1_03, R.drawable.b1_03, R.drawable.c1_03,
             R.drawable.a, R.drawable.b, R.drawable.c,
             R.drawable.d, R.drawable.e, R.drawable.f,
@@ -211,7 +219,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     private int distance;
 
-    private LanFragmentViewModel viewModel;
+    public LanFragmentViewModel viewModel;
 
     public LanFragment() {
         super();
@@ -310,6 +318,8 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
         if (currentLocation_LanFragment_MainActivity != null) {
             currentLocation_LanFragment_MainActivity.setText("正在获取位置信息...");
         }
+        isSetCenter = true;
+
         viewModel.getBusinessInfo();
     }
 
@@ -349,7 +359,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                         bean.setId(Integer.valueOf(marker.getExtraInfo().getString("id")));
 
-                        viewModel.getSingCardDetail(Integer.valueOf(marker.getExtraInfo().getString("id")));
+                        viewModel.getSingCardDetail(Integer.valueOf(marker.getExtraInfo().getString("id")),true);
 
                         break;
                     case 1:
@@ -506,6 +516,8 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                                 currryentLongtitude = latlng.longitude;
 
+                                LogUtil.d("移动后纬度:" + curryentLatitude + "精度：" + currryentLongtitude);
+
                                 geoCoder.reverseGeoCode(result);
                             }
                         }
@@ -519,7 +531,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                 distance = MapZoomUtils.getZoomMap(grade) / 1000;
 
-                if (MapZoomUtils.getZoomMap(grade)>1000) {
+                if (MapZoomUtils.getZoomMap(grade) > 1000) {
                     mapGradeRange_lanFragment_mainActivity.setText("范围<" + MapZoomUtils.getZoomMap(grade) / 1000 + "公里");
                 } else {
                     mapGradeRange_lanFragment_mainActivity.setText("范围<" + MapZoomUtils.getZoomMap(grade) + "米");
@@ -539,7 +551,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.redPacket_lanFragment_mainActivity:
                 if (null != mBaiduMap && !currentLocation_LanFragment_MainActivity.getText()
                         .equals("")) {
@@ -560,14 +572,14 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                         intent.putExtra("distance", distance);//距离
 
-                        intent.putExtra("businessInfo",businessInfo);
+                        intent.putExtra("businessInfo", businessInfo);
 
                         startActivity(intent);
                     } else {
-                        toast("定位失败，无法根据位置发送揽客",getActivity());
+                        toast("定位失败，无法根据位置发送揽客", getActivity());
                     }
                 } else {
-                    toast("正在获取位置...",getActivity());
+                    toast("正在获取位置...", getActivity());
                 }
                 break;
             case R.id.currentLocationImg_LanFrament_MainActivity:
@@ -610,12 +622,14 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                         i.putExtra("currryentLongtitude", currryentLongtitude);
 
+                        i.putExtra("businessInfo", businessInfo);
+
                         startActivity(i);
                     } else {
-                        toast("定位失败，无法根据位置发送揽客",getActivity());
+                        toast("定位失败，无法根据位置发送揽客", getActivity());
                     }
                 } else {
-                    toast("正在获取位置...",getActivity());
+                    toast("正在获取位置...", getActivity());
                 }
                 break;
             case R.id.toastPopUp_Lanfragment:
@@ -693,7 +707,6 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
         geoCoder.reverseGeoCode(result);
 
 
-
         if (mBaiduMap != null) {
             mBaiduMap.setMapStatus(mapStatusUpdate);
         }
@@ -750,9 +763,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
         });
         currentLocationImg_LanFrament_MainActivity.getLocationOnScreen(location);
 
-        popupWindow.showAtLocation(
-                currentLocationImg_LanFrament_MainActivity,
-                Gravity.NO_GRAVITY,
+        popupWindow.showAtLocation(currentLocationImg_LanFrament_MainActivity, Gravity.NO_GRAVITY,
                 (location[0] + currentLocationImg_LanFrament_MainActivity
                         .getWidth() / 2) - popupWidth / 2, location[1]
                         - popupHeight + 20);
@@ -788,7 +799,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
     public void setCardDetail(int i, CardDetail cardDetail) {
         switch (i) {
             case 0:
-                contextAdd.setText(cardDetail.getPrice() + "元代金券-满" + cardDetail.getDeduction()
+                contextAdd.setText(cardDetail.price + "元代金券-满" + cardDetail.deduction
                         + "元减" + cardDetail.getPrice() + "元");
 
                 useAfter.setText("已领 :" + cardDetail.getMenberGetCount() + "/"
@@ -801,7 +812,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                 break;
             case 1:
-                contextAdd.setText(cardDetail.getPrice() + "元代金券-满" + cardDetail.getDeduction()
+                contextAdd.setText(cardDetail.price + "元代金券-满" + cardDetail.deduction
                         + "元减" + cardDetail.getPrice() + "元");
 
                 useAfter.setText("已领 :" + cardDetail.getMenberGetCount() + "/"
@@ -822,8 +833,8 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
                 contextAdd.setText(redPacketDetail.getContext() + "");
 
-                useAfter.setText("已领 :" + redPacketDetail.getSurplusCount() + "/"
-                        + redPacketDetail.getCount() + "个");
+                useAfter.setText("已领 :" + redPacketDetail.surplusCount + "/"
+                        + redPacketDetail.count + "个");
 
                 getAfter.setText("");
 
@@ -831,8 +842,8 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
             case 1:
                 contextAdd.setText(redPacketDetail.getContext() + "");
 
-                useAfter.setText("已领 :" + redPacketDetail.getSurplusCount() + "/"
-                        + redPacketDetail.getCount() + "个");
+                useAfter.setText("已领 :" + redPacketDetail.surplusCount + "/"
+                        + redPacketDetail.count + "个");
 
                 getAfter.setText("");
 
@@ -842,7 +853,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
     //获取会员数据成功后更新会员人数
     public void setMemberCount(int num) {
-        memberCount.setText("会员人数"+num+"人");
+        memberCount.setText("会员人数" + num + "人");
     }
 
     public void setBusinessInfo(BusinessInfo businessInfo) {
@@ -850,7 +861,57 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
 
         ventureName.setText(businessInfo.getBusinessName() + "");
 
-        setMapCenter(businessInfo.getLatitude(),businessInfo.getLongitude());
+        if (isSetCenter) {
+            setMapCenter(businessInfo.getLatitude(), businessInfo.getLongitude());
+        }
+    }
+
+    //生成卡劵图标
+    public void setToMessageFromCardDetail(LanBean beans) {
+        bean = beans;
+
+        fromWhere = "卡券";
+
+        currentLocationImg_LanFrament_MainActivity.setVisibility(View.INVISIBLE);
+
+        LatLng point = new LatLng(bean.getCurryentLatitude(), bean.getCurrryentLongtitude());
+
+        // 构建Marker图标
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.card_info_lan);
+
+        // 构建MarkerOption，用于在地图上添加Marker
+        Bundle cardinfo = new Bundle();
+
+        cardinfo.putString("id", bean.getId() + "");
+
+        cardinfo.putString("type", "0");
+
+        setMark(point,bitmap,cardinfo);
+
+        contextAdd.setText(bean.getNameTiltle() + "");
+
+        currentLocationImg_LanFrament_MainActivity.setImageResource(R.drawable.card);
+
+        showOrHideFlag = true;
+
+        useAfter.setText("已领 ：" + 0 + "/" + bean.getCount());
+
+        getAfter.setText("");
+
+        currentLocationImg_LanFrament_MainActivity.getLocationOnScreen(location);
+
+        popupWindow.showAtLocation(
+                currentLocationImg_LanFrament_MainActivity,
+                Gravity.NO_GRAVITY,
+                (location[0] + currentLocationImg_LanFrament_MainActivity
+                        .getWidth() / 2) - popupWidth / 2, location[1]
+                        - popupHeight + 20);
+
+        currentLocationImg_LanFrament_MainActivity.setOnClickListener(this);
+
+        hideOrShow.setVisibility(View.INVISIBLE);
+
+        viewModel.getSingCardDetail(beans.getId(),true);
     }
 
     private class MylocationListener implements BDLocationListener {
@@ -891,10 +952,79 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
             if (currentLocation_LanFragment_MainActivity != null) {
                 currentLocation_LanFragment_MainActivity.setText("正在获取位置信息...");
             }
+            isSetCenter = true;
+
             viewModel.getBusinessInfo();
 
         }
 
+    }
+
+    public void setToMessageFromRedPacket(LanBean beans) {
+        isSetCenter=false;
+
+        viewModel.getBusinessInfo();
+
+        fromWhere = "红包";
+
+        currentLocationImg_LanFrament_MainActivity.setVisibility(View.INVISIBLE);
+
+        bean = beans;
+
+        LatLng point = new LatLng(bean.getCurryentLatitude(), bean.getCurrryentLongtitude());
+        // 构建Marker图标
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.red_packet_icon);
+        // 构建MarkerOption，用于在地图上添加Marker
+        MarkerOptions m = new MarkerOptions();
+
+        Bundle redInfo = new Bundle();
+
+        redInfo.putString("distance", bean.getDistance() + "");
+
+        mapGradeRange_lanFragment_mainActivity.setText("范围小于" + bean.getDistance() + "公里");
+
+        redInfo.putString("id", bean.getId() + "");
+
+        redInfo.putString("count", bean.getCount() + "");
+
+        redInfo.putString("surplusCount", bean.getSurplusCount());
+
+        redInfo.putString("imageUrl", bean.getImageUrl());
+
+        redInfo.putString("surplusQuota", bean.getSurplusQuota());
+
+        redInfo.putString("integralQuota", bean.getIntegralQuota());
+
+        redInfo.putString("context", bean.getContext());
+
+        redInfo.putString("type", "1");
+
+        setMark(point, bitmap, redInfo);
+
+        contextAdd.setText(bean.getContext() + "");
+
+        currentLocationImg_LanFrament_MainActivity.setImageResource(R.drawable.red_packet);
+
+        showOrHideFlag = true;
+
+        useAfter.setText("已领 :" + 0 + "/" + bean.getCount() + "个");
+
+        getAfter.setText("");
+
+        currentLocationImg_LanFrament_MainActivity.getLocationOnScreen(location);
+
+        popupWindow.showAtLocation(
+                currentLocationImg_LanFrament_MainActivity,
+                Gravity.NO_GRAVITY,
+                (location[0] + currentLocationImg_LanFrament_MainActivity
+                        .getWidth() / 2) - popupWidth / 2, location[1]
+                        - popupHeight + 20);
+
+        currentLocationImg_LanFrament_MainActivity.setOnClickListener(this);
+
+        hideOrShow.setVisibility(View.INVISIBLE);
+
+        viewModel.getSingRedPacketDetail(beans.getId());
     }
 
     @Override

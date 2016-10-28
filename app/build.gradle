@@ -75,6 +75,7 @@ dependencies {
     compile files('libs/Msc.jar')
     compile project(':library')
     compile files('libs/alipaySdk-20160223.jar')
+    compile files('libs/libammsdk.jar')
 }
 
 

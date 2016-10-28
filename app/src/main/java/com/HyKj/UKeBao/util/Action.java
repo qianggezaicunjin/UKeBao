@@ -74,5 +74,11 @@ public enum Action {
     //获取单个红包详情
     MarketingManage_GetSingRedPacketDetail,
     //添加广告图片
-    MarketingMange_RedPacketAttractCustome_AddImage,
+    MarketingManage_RedPacketAttractCustome_AddImage,
+    //发送揽客红包
+    MarketingManage_RedPacketAttractCustome_sendRedPacket,
+    //发送卡劵
+    MarketingManage_SendCard,
+    //红包领取记录
+    MarketingMange_RedPacket_Collect_Record,
 }

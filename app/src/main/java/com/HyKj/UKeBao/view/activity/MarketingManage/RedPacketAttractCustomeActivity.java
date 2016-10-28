@@ -3,6 +3,8 @@ package com.HyKj.UKeBao.view.activity.MarketingManage;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +12,12 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -22,27 +28,38 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityRedpacketAttractCustomeBinding;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.model.marketingManage.RedPacketAttractCustomeModel;
+import com.HyKj.UKeBao.model.marketingManage.bean.CashOrIntegralPayInfo;
+import com.HyKj.UKeBao.model.marketingManage.bean.PayInfo;
+import com.HyKj.UKeBao.model.marketingManage.bean.PayResult;
+import com.HyKj.UKeBao.model.marketingManage.bean.WXPayInfo;
+import com.HyKj.UKeBao.util.AliPayResult;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.GalleryFinalUtil;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.PicassoImageLoader;
 import com.HyKj.UKeBao.util.TimeCount;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
+import com.HyKj.UKeBao.view.activity.MainActivity;
 import com.HyKj.UKeBao.view.customView.CircleImageView;
 import com.HyKj.UKeBao.viewModel.marketingManage.RedPacketAttractCustomeViewModel;
+import com.alipay.sdk.app.PayTask;
+
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import cn.finalteam.galleryfinal.CoreConfig;
@@ -82,6 +99,14 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
     private TextView certain_payTypeFromRedPacket;
 
+    private RadioButton buttonCatsh;
+
+    private RadioButton buttonScore;
+
+    private RadioButton buttonWeixin;
+
+    private RadioButton buttonZhifubao;
+
     private CircleImageView senRedPacket_toast_reddialog;
 
     private ImageView finish_red;
@@ -110,7 +135,11 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
     public String memberCount;//会员数
 
+    private PayInfo payInfo;
+
     private SharedPreferences sharedPreferences;
+
+    private static final int SDK_PAY_FLAG = 1;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, RedPacketAttractCustomeActivity.class);
@@ -128,9 +157,11 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         distance = getIntent().getIntExtra("distance", 3);
 
-        curryentLatitude = getIntent().getDoubleExtra("curryentLayitude", 0.0);
+        curryentLatitude = getIntent().getDoubleExtra("curryentLatitude", 0.0);
 
         currryentLongtitude = getIntent().getDoubleExtra("currryentLongtitude", 0.0);
+
+        LogUtil.d("进入发红包页面，纬度为:"+curryentLatitude+"精度为:"+currryentLongtitude);
 
         gradearrange = getIntent().getStringExtra("gradearrange");
 
@@ -211,7 +242,22 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.buttonCatsh_payTypeFromRedPacket:
+                payType = 3;
 
+                break;
+            case R.id.buttonScore_payTypeFromRedPacket:
+                payType = 0;
+
+                break;
+            case R.id.buttonWeixin_payTypeFromRedPacket:
+                payType = 2;
+
+                break;
+            case R.id.buttonZhifubao__payTypeFromRedPacket:
+                payType = 1;
+
+                break;
             //广告图片添加
             case R.id.adImag_RedPacketAttractCustome_Activity:
                 initGalleryFinal();
@@ -370,18 +416,27 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         rg_payType= (RadioGroup) view.findViewById(R.id.rg_payType);
 
+        buttonCatsh = (RadioButton) view.findViewById(R.id.buttonCatsh_payTypeFromRedPacket);
+
+        buttonScore = (RadioButton) view.findViewById(R.id.buttonScore_payTypeFromRedPacket);
+
+        buttonWeixin = (RadioButton) view.findViewById(R.id.buttonWeixin_payTypeFromRedPacket);
+
+        buttonZhifubao = (RadioButton) view.findViewById(R.id.buttonZhifubao__payTypeFromRedPacket);
+
         certain_payTypeFromRedPacket= (TextView) view.findViewById(R.id.certain_payTypeFromRedPacket);
 
         certain_payTypeFromRedPacket.setOnClickListener(this);
 
-        rg_payType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                LogUtil.d("选择了第"+i+"种支付方式");
+        buttonCatsh.setOnClickListener(this);
 
-                payType=(short) i;
-            }
-        });
+        buttonScore.setOnClickListener(this);
+
+        buttonWeixin.setOnClickListener(this);
+
+        buttonZhifubao.setOnClickListener(this);
+
+        rg_payType.check(R.id.buttonScore_payTypeFromRedPacket);//默认勾选
 
         tv_efficientMoney.setText("可用余额"+businessInfo.getCash()+"元");
 
@@ -482,4 +537,241 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         }
     };
+
+    //是否展示
+    public void isShow() {
+        if(dialog.isShowing()){
+            dialog.cancel();
+        }
+        return ;
+    }
+
+    //支付宝支付
+    public void alipay(PayInfo payInfo) {
+        this.payInfo=payInfo;
+
+        String orderInfo = getOrderInfo(payInfo.getPayResult());
+
+        String new_sign=null;
+        /**
+         * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
+         */
+
+        try {
+            /**
+             * 仅需对sign 做URL编码
+             */
+            new_sign = URLEncoder.encode(payInfo.getPayResult().getSign(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * 完整的符合支付宝参数规范的订单信息
+         */
+
+       final String aliPayInfo = orderInfo + "&sign=\"" + new_sign + "\"&" + "sign_type="+payInfo.getPayResult().getSign_type();
+
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                // 构造PayTask 对象
+                PayTask alipay = new PayTask(RedPacketAttractCustomeActivity.this);
+                // 调用支付接口，获取支付结果
+                String result = alipay.pay(aliPayInfo, true);
+
+                Message msg = new Message();
+
+                msg.what = SDK_PAY_FLAG;
+
+                msg.obj = result;
+
+                mHandler.sendMessage(msg);
+            }
+        };
+        LogUtil.d("payInfo:"+aliPayInfo.toString());
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+
+        payThread.start();
+    }
+    /**
+     * create the order info. 创建订单信息
+     *
+     */
+    private String getOrderInfo(PayResult result) {
+
+        // 签约合作者身份ID
+        String orderInfo = "partner=" +result.getPartner();
+
+        // 签约卖家支付宝账号
+        orderInfo += "&seller_id=" + result.getSeller_id();
+
+        // 商户网站唯一订单号
+        orderInfo += "&out_trade_no=" + result.getOut_trade_no();
+
+        // 商品名称
+        orderInfo += "&subject=" + result.getSubject();
+
+        // 商品详情
+        orderInfo += "&body=" + result.getBody();
+
+        // 商品金额
+        orderInfo += "&total_fee=" + result.getTotal_fee();
+
+        // 服务器异步通知页面路径
+        orderInfo += "&notify_url=" + result.getNotify_url();
+
+        // 服务接口名称， 固定值
+        orderInfo += "&service="+result.getService();
+
+        // 支付类型， 固定值
+        orderInfo += "&payment_type="+result.getPayment_type();
+
+        // 参数编码， 固定值
+        orderInfo += "&_input_charset="+result.get_input_charset();
+
+        LogUtil.d("orderInfo:"+orderInfo);
+
+        return orderInfo;
+
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    AliPayResult payResult=new AliPayResult((String) msg.obj);
+                    /**
+                     * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
+                     * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
+                     * docType=1) 建议商户依赖异步通知
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+
+                    String resultStatus = payResult.getResultStatus();
+
+                    LogUtil.d("resultStatus:"+resultStatus);
+
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        toast("支付成功",RedPacketAttractCustomeActivity.this);
+                        //跳转回主界面
+                        jump(payInfo,1);
+                    } else {
+                        // 判断resultStatus 为非"9000"则代表可能支付失败
+                        // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+                        if (TextUtils.equals(resultStatus, "8000")) {
+                            toast("支付结果确认中",RedPacketAttractCustomeActivity.this);
+                        } else if(TextUtils.equals(resultStatus, "6001")){
+
+                        }else{
+                            // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+                            toast("支付失败",RedPacketAttractCustomeActivity.this);
+                        }
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    };
+
+    public void jump(Object object,int type) {
+        switch (type){
+            case 1:
+                PayInfo aliInfo= (PayInfo) object;
+
+                Intent intentso= MainActivity.getStartIntent(RedPacketAttractCustomeActivity.this);
+
+                intentso.putExtra("typeAll", 10);
+
+                intentso.putExtra("context", aliInfo.getContext());
+
+                intentso.putExtra("curryentLatitude", curryentLatitude);
+
+                intentso.putExtra("currryentLongtitude", currryentLongtitude);
+
+                intentso.putExtra("distance", distance);
+
+                intentso.putExtra("count",Integer.parseInt(aliInfo.getCount()));
+
+                intentso.putExtra("id", aliInfo.getBusinessStoreShowmanshipId());
+
+                intentso.putExtra("imageUrl", aliInfo.getImage());
+
+                intentso.putExtra("integralQuota", aliInfo.getIntegralQuota());
+
+                startActivity(intentso);
+
+                break;
+            case 2:
+                WXPayInfo wxinfo=(WXPayInfo) object;
+
+                Intent wx_intent= MainActivity.getStartIntent(RedPacketAttractCustomeActivity.this);
+
+                wx_intent.putExtra("typeAll", 10);
+
+                wx_intent.putExtra("context", wxinfo.getContext());
+
+                wx_intent.putExtra("curryentLatitude", curryentLatitude);
+
+                wx_intent.putExtra("currryentLongtitude", currryentLongtitude);
+
+                wx_intent.putExtra("distance", distance);
+
+                wx_intent.putExtra("count",Integer.parseInt(wxinfo.getCount()));
+
+                wx_intent.putExtra("id", wxinfo.getBusinessStoreShowmanshipId());
+
+                wx_intent.putExtra("imageUrl", wxinfo.getImage());
+
+                wx_intent.putExtra("integralQuota", wxinfo.getIntegralQuota());
+
+                startActivity(wx_intent);
+
+                break;
+            case 3:
+                CashOrIntegralPayInfo info=(CashOrIntegralPayInfo) object;
+
+                Intent intent= MainActivity.getStartIntent(RedPacketAttractCustomeActivity.this);
+
+                intent.putExtra("typeAll", 10);
+
+                intent.putExtra("context", info.getContext());
+
+                intent.putExtra("curryentLatitude", curryentLatitude);
+
+                intent.putExtra("currryentLongtitude", currryentLongtitude);
+
+                intent.putExtra("distance", distance);
+
+                intent.putExtra("count",Integer.parseInt(info.getCount()));
+
+                intent.putExtra("id", info.getBusinessStoreShowmanshipId());
+
+                intent.putExtra("imageUrl", info.getImage());
+
+                intent.putExtra("integralQuota", info.getIntegralQuota());
+
+                startActivity(intent);
+
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        boolean flag=intent.getBooleanExtra("wechat_pay", false);
+        if(flag){
+            LogUtil.d("微信支付成功，执行跳转!");
+
+            jump(viewModel.wxPayInfo,2);
+        }
+    }
 }

@@ -4,25 +4,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/status_color" />
-
     <RelativeLayout
         android:id="@+id/rl_title_mainActivity"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/status_color"
         android:gravity="center_vertical"
-        android:padding="8dp" >
+        android:padding="@dimen/x8"
+        android:background="@color/status_color">
 
         <ImageButton
             android:id="@+id/imb_user_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:paddingLeft="10dp"
+            android:paddingLeft="@dimen/x5"
             android:src="@drawable/user" />
 
         <TextView
@@ -38,10 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/x10"
             android:background="@color/transparent"
             android:src="@drawable/news"
             android:visibility="gone" />
     </RelativeLayout>
-
 </LinearLayout>

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.model.MainModel;
+import com.HyKj.UKeBao.model.marketingManage.bean.LanBean;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.businessManage.payrecord.PayRecordActivity;
@@ -561,6 +562,70 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             unregisterReceiver(mBroadcastReceiver);
         }
         super.onDestroy();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (intent.getIntExtra("typeAll", -1) == 10) {
+            String context = intent.getStringExtra("context");
+
+            String id = intent.getStringExtra("id");
+
+            double curryentLatitude = intent.getDoubleExtra("curryentLatitude", -1.0);
+
+            double currryentLongtitude = intent.getDoubleExtra("currryentLongtitude", -1.0);
+
+            LogUtil.d("跳转成功，纬度为:"+curryentLatitude+"精度为:"+currryentLongtitude);
+
+            double distance = intent.getDoubleExtra("distance", -1.0);
+
+            int count = intent.getIntExtra("count", 3);
+
+            LanBean bean = new LanBean();
+
+            bean.setDistance(distance);
+
+            bean.setId(Integer.valueOf(id));
+
+            bean.setImageUrl(intent.getStringExtra("imageUrl"));
+
+            bean.setIntegralQuota(intent.getStringExtra("integralQuota"));
+
+            bean.setSurplusCount("0");
+
+            bean.setContext(context);
+
+            bean.setCurrryentLongtitude(currryentLongtitude);
+
+            bean.setCurryentLatitude(curryentLatitude);
+
+            bean.setCount(count);
+
+            langFragment.setToMessageFromRedPacket(bean);
+        }
+        if (intent.getIntExtra("typeAll", -1) == 11) {
+            LanBean bean = new LanBean();
+
+            intent.getStringExtra("id");
+
+            intent.getStringExtra("nameTiltle");
+
+            double curryentLatitude = intent.getDoubleExtra("curryentLatitude", -1.0);
+
+            double currryentLongtitude = intent.getDoubleExtra("currryentLongtitude", -1.0);
+
+            bean.setCurrryentLongtitude(currryentLongtitude);
+
+            bean.setCurryentLatitude(curryentLatitude);
+
+            bean.setId(Integer.valueOf(intent.getStringExtra("id")));
+
+            bean.setNameTiltle(intent.getStringExtra("nameTiltle") + "");
+
+            langFragment.setToMessageFromCardDetail(bean);
+        }
     }
 
     @Override

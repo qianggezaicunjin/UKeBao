@@ -6,13 +6,19 @@ package com.HyKj.UKeBao.model.marketingManage.bean;
  */
 public class RedPacketDetail {
 
-    public String context;
+    public String context;//广告语
 
-    public String distance;
+    public String distance;//距离
 
-    public String surplusCount;
+    public String surplusCount;//剩余数量
 
-    public String count;
+    public String count;//数量
+
+    public String surplusQuota;//剩余积分
+
+    public double integralQuota;//红包总积分
+
+    public String image;//图片
 
     public String getContext() {
         return context;
@@ -39,11 +45,35 @@ public class RedPacketDetail {
     }
 
     public String getSurplusCount() {
-        return surplusCount;
+        return surplusCount+"/"+count;
     }
 
     public void setSurplusCount(String surplusCount) {
         this.surplusCount = surplusCount;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getIntegralQuota() {
+        return integralQuota;
+    }
+
+    public void setIntegralQuota(double integralQuota) {
+        this.integralQuota = integralQuota;
+    }
+
+    public String getSurplusQuota() {
+        return surplusQuota+"/"+integralQuota+"积分";
+    }
+
+    public void setSurplusQuota(String surplusQuota) {
+        this.surplusQuota = surplusQuota;
     }
 
     @Override
@@ -53,6 +83,9 @@ public class RedPacketDetail {
                 ", distance='" + distance + '\'' +
                 ", surplusCount='" + surplusCount + '\'' +
                 ", count='" + count + '\'' +
+                ", surplusQuota='" + surplusQuota + '\'' +
+                ", integralQuota=" + integralQuota +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

@@ -27,6 +27,9 @@ public class MyApplication extends Application {
     public static boolean flag_pay=true;//判断点击通知栏是否打开订单界面的标记
 
     public static Application mApplication;
+
+    public static int payTpye=-1;
+
     @Override
     public void onCreate() {
         super.onCreate();

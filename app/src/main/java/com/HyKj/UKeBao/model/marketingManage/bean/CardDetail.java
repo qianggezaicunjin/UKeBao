@@ -1,5 +1,7 @@
 package com.HyKj.UKeBao.model.marketingManage.bean;
 
+import java.util.List;
+
 /**
  * 单个卡劵详情信息
  * Created by Administrator on 2016/10/18.
@@ -17,8 +19,42 @@ public class CardDetail {
 
     public String distance;//距离
 
+    public String startTime;//有效期开始时间
+
+    public String endTime;//有效期结束时间
+
+    public List<MemberCardInfo> menberCouponsList;//会员领取卡劵信息集合
+
+    public String getEndTime() {
+        String etime[]=endTime.split(" ");
+
+        return etime[0];
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public List<MemberCardInfo> getMenberCouponsList() {
+        return menberCouponsList;
+    }
+
+    public void setMenberCouponsList(List<MemberCardInfo> menberCouponsList) {
+        this.menberCouponsList = menberCouponsList;
+    }
+
+    public String getStartTime() {
+        String stime[]=startTime.split(" ");
+
+        return stime[0];
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
     public String getDeduction() {
-        return deduction;
+        return "消费满"+deduction+"元可使用";
     }
 
     public void setDeduction(String deduction) {
@@ -74,6 +110,9 @@ public class CardDetail {
                 ", menberUseCount='" + menberUseCount + '\'' +
                 ", inventory='" + inventory + '\'' +
                 ", distance='" + distance + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", menberCouponsList=" + menberCouponsList +
                 '}';
     }
 }

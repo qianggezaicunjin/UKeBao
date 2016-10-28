@@ -145,20 +145,33 @@
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
+            android:screenOrientation="behind"></activity>
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
+            android:screenOrientation="behind"></activity>
+        <!-- 微信支付回调 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wx5ed23f8629dd7b90" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.activity.login.GuideActivity"
             android:theme="@style/MyFullScreenTheme" />
         <activity android:name=".view.activity.login.LoginActivity" />
-        <activity android:name=".view.activity.MainActivity" />
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".view.activity.login.regist.RegistActivity" />
         <activity android:name=".view.activity.login.forgetPassword.ForgetPasswordActivity" />
         <activity android:name=".view.activity.login.joinAlliance.JoinAllianceActivity" />
@@ -179,13 +192,15 @@
         <activity android:name=".view.activity.businessManage.giveIntegral.GiveIntegralActivity" />
         <activity android:name=".view.activity.businessManage.giveIntegral.IntegralRecordActivity" />
         <activity android:name=".view.activity.businessManage.financialManagement.FinancialManagementActivity" />
-        <activity android:name=".view.activity.businessManage.payrecord.PayDetailsActivity"/>
-        <activity android:name=".view.activity.businessManage.businessSettings.BusinessSettingsActivity"/>
-        <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreImageActivity"/>
-        <activity android:name=".view.activity.MarketingManage.RedPacketAttractCustomeActivity"/>
-        <activity android:name=".view.activity.MarketingManage.RedPacketDetailActivity"/>
-        <activity android:name=".view.activity.MarketingManage.CardCustomerActivity"/>
-        <activity android:name=".view.activity.MarketingManage.CardDetailActivity"/>
+        <activity android:name=".view.activity.businessManage.payrecord.PayDetailsActivity" />
+        <activity android:name=".view.activity.businessManage.businessSettings.BusinessSettingsActivity" />
+        <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreImageActivity" />
+        <activity
+            android:name=".view.activity.MarketingManage.RedPacketAttractCustomeActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".view.activity.MarketingManage.RedPacketDetailActivity" />
+        <activity android:name=".view.activity.MarketingManage.CardCustomerActivity" />
+        <activity android:name=".view.activity.MarketingManage.CardDetailActivity" />
 
     </application>
 

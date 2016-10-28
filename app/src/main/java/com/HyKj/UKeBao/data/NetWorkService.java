@@ -26,6 +26,7 @@ import rx.Observable;
 public interface NetWorkService {
 
     //注册模块
+
     /**
      * 登陆验证
      * 用户名
@@ -183,6 +184,7 @@ public interface NetWorkService {
     Observable<JSONObject> getUserName(@Query("phone") String phone);
 
     //店铺设置
+
     /**
      * 赠送积分
      * cash 现金
@@ -241,83 +243,119 @@ public interface NetWorkService {
     Observable<JSONObject> getAllPayRecord(@Query("page") int page, @Query("rows") int rows, @Query("token") String token);
 
     /**
-     *  退款
-     *  orderId 	是 	int 	订单id
-     *  passwd 	是 	string 	商家密码
-     * */
+     * 退款
+     * orderId 	是 	int 	订单id
+     * passwd 	是 	string 	商家密码
+     */
     @POST("pay!refund.do")
-    Observable<JSONObject> refund(@Query("orderId") int orderId,@Query("passwd")String passwd,@Query("token")String token);
+    Observable<JSONObject> refund(@Query("orderId") int orderId, @Query("passwd") String passwd, @Query("token") String token);
 
     /**
-     *  提交店铺设置
-     *  tel 	是 	string 	店内电话
-     *  name 	是 	string 	联系人姓名
-     *  pictures 	否 	list 	店铺相册
-     *  address 	否 	string 	店铺地址
-     *  province 	否 	string 	省
-     *  city 	否 	string 	市
-     *  area 	否 	string 	区
-     *  longitude 	否 	double 	地理坐标 （精度）
-     *  latitude 	否 	double 	地理坐标 （纬度）
-     * */
+     * 提交店铺设置
+     * tel 	是 	string 	店内电话
+     * name 	是 	string 	联系人姓名
+     * pictures 	否 	list 	店铺相册
+     * address 	否 	string 	店铺地址
+     * province 	否 	string 	省
+     * city 	否 	string 	市
+     * area 	否 	string 	区
+     * longitude 	否 	double 	地理坐标 （精度）
+     * latitude 	否 	double 	地理坐标 （纬度）
+     */
     @POST("businessStore!updateForeign.do")
-    Observable<JSONObject> commitBusinessSettings(@Query("tel")String tel,
-                                                  @Query("name")String name,
-                                                  @Query("pictures")List<String> pictures,
-                                                  @Query("address")String address,
-                                                  @Query("province")String province,
-                                                  @Query("city")String city,
-                                                  @Query("area")String area,
-                                                  @Query("longitude")double longitude,
-                                                  @Query("latitude")double latitude,
-                                                  @Query("token")String token);
+    Observable<JSONObject> commitBusinessSettings(@Query("tel") String tel,
+                                                  @Query("name") String name,
+                                                  @Query("pictures") List<String> pictures,
+                                                  @Query("address") String address,
+                                                  @Query("province") String province,
+                                                  @Query("city") String city,
+                                                  @Query("area") String area,
+                                                  @Query("longitude") double longitude,
+                                                  @Query("latitude") double latitude,
+                                                  @Query("token") String token);
 
 
     //营销模块
-    /**   获取会员数量
-     *   discount  是 	double 	距离（单位：公里） 大于等于3公里
-     *  longitude 	是 	double 	精度
-     *  latitude 	是 	double 	纬度*/
+
+    /**
+     * 获取会员数量
+     * discount  是 	double 	距离（单位：公里） 大于等于3公里
+     * longitude 	是 	double 	精度
+     * latitude 	是 	double 	纬度
+     */
 
     @POST("menber!getMenberCount.do")
-    Observable<JSONObject> getMemberCount(@Query("discount")double discount,@Query("longitude")double longitude,
-                                          @Query("latitude")double latitude,@Query("token")String token);
+    Observable<JSONObject> getMemberCount(@Query("discount") double discount, @Query("longitude") double longitude,
+                                          @Query("latitude") double latitude, @Query("token") String token);
 
-    /** 获取红包卡劵数量
-     *  page 	否 	int 	页数
-     *  rows 	否 	int 	每页行数 如果是10 则卡卷和红包的条数最多10条 最多共20条数据
-     * */
+    /**
+     * 获取红包卡劵数量
+     * page 	否 	int 	页数
+     * rows 	否 	int 	每页行数 如果是10 则卡卷和红包的条数最多10条 最多共20条数据
+     */
     @POST("shopper/showmanship!enabledRedBag.do")
-    Observable<JSONObject> getRedPacketsAndCardInfo(@Query("page")int page,@Query("rows") int rows,@Query("token")String token);
+    Observable<JSONObject> getRedPacketsAndCardInfo(@Query("page") int page, @Query("rows") int rows, @Query("token") String token);
 
     /**
      * 获取单个卡劵详情
      * id 	是 	int 	主键
-     * */
+     */
     @POST("coup!getByBusiness.do")
-    Observable<JSONObject> getSingCardDetail(@Query("id")int id,@Query("token")String token);
+    Observable<JSONObject> getSingCardDetail(@Query("id") int id, @Query("token") String token);
 
     /**
      * 获取单个红包详情
      * id 	是 	int 	主键
-     * */
+     */
     @POST("shopper/showmanship!getById.do")
-    Observable<JSONObject> getSingRedPacketDetail(@Query("id")int id,@Query("token")String token);
+    Observable<JSONObject> getSingRedPacketDetail(@Query("id") int id, @Query("token") String token);
 
     /**
      * 发送揽客红包
-     *  count 	是 	int 	人数
-     *  integralQuota 	是 	double 	总积分
-     *  distance 	是 	double 	距离
-     *  image 	是 	string 	图片
-     *  context 	是 	string 	内容
-     *  latitude 	是 	double 	纬度
-     *  longitude 	是 	double 	经度
-     *  payType 	否 	short 	支付类型（默认0），0：积分 1：支付宝 2：微信3:现金
-     * */
+     * count 	是 	int 	人数
+     * integralQuota 	是 	double 	总积分
+     * distance 	是 	double 	距离
+     * image 	是 	string 	图片
+     * context 	是 	string 	内容
+     * latitude 	是 	double 	纬度
+     * longitude 	是 	double 	经度
+     * payType 	否 	short 	支付类型（默认0），0：积分 1：支付宝 2：微信3:现金
+     */
     @POST("shopper/showmanship!sendBusinessStoreShowmanship.do")
-    Observable<JSONObject> sendDataToWeb(@Query("count")String count,@Query("integralQuota")double integralQuota,
-                                         @Query("distance")double distance, @Query("image")String image,
-                                         @Query("context")String context,@Query("latitude")double latitude,
-                                         @Query("longitude")double longitude,@Query("payType")short payType,@Query("token")String token);
+    Observable<JSONObject> sendDataToWeb(@Query("count") String count, @Query("integralQuota") double integralQuota,
+                                         @Query("distance") double distance, @Query("image") String image,
+                                         @Query("context") String context, @Query("latitude") double latitude,
+                                         @Query("longitude") double longitude, @Query("payType") short payType, @Query("token") String token);
+
+    /**
+     * 发送卡劵
+     * startTime 	是 	string 	开始时间
+     * endTime 	是 	string 	结束时间
+     * getLimit 	是 	int 	会员领取数量限制 0为不限制
+     * inventory 	是 	string 	数量
+     * price 	是 	string 	面值
+     * deduction 	是 	string 	限用价(满xxx可用)
+     * details 	是 	string 	其他说明
+     * longitude 	是 	double 	精度
+     * latitude 	是 	double 	纬度
+     */
+    @POST("coup!addToBusinessYouYou.do")
+    Observable<JSONObject> sendCard(@Query("startTime") String startTime, @Query("endTime") String endTime, @Query("getLimit") int getLimit,
+                                    @Query("inventory") String inventory, @Query("price") String price, @Query("deduction") String deduction,
+                                    @Query("details") String details, @Query("longitude") double longitude, @Query("latitude") double latitude,
+                                    @Query("token") String token);
+
+    /**
+     *  红包领取记录
+     *  total 	int 	列表总数
+     *  rows 	array 	列表数组
+     *  businessStoreName 	string 	商家名称
+     *  menberName 	string 	会员名称
+     *  id 	int 	编号
+     *  integral 	double 	领取积分额度
+     *  wxHeadImage 	string 	头像图片
+     *  date 	timestamp 	时间
+     * */
+    @POST("receive!receiveList.do")
+    Observable<JSONObject> redPacket_record(@Query("showmanshipId")int id,@Query("page")int page,@Query("rows")int rows,@Query("token")String token);
 }

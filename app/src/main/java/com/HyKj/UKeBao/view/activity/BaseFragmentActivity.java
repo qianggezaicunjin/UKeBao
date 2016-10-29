@@ -50,6 +50,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements S
         super.onCreate(savedInstanceState);
 
         SystemBarUtil.initSystemBar(this);
+
+        SystemBarUtil.changeColor(R.color.status_color);
         // 软键盘弹出问题
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 

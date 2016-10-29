@@ -71,8 +71,8 @@
                     android:id="@+id/imb_present_integral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/color"
-                    android:src="@drawable/integral" />
+                    android:background="@color/transparent"
+                    android:src="@drawable/recharge_top" />
 
                 <TextView
                     android:id="@+id/tv_present_integral"

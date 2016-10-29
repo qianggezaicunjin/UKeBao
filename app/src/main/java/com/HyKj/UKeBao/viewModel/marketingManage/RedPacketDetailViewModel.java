@@ -8,6 +8,7 @@ import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetail;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetailInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacket_collect_record;
 import com.HyKj.UKeBao.util.Action;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketDetailActivity;
@@ -55,7 +56,7 @@ public class RedPacketDetailViewModel extends BaseViewModel {
 
             notifyPropertyChanged(BR.redPacketDetail);
 
-        } else if (data.action == Action.MarketingMange_RedPacket_Collect_Record) {
+        } else if (data.action == Action.MarketingManage_RedPacket_Collect_Record) {
             recordList = (RedPacket_collect_record) data.t;
 
             LogUtil.d("红包领取记录回调:" + recordList.toString());
@@ -69,6 +70,8 @@ public class RedPacketDetailViewModel extends BaseViewModel {
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
+        BufferCircleDialog.dialogcancel();
+
         mActivity.toast(erroinfo, mActivity);
     }
 }

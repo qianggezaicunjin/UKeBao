@@ -201,6 +201,8 @@
         <activity android:name=".view.activity.MarketingManage.RedPacketDetailActivity" />
         <activity android:name=".view.activity.MarketingManage.CardCustomerActivity" />
         <activity android:name=".view.activity.MarketingManage.CardDetailActivity" />
+        <activity android:name=".view.activity.MarketingManage.CardManagerActivity"/>
+        <activity android:name=".view.activity.MarketingManage.RedPacketManagerActivity"/>
 
     </application>
 

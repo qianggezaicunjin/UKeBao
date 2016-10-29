@@ -10,6 +10,7 @@ import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityCardDetailBinding;
 import com.HyKj.UKeBao.model.marketingManage.LanFragmentModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.MemberCardInfo;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.CardDetailAdapter;
@@ -56,7 +57,7 @@ public class CardDetailActivity extends BaseActiviy {
 
         listView=mBinding.lvCardDetail.getRefreshableView();
 
-        id = Integer.valueOf(getIntent().getStringExtra("id"));
+        id = getIntent().getIntExtra("id",0);
 
         viewModel = new LanFragmentViewModel(new LanFragmentModel(), this);
 
@@ -107,5 +108,6 @@ public class CardDetailActivity extends BaseActiviy {
         mBinding.lvCardDetail.onRefreshComplete();
 
         adapter.notifyDataSetChanged();
+
     }
 }

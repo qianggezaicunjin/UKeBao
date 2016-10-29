@@ -347,15 +347,26 @@ public interface NetWorkService {
 
     /**
      *  红包领取记录
-     *  total 	int 	列表总数
-     *  rows 	array 	列表数组
-     *  businessStoreName 	string 	商家名称
-     *  menberName 	string 	会员名称
-     *  id 	int 	编号
-     *  integral 	double 	领取积分额度
-     *  wxHeadImage 	string 	头像图片
-     *  date 	timestamp 	时间
+     *  showmanshipId 	int 	红包id
+     *  page 	int 	请求页数
+     *  rows 	int 	请求记录数
      * */
     @POST("receive!receiveList.do")
     Observable<JSONObject> redPacket_record(@Query("showmanshipId")int id,@Query("page")int page,@Query("rows")int rows,@Query("token")String token);
+
+    /**
+     * 获取卡劵列表
+     *  rows 	是 	int 	分页行数
+     *  page 	是 	int 	分页页数
+     * */
+    @POST("coup!listByBusiness.do")
+    Observable<JSONObject> getAllCardInfo(@Query("rows")int rows,@Query("page")int page,@Query("token")String token);
+
+    /**
+     *  businessStoreId 	是 	int 	商家ID
+     *  page 	是 	int 	页数
+     *  rows 	是 	int 	每页行数
+     * */
+    @POST("shopper/showmanship!storeRedbagList.do")
+    Observable<JSONObject> getAllRedPacketInfo(@Query("rows")int rows, @Query("page")int page, @Query("businessStoreId") int id, @Query("token")String token);
 }

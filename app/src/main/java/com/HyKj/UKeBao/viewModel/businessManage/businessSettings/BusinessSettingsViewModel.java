@@ -42,7 +42,7 @@ public class BusinessSettingsViewModel extends BaseViewModel{
 
     //提交
     public void commit(BusinessInfo businessInfo) {
-        mModel.commit(businessInfo.getTel(),
+        mModel.commit(businessInfo.tel,
                 businessInfo.getName(),
                 businessInfo.getPictures(),
                 businessInfo.getAddress(),

@@ -126,8 +126,8 @@ public class BusinessInfo implements Serializable {
 	public void setBusinessStoreImages(List<String> businessStoreImages) {
 		this.businessStoreImages = businessStoreImages;
 	}
-	public double getCash() {
-		return cash;
+	public String getCash() {
+		return cash+"元";
 	}
 	public String getBusinessRegistrationNo() {
 		return businessRegistrationNo;
@@ -195,8 +195,8 @@ public class BusinessInfo implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public double getIntegral() {
-		return integral;
+	public String getIntegral() {
+		return integral+"分";
 	}
 	public void setIntegral(double integral) {
 		this.integral = integral;

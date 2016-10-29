@@ -94,7 +94,7 @@ public class RedPacketDetailModel extends BaseModel{
 
                             ModelAction action = new ModelAction();
 
-                            action.action = Action.MarketingMange_RedPacket_Collect_Record;
+                            action.action = Action.MarketingManage_RedPacket_Collect_Record;
 
                             action.t = collect_record;
 

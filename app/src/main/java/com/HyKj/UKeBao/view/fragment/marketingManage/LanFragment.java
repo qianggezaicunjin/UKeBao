@@ -654,7 +654,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
                 } else if (fromWhere.equals("卡券")) {
                     Intent intents = CardDetailActivity.getStartIntent(getActivity());
 
-                    intents.putExtra("id", bean.getId() + "");
+                    intents.putExtra("id", bean.getId());
 
                     startActivity(intents);
                 } else {

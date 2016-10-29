@@ -1,5 +1,6 @@
 package com.HyKj.UKeBao.view.fragment.marketingManage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.HyKj.UKeBao.R;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
+import com.HyKj.UKeBao.view.activity.MarketingManage.CardManagerActivity;
+import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketManagerActivity;
 import com.HyKj.UKeBao.view.fragment.BaseFragment;
 import com.HyKj.UKeBao.view.listener.MainFragmentListener;
 
@@ -39,6 +43,7 @@ public class MarketManagerFragment extends BaseFragment implements View.OnClickL
         super();
     }
 
+    @SuppressLint("ValidFragment")
     public MarketManagerFragment(MainFragmentListener listener){
         imagListener=listener;
     }
@@ -98,10 +103,16 @@ public class MarketManagerFragment extends BaseFragment implements View.OnClickL
                 break;
             //卡劵管理
             case R.id.ll_manager_cardJuan:
+                BufferCircleDialog.show(getActivity(),"努力加载中,请稍候...",false,null);
+
+                startActivity(CardManagerActivity.getStartIntent(getActivity()));
 
                 break;
             //红包管理
             case R.id.ll_manager_redPacket:
+                BufferCircleDialog.show(getActivity(),"努力加载中,请稍候...",false,null);
+
+                startActivity(RedPacketManagerActivity.getStartIntent(getActivity()));
 
                 break;
             //超值兑换

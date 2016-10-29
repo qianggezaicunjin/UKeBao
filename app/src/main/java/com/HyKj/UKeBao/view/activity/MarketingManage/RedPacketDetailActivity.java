@@ -11,6 +11,7 @@ import com.HyKj.UKeBao.databinding.ActivityRedpacketDetailBinding;
 import com.HyKj.UKeBao.model.marketingManage.RedPacketDetailModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetailInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacket_collect_record;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.RedPacketDetailActivityAdapter;
 import com.HyKj.UKeBao.viewModel.marketingManage.RedPacketDetailViewModel;
@@ -110,6 +111,8 @@ public class RedPacketDetailActivity extends BaseActiviy {
             mBinding.lvRedPacketDetail.onRefreshComplete();
 
             adapter.notifyDataSetChanged();
+
+            BufferCircleDialog.dialogcancel();
         }
     }
 }

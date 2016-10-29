@@ -283,7 +283,7 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
             //支付前跳出红包动画
             case R.id.certain_payTypeFromRedPacket:
-                if(payType==0&&Double.valueOf(integralQuota)>businessInfo.getIntegral()){
+                if(payType==0&&Double.valueOf(integralQuota)>businessInfo.integral){
 
                     toast("账户积分不足，请充值或选取其他支付方式",this);
 
@@ -295,7 +295,7 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
                 double aa=Double.valueOf(recharge);
 
-                double score=aa*businessInfo.getCash();
+                double score=aa*businessInfo.cash;
 
                 if(payType==3&&Double.valueOf(integralQuota)>score){
 
@@ -438,9 +438,9 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         rg_payType.check(R.id.buttonScore_payTypeFromRedPacket);//默认勾选
 
-        tv_efficientMoney.setText("可用余额"+businessInfo.getCash()+"元");
+        tv_efficientMoney.setText("可用余额"+businessInfo.cash+"元");
 
-        tv_efficientIntegral.setText("可用积分"+businessInfo.getIntegral()+"分");
+        tv_efficientIntegral.setText("可用积分"+businessInfo.integral+"分");
 
         tv_price.setText("需要支付:"+mBinding.inPutScoreRedPacketAttractCustomeActivity.getText().toString()+"积分");
 

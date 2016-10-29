@@ -1,6 +1,12 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.UserInfoManage.LeftMenuFragmentViewModel"/>
+    </data>
+<ScrollView
     android:id="@+id/scrollView_leftMenu"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -14,7 +20,7 @@
         android:id="@+id/fl_left_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:layout_width="1dp"
@@ -49,14 +55,16 @@
                     android:layout_height="80dp"
                     android:src="@drawable/default_left"
                     app:border_color="@color/transparent"
-                    app:border_width="0dp" />
+                    app:border_width="0dp"
+                    app:imageUrl="@{viewModel.businessImage}"/>
 
                 <TextView
                     android:id="@+id/tv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:text="@{viewModel.businessInfo.businessName}"/>
             </LinearLayout>
 
             <View
@@ -114,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/integral_account_util"
+                        android:text="@{viewModel.businessInfo.integral}"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -166,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/cash_account_util"
+                        android:text="@{viewModel.businessInfo.cash}"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -175,14 +183,6 @@
 
         <!-- 功能列表 -->
 
-
-        <!--
-             <LinearLayout
-            android:id="@+id/ll_left_menu_functions"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        -->
 
 
         <!-- 手机验证 -->
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="20dp"
-                android:text="112"
+                android:text="@{viewModel.businessInfo.tel}"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -218,36 +218,6 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/hint_white" />
-        <!-- 积分充值 -->
-
-        <LinearLayout
-            android:id="@+id/ll_integral_add"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/status_color"
-            android:clickable="true"
-            android:padding="15dp" >
-
-            <TextView
-                android:id="@+id/tv_integral_add_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/integral_add_name"
-                android:textColor="@color/white" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/imb_integral_add_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@color/transparent"
-                android:src="@drawable/small_while_arrow_left" />
-        </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
@@ -454,3 +424,4 @@
     </LinearLayout>
 
 </ScrollView>
+</layout>

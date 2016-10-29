@@ -6,8 +6,12 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:background="@color/status_color"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y22" />
     <include layout="@layout/topbars_main" />
 
     <RelativeLayout

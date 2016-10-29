@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 
-import com.HyKj.UKeBao.MyApplication;
+
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityBusinessSettingsBinding;
 import com.HyKj.UKeBao.model.businessManage.businessSettings.BusinessSettingsModel;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
-import com.HyKj.UKeBao.util.PicassoImageLoader;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.activity.login.joinAlliance.ChooseCity.ChooseCityActivity;
 import com.HyKj.UKeBao.view.activity.login.joinAlliance.StoreCoord.StoreCoordActivity;
@@ -20,12 +19,6 @@ import com.HyKj.UKeBao.viewModel.businessManage.businessSettings.BusinessSetting
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import cn.finalteam.galleryfinal.CoreConfig;
-import cn.finalteam.galleryfinal.FunctionConfig;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
  * Created by Administrator on 2016/10/8.

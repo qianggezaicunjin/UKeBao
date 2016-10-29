@@ -178,13 +178,8 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
                 startActivity(BusinessSettingsActivity.getStartIntent(getActivity()));
 
                 break;
-            //商品管理
-            case 1:
-                LogUtil.d("OnClick Goods Manage!");
-
-                break;
             //买单记录
-            case 2:
+            case 1:
                 LogUtil.d("OnClick Order account!");
 
                 startActivity(PayRecordActivity.getStartIntent(getActivity()));
@@ -201,7 +196,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 break;
             //会员管理
-            case 3:
+            case 2:
                 LogUtil.d("OnClick Member Manage!" + MyApplication.token);
 
                 Intent intent = BaseWebViewActivity.getStartIntent(mContext);
@@ -214,14 +209,14 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 break;
             //财务管理
-            case 4:
+            case 3:
                 LogUtil.d("OnClick Finance Manage!");
 
                 startActivity(FinancialManagementActivity.getStartIntent(getActivity()));
 
                 break;
             //评价管理
-            case 5:
+            case 4:
                 LogUtil.d("OnClick Comment Manage!");
 
                 Intent intent_comment = BaseWebViewActivity.getStartIntent(mContext);
@@ -236,7 +231,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 break;
             //公告设置
-            case 6:
+            case 5:
                 LogUtil.d("OnClick Notice setting!");
 
                 Intent intent_notice = BaseWebViewActivity.getStartIntent(mContext);
@@ -251,12 +246,12 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 break;
             //收款二维码
-            case 7:
+            case 6:
                 LogUtil.d("OnClick QR code!");
 
                 break;
             //店铺浏览
-            case 8:
+            case 7:
                 LogUtil.d("OnClick Bussiness browse!");
 
                 Intent intent_browse = BaseWebViewActivity.getStartIntent(mContext);
@@ -270,6 +265,11 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
                         + MyApplication.token);
 
                 startActivity(intent_browse);
+
+                break;
+            //敬请期待
+            case 8:
+                LogUtil.d("OnClick Goods Manage!");
 
                 break;
         }
@@ -306,13 +306,12 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
      * 初始化功能模块的标题和图标
      */
     private void initRes() {
-        textStr = new String[]{"店铺设置", "商品管理", "买单记录", "会员管理", "财务管理",
-                "评价管理", "公告设置", "收款二维码", "店铺预览"};
-        imgRes = new int[]{R.drawable.store_setting,
-                R.drawable.product_manager, R.drawable.pay_recode,
+        textStr = new String[]{"店铺设置", "买单记录", "会员管理", "财务管理",
+                "评价管理", "公告设置", "收款二维码", "店铺预览","敬请期待"};
+        imgRes = new int[]{R.drawable.store_setting, R.drawable.pay_recode,
                 R.drawable.user_icon, R.drawable.finance_manager,
                 R.drawable.comment_manager, R.drawable.notify_manager,
-                R.drawable.make_scode, R.drawable.return_store};
+                R.drawable.make_scode, R.drawable.return_store,R.drawable.more_icon};
     }
 
     /**

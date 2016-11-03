@@ -5,16 +5,13 @@ import android.databinding.Bindable;
 import com.HyKj.UKeBao.BR;
 import com.HyKj.UKeBao.model.marketingManage.RedPacketDetailModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetail;
-import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetailInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacket_collect_record;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
-import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketDetailActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.RedPacketDetailActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/27.

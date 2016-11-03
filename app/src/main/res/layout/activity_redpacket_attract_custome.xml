@@ -3,7 +3,7 @@
     <data>
         <variable
             name="view"
-            type="com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketAttractCustomeActivity" />
+            type="com.HyKj.UKeBao.view.activity.marketingManage.RedPacketAttractCustomeActivity" />
     </data>
 
     <LinearLayout

@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- 兑换记录 -->
+
+    <include layout="@layout/include_title_bar_layout" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:layout_marginTop="8dp"
+        android:id="@+id/lv_exchange_record"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@color/grey"
+        android:dividerHeight="8dp"
+        android:background="#fff">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+</LinearLayout>

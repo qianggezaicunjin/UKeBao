@@ -1,9 +1,9 @@
-package com.HyKj.UKeBao.viewModel.UserInfoManage;
+package com.HyKj.UKeBao.viewModel.userInfoManage;
 
 import android.databinding.Bindable;
 
 import com.HyKj.UKeBao.BR;
-import com.HyKj.UKeBao.model.UserInfoManage.LeftMenuFragmentModel;
+import com.HyKj.UKeBao.model.userInfoManage.LeftMenuFragmentModel;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.ModelAction;
@@ -24,6 +24,9 @@ public class LeftMenuFragmentViewModel extends BaseViewModel{
     @Bindable
     public String businessImage;//店铺头像
 
+    @Bindable
+    public String customer_phone;//客户电话
+
     public LeftMenuFragmentViewModel(LeftMenuFragmentModel model,LeftMenuFragment fragment){
         mFragment=fragment;
 
@@ -36,7 +39,10 @@ public class LeftMenuFragmentViewModel extends BaseViewModel{
     public void getBusinessInfo() {
         mModel.getBusinessInfo();
     }
-
+    //获取客服电话
+    public void getCustomerPhone() {
+        mModel.getCustomerPhone();
+    }
     @Override
     public void onRequestSuccess(ModelAction data) {
         //获取店铺数据
@@ -49,10 +55,18 @@ public class LeftMenuFragmentViewModel extends BaseViewModel{
 
             notifyPropertyChanged(BR.businessImage);
         }
+        //获取客服电话
+        else if(data.action==Action.UserInfoManage_GetCustomerPhone){
+            customer_phone= (String) data.t;
+
+            notifyPropertyChanged(BR.customer_phone);
+        }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
         mFragment.toast(erroinfo,mFragment.getActivity());
     }
+
+
 }

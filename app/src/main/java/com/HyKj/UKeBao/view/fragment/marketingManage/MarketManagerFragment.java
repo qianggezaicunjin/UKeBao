@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
-import com.HyKj.UKeBao.view.activity.MarketingManage.CardManagerActivity;
-import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketManagerActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.CardManagerActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.RedPacketManagerActivity;
 import com.HyKj.UKeBao.view.fragment.BaseFragment;
 import com.HyKj.UKeBao.view.listener.MainFragmentListener;
 

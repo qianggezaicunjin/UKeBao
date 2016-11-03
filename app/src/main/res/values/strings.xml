@@ -67,7 +67,7 @@
     <string name="business_name_title">商家名称</string>
     <string name="account_balance_title">账户余额</string>
     <string name="available_account_balance_title">可提余额</string>
-    <string name="apply_cash_limits_hint">请输入提现金额，单笔提现不得低于500元</string>
+    <string name="apply_cash_limits_hint">请输入提现金额，单笔提现不得低于5元</string>
     <string name="confirm_apply_cash">申请提现</string>
     <string name="balance_add">余额充值</string>
     <string name="cash_add">现金充值</string>
@@ -129,4 +129,6 @@
     <string name="register_title">注册账户</string>
     <string name="card_customer_userule">1.适用范围：本优惠券全场通用.\n2.本优惠券不设找零，不兑换现金.\n3.请在有效期内使用，过期作废.</string>
     <string name="redpacket_rule">每人领到的金额随机(1≤红包个数≤总积分)</string>
+    <string name="withdrawals_hint" >500及以上的提现金额不收手续费</string>
+    <string name="withdrawals_context">500以下提现金额需收取5元的手续费，手续费在提现金额中扣取</string>
 </resources>

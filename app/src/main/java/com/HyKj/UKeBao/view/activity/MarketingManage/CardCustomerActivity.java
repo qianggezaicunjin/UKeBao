@@ -1,4 +1,4 @@
-package com.HyKj.UKeBao.view.activity.MarketingManage;
+package com.HyKj.UKeBao.view.activity.marketingManage;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

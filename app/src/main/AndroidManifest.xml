@@ -196,14 +196,24 @@
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessSettingsActivity" />
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreImageActivity" />
         <activity
-            android:name=".view.activity.MarketingManage.RedPacketAttractCustomeActivity"
+            android:name=".view.activity.marketingManage.RedPacketAttractCustomeActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".view.activity.MarketingManage.RedPacketDetailActivity" />
-        <activity android:name=".view.activity.MarketingManage.CardCustomerActivity" />
-        <activity android:name=".view.activity.MarketingManage.CardDetailActivity" />
-        <activity android:name=".view.activity.MarketingManage.CardManagerActivity"/>
-        <activity android:name=".view.activity.MarketingManage.RedPacketManagerActivity"/>
-
+        <activity android:name=".view.activity.marketingManage.RedPacketDetailActivity" />
+        <activity android:name=".view.activity.marketingManage.CardCustomerActivity" />
+        <activity android:name=".view.activity.marketingManage.CardDetailActivity" />
+        <activity android:name=".view.activity.marketingManage.CardManagerActivity"/>
+        <activity android:name=".view.activity.marketingManage.RedPacketManagerActivity"/>
+        <activity android:name=".view.activity.userInfoManage.ModifyPasswordActivity"/>
+        <activity android:name=".view.activity.businessManage.QRcode.QRcodeActivity"/>
+        <activity
+            android:name="com.HyKj.UKeBao.two_dimensioncode.CaptureActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.marketingManage.ExchangDetaliFromSearchActivity"/>
+        <activity android:name=".view.activity.marketingManage.ExchangRecordActivity"/>
+        <activity android:name=".view.activity.marketingManage.ExchangActivity"/>
+        <activity android:name=".view.activity.marketingManage.ExchangeDetailActivity"/>
+        <activity android:name=".view.activity.userInfoManage.WithdrawalsActivity"/>
+        <activity android:name=".view.activity.userInfoManage.WithdrawalsRecordActivity"/>
     </application>
 
 </manifest>

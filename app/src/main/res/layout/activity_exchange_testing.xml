@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:orientation="vertical"
+    >
+
+    <!-- 兑换验证 -->
+
+    <RelativeLayout
+        android:padding="@dimen/x5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/status_color" >
+
+        <ImageButton
+            android:padding="@dimen/x10"
+            android:id="@+id/imb_title_bar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:background="@color/transparent"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/tv_title_bar_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_exchange_testing_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x10"
+            android:background="@color/transparent"
+            android:text="@string/exchange_testing_record"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <!-- 验证码输入 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:background="@color/white"
+        android:padding="@dimen/x10" >
+
+        <EditText
+            android:id="@+id/et_exchange_testing_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:gravity="center_horizontal"
+            android:hint="@string/exchange_testing_input_hint"
+            android:padding="@dimen/x10"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="14sp"
+            android:inputType="number"/>
+    </RelativeLayout>
+    <!-- 查询 -->
+
+    <Button
+        android:id="@+id/btn_exchange_search"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_send_security_code"
+        android:text="@string/search"
+        android:textColor="@color/white" />
+
+</LinearLayout>

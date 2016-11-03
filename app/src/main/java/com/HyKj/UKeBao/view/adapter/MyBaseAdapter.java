@@ -26,6 +26,7 @@ public abstract class MyBaseAdapter<E> extends BaseAdapter {
 
     private void initBaseData(Context mContext) {
         this.mContext = mContext;
+
         this.mInflater = LayoutInflater.from(mContext);
     }
 

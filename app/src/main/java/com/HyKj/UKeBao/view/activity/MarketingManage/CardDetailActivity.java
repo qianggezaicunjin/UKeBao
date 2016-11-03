@@ -1,4 +1,4 @@
-package com.HyKj.UKeBao.view.activity.MarketingManage;
+package com.HyKj.UKeBao.view.activity.marketingManage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityCardDetailBinding;
 import com.HyKj.UKeBao.model.marketingManage.LanFragmentModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.MemberCardInfo;
-import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.CardDetailAdapter;

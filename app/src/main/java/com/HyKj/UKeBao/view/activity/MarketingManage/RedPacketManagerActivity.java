@@ -1,4 +1,4 @@
-package com.HyKj.UKeBao.view.activity.MarketingManage;
+package com.HyKj.UKeBao.view.activity.marketingManage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,15 +10,11 @@ import android.widget.ListView;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityMarketingRedmanagerBinding;
-import com.HyKj.UKeBao.model.marketingManage.CardManagerModel;
 import com.HyKj.UKeBao.model.marketingManage.RedPacketManagerModel;
-import com.HyKj.UKeBao.model.marketingManage.bean.CardListInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketListInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
-import com.HyKj.UKeBao.view.adapter.MarketingManage.CardListAdapter;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.RedPacketManageAdapter;
-import com.HyKj.UKeBao.viewModel.marketingManage.CardManagerViewModel;
 import com.HyKj.UKeBao.viewModel.marketingManage.RedPacketManagerViewModel;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 

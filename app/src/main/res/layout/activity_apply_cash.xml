@@ -1,0 +1,185 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/status_color"
+        android:padding="@dimen/x5">
+
+        <ImageButton
+            android:id="@+id/imb_applyCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:background="@color/transparent"
+            android:padding="@dimen/x10"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/tv_applyCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_applyCash_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x10"
+            android:background="@color/transparent"
+            android:text="提现记录"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <!-- 商户名称 -->
+
+    <LinearLayout
+        android:id="@+id/ll_business_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y16"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/x8">
+
+        <TextView
+            android:id="@+id/tv_business_name_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="2"
+            android:text="@string/business_name_title"
+            android:textColor="#9C9C9C"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_business_name_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textColor="#9C9C9C"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 账户余额 -->
+
+    <LinearLayout
+        android:id="@+id/ll_account_balance"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/x8">
+
+        <TextView
+            android:id="@+id/tv_account_balance_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="2"
+            android:text="@string/account_balance_title"
+            android:textColor="#9C9C9C"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/et_account_balance_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textColor="#E1C27B"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <!-- 可提余额 -->
+
+    <LinearLayout
+        android:id="@+id/ll_available_account_balance"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/x8">
+
+        <TextView
+            android:id="@+id/tv_available_account_balance_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="2"
+            android:text="@string/available_account_balance_title"
+            android:textColor="#9C9C9C"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/et_available_account_balance_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textColor="#E1C27B"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <!-- 提现金额下限 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:background="@color/white"
+        android:padding="@dimen/x10">
+
+        <EditText
+            android:id="@+id/et_apply_cash_limits"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:hint="@string/apply_cash_limits_hint"
+            android:inputType="number"
+            android:padding="@dimen/x10"
+            android:singleLine="true"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <!-- 申请提现 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/withdrawals_hint"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginLeft="@dimen/x23"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/withdrawals_context"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y5"
+        android:layout_marginLeft="@dimen/x18"/>
+
+    <Button
+        android:id="@+id/btn_confirm_apply_cash"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@drawable/bg_send_security_code"
+        android:text="@string/confirm_apply_cash"
+        android:textColor="@color/white" />
+
+</LinearLayout>

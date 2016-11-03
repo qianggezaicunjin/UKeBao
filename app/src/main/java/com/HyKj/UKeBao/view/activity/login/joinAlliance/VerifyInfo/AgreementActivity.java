@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.HyKj.UKeBao.R;
+import com.HyKj.UKeBao.util.HttpHeadUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 
 /**
@@ -32,7 +33,7 @@ public class AgreementActivity extends BaseActiviy{
 
         mWebView= (WebView) findViewById(R.id.webView_WebViewActivity);
 
-        url="http://www.51ujf.cn/business/provision.html?v=1000";
+        url= HttpHeadUtil.HTTP_HEAD+"business/provision.html?v=1000";
     }
 
     @Override

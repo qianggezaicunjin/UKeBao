@@ -89,4 +89,18 @@ public enum Action {
     /**UserInfoManage*/
     //获取商家信息
     UserInfoManage_GetBusinessInfo,
+    //获取客服电话
+    UserInfoManage_GetCustomerPhone,
+    //修改密码
+    UserInfoManage_ModifyPassword,
+    //获取兑换信息
+    UserInfoManage_GetExchangInfo,
+    //确认收款
+    UserInfoManage_ConfirmReceipt,
+    //获取兑换记录
+    UserInfoManage_GetExchangRecord,
+    //申请提现
+    UserInfoManage_Withdrawals,
+    //获取提现记录
+    UserInfoManage_getWithdrawalsRecord,
 }

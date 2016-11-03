@@ -5,7 +5,7 @@ import com.HyKj.UKeBao.model.marketingManage.bean.CardListInfo;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.ModelAction;
-import com.HyKj.UKeBao.view.activity.MarketingManage.CardManagerActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.CardManagerActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
 
 import java.util.List;

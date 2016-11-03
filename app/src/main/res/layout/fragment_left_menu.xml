@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.HyKj.UKeBao.viewModel.UserInfoManage.LeftMenuFragmentViewModel"/>
+            type="com.HyKj.UKeBao.viewModel.userInfoManage.LeftMenuFragmentViewModel"/>
     </data>
 <ScrollView
     android:id="@+id/scrollView_leftMenu"
@@ -320,6 +320,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:text="@{viewModel.businessInfo.businessDiscount}"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -388,7 +389,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:text="@{viewModel.customer_phone}"/>
         </LinearLayout>
 
         <!-- 退出 -->

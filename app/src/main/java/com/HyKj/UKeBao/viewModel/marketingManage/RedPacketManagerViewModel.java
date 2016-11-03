@@ -5,7 +5,7 @@ import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketListInfo;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.ModelAction;
-import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketManagerActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.RedPacketManagerActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
 
 import java.util.List;

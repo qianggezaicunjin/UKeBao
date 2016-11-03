@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.util.LogUtil;
-import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketAttractCustomeActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.RedPacketAttractCustomeActivity;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;

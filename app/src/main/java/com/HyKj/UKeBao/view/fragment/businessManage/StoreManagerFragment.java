@@ -1,5 +1,6 @@
 package com.HyKj.UKeBao.view.fragment.businessManage;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -23,12 +24,16 @@ import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.model.businessManage.StoreManagerFragmentModel;
 import com.HyKj.UKeBao.model.businessManage.bean.NotifyInfo;
+import com.HyKj.UKeBao.two_dimensioncode.CaptureActivity;
+import com.HyKj.UKeBao.util.HttpHeadUtil;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.view.activity.businessManage.BaseWebViewActivity;
+import com.HyKj.UKeBao.view.activity.businessManage.QRcode.QRcodeActivity;
 import com.HyKj.UKeBao.view.activity.businessManage.businessSettings.BusinessSettingsActivity;
 import com.HyKj.UKeBao.view.activity.businessManage.financialManagement.FinancialManagementActivity;
 import com.HyKj.UKeBao.view.activity.businessManage.payrecord.PayRecordActivity;
 import com.HyKj.UKeBao.view.activity.businessManage.giveIntegral.GiveIntegralActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.ExchangActivity;
 import com.HyKj.UKeBao.view.adapter.HomeGridViewAdapter;
 import com.HyKj.UKeBao.view.customView.MyGridView;
 import com.HyKj.UKeBao.view.fragment.BaseFragment;
@@ -90,6 +95,14 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
      * 公告日期
      */
     private TextView notifyDialogDate;
+    /**
+     * 扫一扫
+     * */
+    private ImageButton scan_code;
+    /**
+     * 兑换验证
+     * */
+    private ImageButton imb_exchang;
 
     private TextView tv_notify_integral_context;
 
@@ -99,6 +112,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
         super();
     }
 
+    @SuppressLint("ValidFragment")
     public StoreManagerFragment(MainFragmentListener listener) {
         imagListener = listener;
     }
@@ -113,8 +127,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void findViews() {
-        sharedPreferences = this.getActivity().getSharedPreferences(
-                "user_login", this.getActivity().MODE_PRIVATE);
+        sharedPreferences = this.getActivity().getSharedPreferences("user_login", this.getActivity().MODE_PRIVATE);
 
         editor = sharedPreferences.edit();
 
@@ -126,11 +139,13 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
         tv_next_notify = (TextView) contentView.findViewById(R.id.tv_next_notify);
 
-        presentIntegral = (ImageButton) contentView
-                .findViewById(R.id.imb_present_integral);
+        presentIntegral = (ImageButton) contentView.findViewById(R.id.imb_present_integral);
+
+        scan_code= (ImageButton) contentView.findViewById(R.id.imb_scan_code);
+
+        imb_exchang= (ImageButton) contentView.findViewById(R.id.imb_exchange_testing);
 
         viewModel = new StoreManagerFragmentViewModel(new StoreManagerFragmentModel(), this);
-
 
     }
 
@@ -161,6 +176,9 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
         presentIntegral.setOnClickListener(this);
 
+        scan_code.setOnClickListener(this);
+
+        imb_exchang.setOnClickListener(this);
     }
 
     @Override
@@ -203,7 +221,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent.putExtra("title", "会员管理");
 
-                intent.putExtra("url", "http://test.51ujf.cn/" + "business/member.html?v=1000&token=" + MyApplication.token);
+                intent.putExtra("url", HttpHeadUtil.HTTP_HEAD + "business/member.html?v=1000&token=" + MyApplication.token);
 
                 startActivity(intent);
 
@@ -223,7 +241,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent_comment.putExtra("title", "评价管理");
 
-                intent_comment.putExtra("url", "http://test.51ujf.cn/"
+                intent_comment.putExtra("url", HttpHeadUtil.HTTP_HEAD
                         + "business/comment.html?v=1000&token="
                         + MyApplication.token);
 
@@ -238,7 +256,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent_notice.putExtra("title", "公告设置");
 
-                intent_notice.putExtra("url", "http://test.51ujf.cn/"
+                intent_notice.putExtra("url", HttpHeadUtil.HTTP_HEAD
                         + "business/notice.html?v=1000&token="
                         + MyApplication.token);
 
@@ -249,6 +267,8 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
             case 6:
                 LogUtil.d("OnClick QR code!");
 
+                startActivity(QRcodeActivity.getStartIntent(mContext));
+
                 break;
             //店铺浏览
             case 7:
@@ -258,7 +278,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent_browse.putExtra("title", "店铺浏览");
 
-                intent_browse.putExtra("url", "http://test.51ujf.cn/"
+                intent_browse.putExtra("url", HttpHeadUtil.HTTP_HEAD
                         + "mobile/details.html?id="
                         + businessStoreId
                         + "&v=1000&token="
@@ -281,17 +301,31 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
             // 赠送积分
             case R.id.imb_present_integral:
                 startActivity(GiveIntegralActivity.getStartIntent(getActivity()));
+
                 break;
             case R.id.imb_user_icon:
                 imagListener.toastOutLeftFragment();
+
                 break;
             // 公告通知栏
             case R.id.tv_current_notify:
                 showNotifyIntegralDialog(tv_current_notify);
+
                 break;
             // 公告通知栏
             case R.id.tv_next_notify:
                 showNotifyIntegralDialog(tv_next_notify);
+
+                break;
+            //扫一扫
+            case R.id.imb_scan_code:
+                startActivity(CaptureActivity.getStartIntent(getActivity()));
+
+                break;
+            //兑换验证
+            case R.id.imb_exchange_testing:
+                startActivity(ExchangActivity.getStartIntent(getActivity()));
+
                 break;
         }
     }

@@ -1,9 +1,8 @@
-package com.HyKj.UKeBao.view.activity.MarketingManage;
+package com.HyKj.UKeBao.view.activity.marketingManage;
 
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.view.View;
 import android.widget.ListView;
 
 import com.HyKj.UKeBao.R;
@@ -16,7 +15,6 @@ import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.RedPacketDetailActivityAdapter;
 import com.HyKj.UKeBao.viewModel.marketingManage.RedPacketDetailViewModel;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;

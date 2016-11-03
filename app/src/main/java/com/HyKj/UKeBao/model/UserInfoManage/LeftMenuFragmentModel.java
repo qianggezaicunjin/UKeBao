@@ -1,4 +1,4 @@
-package com.HyKj.UKeBao.model.UserInfoManage;
+package com.HyKj.UKeBao.model.userInfoManage;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.model.BaseModel;
@@ -51,6 +51,12 @@ public class LeftMenuFragmentModel extends BaseModel{
 
                         businessInfo.setBusinessName(obj.getString("businessName"));
 
+                        businessInfo.setBusinessDiscount(obj.getDouble("businessDiscount"));
+
+                        businessInfo.setFreezeCash(obj.getDouble("freezeCash"));
+
+                        businessInfo.setTel(obj.getString("tel"));
+
                         JSONArray arr=obj.getJSONArray("businessStoreImages");
 
                         businessInfo.setBusinessStoreImages(JSON.parseArray(arr.toString(),String.class));
@@ -62,6 +68,39 @@ public class LeftMenuFragmentModel extends BaseModel{
                         action.t=businessInfo;
 
                         action.action= Action.UserInfoManage_GetBusinessInfo;
+
+                        mRequestView.onRequestSuccess(action);
+                    }
+                });
+    }
+
+    //获取客服电话
+    public void getCustomerPhone() {
+        Observable<JSONObject> observable=mDataManager.getCustomerPhone();
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JSONObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.d("获取客户电话异常，信息为:"+e.toString());
+
+                        mRequestView.onRequestErroInfo("网络连接异常，请稍候再试");
+                    }
+
+                    @Override
+                    public void onNext(JSONObject jsonObject) {
+                        LogUtil.d("获取客电话成功，信息为:"+jsonObject.toString());
+
+                        ModelAction action=new ModelAction();
+
+                        action.action=Action.UserInfoManage_GetCustomerPhone;
+
+                        action.t=jsonObject.getString("rows");
 
                         mRequestView.onRequestSuccess(action);
                     }

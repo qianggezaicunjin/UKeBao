@@ -53,6 +53,8 @@ public class SplashViewModel extends BaseViewModel {
 
         editor.putString("businessStoreImage", loginInfo.rows.businessStoreImage);//商家店招
 
+        editor.putString("businessName",loginInfo.rows.businessName);
+
         editor.putString("id", loginInfo.rows.id);//用户id
 
         editor.putString("ip", loginInfo.rows.ip);//ip地址

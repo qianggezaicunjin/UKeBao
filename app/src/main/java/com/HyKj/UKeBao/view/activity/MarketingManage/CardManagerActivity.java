@@ -1,4 +1,4 @@
-package com.HyKj.UKeBao.view.activity.MarketingManage;
+package com.HyKj.UKeBao.view.activity.marketingManage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.CardListAdapter;
 import com.HyKj.UKeBao.viewModel.marketingManage.CardManagerViewModel;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;

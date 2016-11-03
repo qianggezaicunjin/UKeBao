@@ -76,6 +76,7 @@ dependencies {
     compile project(':library')
     compile files('libs/alipaySdk-20160223.jar')
     compile files('libs/libammsdk.jar')
+    compile files('libs/zxing.jar')
 }
 
 

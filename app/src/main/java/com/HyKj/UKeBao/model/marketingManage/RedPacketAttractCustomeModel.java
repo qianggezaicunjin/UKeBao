@@ -2,7 +2,6 @@ package com.HyKj.UKeBao.model.marketingManage;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.model.BaseModel;
-import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.model.login.baen.StoreSignage;
 import com.HyKj.UKeBao.model.marketingManage.bean.CashOrIntegralPayInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.PayInfo;
@@ -10,12 +9,8 @@ import com.HyKj.UKeBao.model.marketingManage.bean.WXPayInfo;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
-import com.HyKj.UKeBao.view.activity.MarketingManage.RedPacketAttractCustomeActivity;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.tencent.mm.sdk.modelpay.PayReq;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.io.File;
 

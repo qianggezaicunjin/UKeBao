@@ -369,4 +369,62 @@ public interface NetWorkService {
      * */
     @POST("shopper/showmanship!storeRedbagList.do")
     Observable<JSONObject> getAllRedPacketInfo(@Query("rows")int rows, @Query("page")int page, @Query("businessStoreId") int id, @Query("token")String token);
+
+    /**
+     * 获取客服电话
+     * */
+    @POST("company!getCustomerService.do")
+    Observable<JSONObject> getCustomerPhone();
+
+    /**
+     * 修改密码
+     * passwdOld 	是 	string 	旧密码
+     * passwdNew 	是 	string 	新密码
+     * passwdAgain 	是 	string 	确认密码
+     * */
+    @POST("businessStoreAdmin!updatePwd.do")
+    Observable<JSONObject> commitNewPassword(@Query("passwdOld")String passwdOld,
+                                             @Query("passwdNew")String passwdNew,
+                                             @Query("passwdAgain")String passwdAgain,
+                                             @Query("token")String token);
+
+    /**
+     * 兑换信息
+     * checkNo 	是 	int 	验证码
+     * */
+    @POST("offlineOrders!checkNO.do")
+    Observable<JSONObject> getCodeInfo(@Query("checkNo")int checkNo,@Query("token")String token);
+
+    /**
+     * 积分支付-确认收款
+     *  checkNo 	是 	string 	验证码
+     * */
+    @POST("offlineOrders!checkOrderNo.do")
+    Observable<JSONObject> confirmReceipt(@Query("checkNo")int checkNo,@Query("token")String token);
+
+    /**
+     *  查询兑换记录
+     *  businessStoreId 	是 	int 	商家id
+     *  page 	是 	int 	返回记录页数
+     *  rows 	是 	int 	返回记录行数
+     * */
+    @POST("orderProducts!orderListByBusienssStoreId.do")
+    Observable<JSONObject> getExchangRecord(@Query("businessStoreId")int businessStoreId,@Query("page")int page,@Query("rows")int rows,@Query("token")String token);
+
+    /**
+     * 申请提现
+     * businessStoreId 	是 	int 	商家id
+     * quota 	是 	float 	提现金额
+     * */
+    @POST("extractionCash!add.do")
+    Observable<JSONObject> withdrawals(@Query("businessStoreId")int businessStoreId,@Query("quota")float quota,@Query("token")String token);
+
+    /**
+     * 获取提现记录
+     *  businessStoreId 	是 	int 	商家id
+     *  page 	是 	int 	返回记录页数
+     *  rows 	是 	int 	返回记录行数
+     * */
+    @POST("extractionCash!listByPage.do")
+    Observable<JSONObject> getwithdrawalsRecord(@Query("businessStoreId")int businessStoreId,@Query("page")int page,@Query("rows")int rows,@Query("token")String token);
 }

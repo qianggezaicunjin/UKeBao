@@ -126,8 +126,9 @@ public class BusinessInfo implements Serializable {
 	public void setBusinessStoreImages(List<String> businessStoreImages) {
 		this.businessStoreImages = businessStoreImages;
 	}
+	//冻结金额+可提金额
 	public String getCash() {
-		return cash+"元";
+		return (cash+freezeCash)+"元";
 	}
 	public String getBusinessRegistrationNo() {
 		return businessRegistrationNo;

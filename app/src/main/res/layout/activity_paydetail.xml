@@ -231,6 +231,34 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
+            <!--实付金额-->
+            <LinearLayout
+                android:id="@+id/ll_real_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/y1"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="@dimen/x10"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="实付金额"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_pay_cashQuota"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="@{view.orderRecord.cashQuota}"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="14sp" />
+            </LinearLayout>
             <!--不享优惠-->
             <LinearLayout
                 android:id="@+id/ll_pay_nodiscount"
@@ -248,7 +276,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="不享优惠"
+                    android:text="免服务费金额"
                     android:textColor="@color/text_color_black"
                     android:textSize="16sp" />
 
@@ -260,6 +288,33 @@
                     android:textColor="@color/text_color_black"
                     android:textSize="14sp" />
 
+            </LinearLayout>
+            <!-- 服务费 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/y1"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="@dimen/x10">
+            <TextView
+                android:id="@+id/tv_service_charge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="服务费"
+                android:textColor="@color/text_color_black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_pay_service_money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@{view.orderRecord.serviceCostPrice}"
+                android:textColor="@color/text_color_black"
+                android:textSize="14sp" />
             </LinearLayout>
             <!-- 积分折扣 -->
 
@@ -326,7 +381,16 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/tv_service_money_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y15"
+                android:text="@string/payRecord_detail_service_money"
+                android:textSize="12sp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginTop="@dimen/y10"
+                android:textColor="#999999"/>
             <!-- 创建时间 -->
 
             <LinearLayout

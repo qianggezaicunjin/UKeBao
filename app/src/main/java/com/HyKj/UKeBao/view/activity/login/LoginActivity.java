@@ -1,12 +1,9 @@
 package com.HyKj.UKeBao.view.activity.login;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,6 +13,7 @@ import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.model.login.SplashModel;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
+import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.BaseFragmentActivity;
 import com.HyKj.UKeBao.view.activity.MainActivity;
@@ -29,6 +27,7 @@ import com.HyKj.UKeBao.databinding.ActivityLoginBinding;
 import com.squareup.picasso.Picasso;
 
 /**
+ * 登陆界面
  * Created by Administrator on 2016/8/22.
  */
 public class LoginActivity extends BaseFragmentActivity {
@@ -49,7 +48,7 @@ public class LoginActivity extends BaseFragmentActivity {
 
     private SharedPreferences sharedPreferences;
 
-    private Boolean isFirst=true;//是否第一次登陆
+    private Boolean not_first;//是否不是第一次登陆
 
 
     @Override
@@ -58,54 +57,25 @@ public class LoginActivity extends BaseFragmentActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        viewModel = new SplashViewModel(new SplashModel(),LoginActivity.this);
+        viewModel = new SplashViewModel(new SplashModel(), LoginActivity.this);
 
+        sharedPreferences = getSharedPreferences("user_login", MODE_PRIVATE);
+
+        not_first = sharedPreferences.getBoolean("not_first",false);
     }
 
     public void setUpView() {
-
         isFirst();//判断是否显示用户名和头像
-
-        land();//设置登陆按钮监听
-
-        regist();//设置申请联盟监听
-
-        forgetPassword();//设置找回密码监听
     }
 
     @Override
     public void setListeners() {
 
-    }
-
-    //设置找回密码监听
-    private void forgetPassword() {
-        mBinding.btnCannotLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(ForgetPasswordActivity.getStartIntent(LoginActivity.this));
-            }
-        });
-    }
-
-    //申请联盟
-    private void regist() {
-        mBinding.btnApplyAlliance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //开启申请联盟
-                startActivity(RegistActivity.getStartIntent(LoginActivity.this));
-
-            }
-        });
-    }
-
-    //登陆按钮被按下
-    private void land() {
+        //登陆按钮被按下
         mBinding.btnUserLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BufferCircleDialog.show(LoginActivity.this,"登陆中。。",false,null);
+                BufferCircleDialog.show(LoginActivity.this, "登陆中。。", false, null);
 
                 account = mBinding.etUserNameInput.getText().toString();
 
@@ -123,16 +93,32 @@ public class LoginActivity extends BaseFragmentActivity {
                 viewModel.userLogin(account, passWord, identityId, deviceType, MyApplication.channelId);
             }
         });
+
+        mBinding.btnApplyAlliance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //开启申请联盟
+                startActivity(RegistActivity.getStartIntent(LoginActivity.this));
+
+            }
+        });
+
+        //设置找回密码监听
+        mBinding.btnCannotLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ForgetPasswordActivity.getStartIntent(LoginActivity.this));
+            }
+        });
+
     }
 
     //根据审核状态
-    public void getData(String msg,int isExamine){
+    public void getData(String msg, int isExamine) {
 
-        SharedPreferences sp=getSharedPreferences("user_login", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        SharedPreferences.Editor editor=sp.edit();
-
-        viewModel.savaUserInfo(editor,passWord);//保存用户信息
+        viewModel.savaUserInfo(editor, passWord);//保存用户信息
 
         //商家状态（0：待审核，1：审核通过，2：未填写资料，3：审核不通过）
         switch (isExamine) {
@@ -142,7 +128,7 @@ public class LoginActivity extends BaseFragmentActivity {
 
                 startActivity(ExamineActivity.getStartIntent(LoginActivity.this));
 
-                Log.d("跳转到待审核页面","待审核页面跳转");
+                Log.d("跳转到待审核页面", "待审核页面跳转");
 
                 LoginActivity.this.finish();
 
@@ -151,11 +137,13 @@ public class LoginActivity extends BaseFragmentActivity {
                 //跳转至主界面
                 BufferCircleDialog.dialogcancel();
 
-                isFirst=false;//标记为已登录状态
+                editor.putBoolean("not_first", true);//标记为已登录状态
+
+                editor.commit();
 
                 startActivity(MainActivity.getStartIntent(LoginActivity.this));
 
-                Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                 LoginActivity.this.finish();
 
@@ -166,21 +154,21 @@ public class LoginActivity extends BaseFragmentActivity {
 
                 startActivity(JoinAllianceActivity.getStartIntent(LoginActivity.this));
 
-                Log.d("入驻联盟","跳转到入驻联盟页面");
+                Log.d("入驻联盟", "跳转到入驻联盟页面");
 
                 break;
             case 3:
                 //跳转到审核失败页面
                 BufferCircleDialog.dialogcancel();
 
-                Intent intent= ExamineActivity.getStartIntent(LoginActivity.this);
+                Intent intent = ExamineActivity.getStartIntent(LoginActivity.this);
 
                 //当审核失败时，将服务器返回数据传到申请联盟页面
-                intent.putExtra("feedBack",viewModel.loginInfo.rows.feedBack);
+                intent.putExtra("feedBack", viewModel.loginInfo.rows.feedBack);
 
                 startActivity(intent);
 
-                Log.d("审核失败","跳转到审核失败页面"+viewModel.loginInfo.rows.toString());
+                Log.d("审核失败", "跳转到审核失败页面" + viewModel.loginInfo.rows.toString());
 
                 LoginActivity.this.finish();
 
@@ -190,27 +178,27 @@ public class LoginActivity extends BaseFragmentActivity {
 
     //是否第一次登陆
     public void isFirst() {
+        LogUtil.d("First的值为:"+ not_first);
+        if (not_first) {
+            sharedPreferences = getSharedPreferences("user_login", MODE_PRIVATE);
 
-        if (!isFirst){
-                sharedPreferences=getSharedPreferences("user_login",MODE_PRIVATE);
+            String imageUrl = sharedPreferences.getString("businessStoreImage", null);//头像图片地址
 
-                String imageUrl=sharedPreferences.getString("businessStoreImage",null);//头像图片地址
+            String account = sharedPreferences.getString("lg_account", null);//用户名
 
-                String account=sharedPreferences.getString("lg_account",null);//用户名
+            //将用户名显示在EditText上
+            mBinding.etUserNameInput.setText(account);
 
-                //将用户名显示在EditText上
-                mBinding.etUserNameInput.setText(account);
-
-                //加载图片
-                Picasso.with(this)
-                        .load(imageUrl)
-                        .error(R.drawable.app_img)//当发生错误时占位图
-                        .into(mBinding.civLoginUserIcon);
+            //加载图片
+            Picasso.with(this)
+                    .load(imageUrl)
+                    .error(R.drawable.app_img)//当发生错误时占位图
+                    .into(mBinding.civLoginUserIcon);
         }
     }
 
     //显示错误信息
-    public void getErroInfo(String msg){
-        Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+    public void getErroInfo(String msg) {
+        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

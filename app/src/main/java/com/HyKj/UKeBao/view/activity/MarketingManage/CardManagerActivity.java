@@ -3,6 +3,7 @@ package com.HyKj.UKeBao.view.activity.marketingManage;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,6 +13,7 @@ import com.HyKj.UKeBao.databinding.ActivityMarketingCardmanagerBinding;
 import com.HyKj.UKeBao.model.marketingManage.CardManagerModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.CardListInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
+import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.CardListAdapter;
 import com.HyKj.UKeBao.viewModel.marketingManage.CardManagerViewModel;
@@ -103,7 +105,9 @@ public class CardManagerActivity extends BaseActiviy{
 
     //给适配器设置数据源
     public void setData(List<CardListInfo> cardListInfos) {
-        if(cardListInfos.get(0).getTotal()==cardListInfo.size()&&cardListInfo.size()!=0) {
+        LogUtil.d("设置记录数据成功,卡劵记录数为"+cardListInfos.size());
+
+        if(cardListInfos.size()==0||(cardListInfos.size()!=0&&cardListInfos.get(0).getTotal()==cardListInfo.size())) {
             mBinding.lvCardManager.onRefreshComplete();
 
             toast("没有更多数据啦!~",this);

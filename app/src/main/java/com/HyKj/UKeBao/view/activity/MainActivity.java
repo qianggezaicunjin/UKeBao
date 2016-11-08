@@ -61,7 +61,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
     private RadioButton radioButtonStoreManager;
 
-    private RadioButton radioButtonLang;
+    private Button radioButtonLang;
 
     private RadioButton radioButtonMarketManager;
 
@@ -135,7 +135,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
     @Override
     public void onCreateBinding() {
-        SDKInitializer.initialize(getApplicationContext());
+//        SDKInitializer.initialize(getApplicationContext());
 
         setContentView(R.layout.activity_main);
 
@@ -149,9 +149,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
         radioButtonStoreManager = (RadioButton) findViewById(R.id.radioButton_store_manager);
 
-        radioButtonLang = (RadioButton) findViewById(R.id.radioButton_lang);
-
-        radioButtonLang.setOnClickListener(this);
+        radioButtonLang = (Button) findViewById(R.id.radioButton_lang);
 
         radioButtonMarketManager = (RadioButton) findViewById(R.id.radioButton_market_manager);
 
@@ -198,6 +196,8 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
     @Override
     public void setListeners() {
         radioGroupGuide.setOnCheckedChangeListener(this);
+
+        radioButtonLang.setOnClickListener(this);
 
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -253,16 +253,16 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
             radioGroupGuide.check(R.id.radioButton_store_manager);
         }
-        // 揽
-        else if (checkedId == radioButtonLang.getId()) {
-            LogUtil.d("点击了揽fragment");
-
-            switchFragment(1);
-
-            SystemBarUtil.changeColor(R.color.status_color);
-
-            radioGroupGuide.check(R.id.radioButton_lang);
-        }
+//        // 揽
+//        else if (checkedId == radioButtonLang.getId()) {
+//            LogUtil.d("点击了揽fragment");
+//
+//            switchFragment(1);
+//
+//            SystemBarUtil.changeColor(R.color.status_color);
+//
+//            radioGroupGuide.check(R.id.radioButton_lang);
+//        }
         // 营销管理
         else if (checkedId == radioButtonMarketManager.getId()) {
 
@@ -322,7 +322,15 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             case R.id.btn_cancel_exit:
                 exitDialog.dismiss();
                 break;
+            //揽
+            case R.id.radioButton_lang:
+                LogUtil.d("点击了揽fragment");
 
+                switchFragment(1);
+
+                SystemBarUtil.changeColor(R.color.status_color);
+
+                break;
             default:
                 break;
         }

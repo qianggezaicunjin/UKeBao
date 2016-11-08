@@ -53,7 +53,7 @@ public interface NetWorkService {
      * 手机号
      */
     @POST("businessStoreAdmin!phoneIsExist.do")
-    Observable<VerificationInfo> isExistence(@Query("phone") long phone);
+    Observable<JSONObject> isExistence(@Query("phone") long phone);
 
     /**
      * 获取验证码
@@ -69,7 +69,7 @@ public interface NetWorkService {
      * 手机号
      */
     @POST("businessStoreAdmin!getBackPwd.do")
-    Observable<JsonObject> forgetPassword(@Query("passwdNew") String passwdNew, @Query("smsSecurityCode") String smsSecurityCode, @Query("phone") String phone);
+    Observable<JSONObject> forgetPassword(@Query("passwdNew") String passwdNew, @Query("smsSecurityCode") String smsSecurityCode, @Query("phone") String phone);
 
     /**
      * 行业类型信息
@@ -427,4 +427,11 @@ public interface NetWorkService {
      * */
     @POST("extractionCash!listByPage.do")
     Observable<JSONObject> getwithdrawalsRecord(@Query("businessStoreId")int businessStoreId,@Query("page")int page,@Query("rows")int rows,@Query("token")String token);
+
+    /**
+     * 注销
+     * token String  令牌
+     */
+    @POST("login!appLoginOut.do")
+    Observable<JSONObject> cancellation(@Query("token")String token);
 }

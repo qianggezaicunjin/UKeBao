@@ -38,6 +38,8 @@ public class FinancialManagementModel extends BaseModel{
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
+                        LogUtil.d("请求财务数据成功，回调结果为:"+jsonObject.toString());
+
                         ModelAction action=new ModelAction();
 
                         FinancialManage finacialManage= JSON.parseObject(jsonObject.toString(),FinancialManage.class);

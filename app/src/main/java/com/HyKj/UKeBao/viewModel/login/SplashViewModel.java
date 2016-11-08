@@ -103,9 +103,7 @@ public class SplashViewModel extends BaseViewModel {
     public void onRequestErroInfo(String erroinfo) {
         BufferCircleDialog.dialogcancel();
 
-        mActivity.getErroInfo("请求失败，请检查网络");
-
-        Log.d("登陆界面连接失败错误信息.......", erroinfo);
+        mActivity.getErroInfo(erroinfo);
     }
 
 

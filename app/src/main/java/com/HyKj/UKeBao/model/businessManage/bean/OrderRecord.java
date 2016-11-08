@@ -106,20 +106,49 @@ public class OrderRecord implements Serializable {
      * 卡劵优惠 卡券满deduction金额可用（需满足的额度）
      */
     private double deduction;
-
+    /**
+     * 服务费
+     * */
+    private double serviceCostPrice;
 
     @Override
     public String toString() {
-        return "OrderRecord [cashQuota=" + cashQuota + ", canCancel="
-                + canCancel + ", isSee=" + isSee + ", paymentDate="
-                + paymentDate + ", checkNo=" + checkNo + ", menberName="
-                + menberName + ", status=" + status + ", orderType="
-                + orderType + ", statusName=" + statusName + ", no=" + no
-                + ", endDate=" + endDate + ", discount=" + discount + ", id="
-                + id + ", wxHeadimage=" + wxHeadimage + ", price=" + price
-                + ", payType=" + payType + ", realPrice=" + realPrice
-                + ", sendIntegral=" + sendIntegral + ", integral=" + integral
-                + ", createDate=" + createDate + "]";
+        return "OrderRecord{" +
+                "canCancel=" + canCancel +
+                ", cashQuota='" + cashQuota + '\'' +
+                ", isSee=" + isSee +
+                ", paymentDate='" + paymentDate + '\'' +
+                ", discount='" + discount + '\'' +
+                ", id='" + id + '\'' +
+                ", wxHeadimage='" + wxHeadimage + '\'' +
+                ", price='" + price + '\'' +
+                ", payType='" + payType + '\'' +
+                ", realPrice='" + realPrice + '\'' +
+                ", sendIntegral='" + sendIntegral + '\'' +
+                ", integral='" + integral + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", menberCardNoPhone='" + menberCardNoPhone + '\'' +
+                ", checkNo='" + checkNo + '\'' +
+                ", menberName='" + menberName + '\'' +
+                ", status='" + status + '\'' +
+                ", orderType='" + orderType + '\'' +
+                ", statusName='" + statusName + '\'' +
+                ", no='" + no + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", freeServiceQuota=" + freeServiceQuota +
+                ", menberCouponId=" + menberCouponId +
+                ", couponQuota=" + couponQuota +
+                ", deduction=" + deduction +
+                ", serviceCostPrice=" + serviceCostPrice +
+                '}';
+    }
+
+    public String getServiceCostPrice() {
+        return serviceCostPrice+"元";
+    }
+
+    public void setServiceCostPrice(double serviceCostPrice) {
+        this.serviceCostPrice = serviceCostPrice;
     }
 
     public double getFreeServiceQuota() {
@@ -155,7 +184,7 @@ public class OrderRecord implements Serializable {
     }
 
     public String getCashQuota() {
-        return cashQuota;
+        return cashQuota+"元"+"(卡劵抵扣-"+couponQuota+"元)";
     }
 
     public void setCashQuota(String cashQuota) {

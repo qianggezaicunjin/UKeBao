@@ -106,4 +106,36 @@ public class LeftMenuFragmentModel extends BaseModel{
                     }
                 });
     }
+    //注销
+    public void cancellation() {
+        Observable<JSONObject> observable=mDataManager.cancellation(MyApplication.token);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JSONObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.d("注销异常:"+e.toString());
+
+                        mRequestView.onRequestErroInfo("注销失败~请检查网络");
+                    }
+
+                    @Override
+                    public void onNext(JSONObject jsonObject) {
+                        LogUtil.d("注销请求回调成功:"+jsonObject.toString());
+
+                        ModelAction action=new ModelAction();
+
+                        action.action=Action.UserInfoManage_Cancellation;
+
+                        action.t=jsonObject.getString("msg");
+
+                        mRequestView.onRequestSuccess(action);
+                    }
+                });
+    }
 }

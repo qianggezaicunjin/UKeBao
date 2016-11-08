@@ -3,6 +3,7 @@ package com.HyKj.UKeBao.view.activity.userInfoManage;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -147,9 +148,13 @@ public class WithdrawalsActivity extends BaseActiviy implements View.OnClickList
 
                 String demand_amount=et_apply_cash_limits.getText().toString();//需要金额
 
-                BufferCircleDialog.show(this,"正在提交中，请稍候~",false,null);
+                if(!(TextUtils.isEmpty(demand_amount)||Integer.valueOf(demand_amount)<5)) {
+                    BufferCircleDialog.show(this, "正在提交中，请稍候~", false, null);
 
-                viewModel.withdrawals(businessStoreId,demand_amount);
+                    viewModel.withdrawals(businessStoreId, demand_amount);
+                }else {
+                    toast("请输入正确的提现金额~",this);
+                }
 
                 break;
         }

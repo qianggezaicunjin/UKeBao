@@ -24,7 +24,9 @@ public class RegistViewModel extends BaseViewModel {
 
     public RegistViewModel(RegistActivity activity, RegistModel model) {
         mActivity = activity;
+
         mModel = model;
+
         mModel.setView(this);
     }
 
@@ -32,23 +34,35 @@ public class RegistViewModel extends BaseViewModel {
     public void regist(String smsSecurityCode, long phone, String passWord) {
         mModel.regist(smsSecurityCode, phone, passWord);
     }
-    //请求成功后回调该方法
+
+    //验证手机号是否存在
+    public void isExistence(long phone) {
+        mModel.isExistence(phone);
+    }
+
     @Override
     public void onRequestSuccess(ModelAction data) {
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
         //回调成功后并且点击注册按钮
         if (data.action == Action.Login_Regist) {
             registInfo = (RegistInfo) data.t;
 
-            mActivity.registSuccess(registInfo.msg);
+            mActivity.registSuccess(registInfo);
+        } else if (data.action == Action.Login_Regist_isExistence) {
+            mActivity.getSecurityCode();
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        mActivity.toast("注册界面网络请求失败");
+        mActivity.toast(erroinfo);
 
-        BufferCircleDialog.dialogcancel();
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
 
-        Log.d("注册页面异常异常异常",erroinfo);
+        Log.d("注册页面异常异常异常", erroinfo);
     }
 }

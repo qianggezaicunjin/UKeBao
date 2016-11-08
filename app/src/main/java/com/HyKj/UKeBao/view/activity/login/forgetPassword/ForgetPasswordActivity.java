@@ -12,11 +12,13 @@ import android.widget.Toast;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.model.login.forgetPassword.ForgetPasswordModel;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LoginUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.viewModel.login.forgetPassword.ForgetPasswordViewModel;
 
 /**
+ * 找回密码
  * Created by Administrator on 2016/8/25.
  */
 public class ForgetPasswordActivity extends BaseActiviy {
@@ -100,17 +102,41 @@ public class ForgetPasswordActivity extends BaseActiviy {
     public void setUpView() {
         et_user.setText(viewModel.displayUserName(sp));//显示用户名
 
-        titleBarName.setText("找回密码");//设置标题
+        setTitleTheme("找回密码");
     }
 
 
     @Override
     public void setListeners() {
         //设置发送验证码按钮监听
-        sendCode();
+        sendSecurityCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BufferCircleDialog.show(ForgetPasswordActivity.this,"正在加载,请稍候~",false,null);
+
+                viewModel.isExistence(Long.parseLong(et_user.getText().toString().trim()));
+
+            }
+        });
 
         //设置完成按钮监听
-        forgetPassword();
+        completeFindPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BufferCircleDialog.show(ForgetPasswordActivity.this,"正在加载,请稍候~",false,null);
+
+                //拿到EdiText数据
+                String code=securityCodeInput.getText().toString().trim();
+
+                String password=newPassword.getText().toString().trim();
+
+                String  phone=et_user.getText().toString().trim();
+
+                String confirm=confirmNewPassword.getText().toString().trim();
+
+                viewModel.forgetPassword(code,password,phone,confirm);
+            }
+        });
 
         //设置返回按钮监听
         backImageButton.setOnClickListener(new View.OnClickListener() {
@@ -121,32 +147,15 @@ public class ForgetPasswordActivity extends BaseActiviy {
         });
     }
 
-    //设置完成按钮监听
-    private void forgetPassword() {
-        completeFindPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //拿到EdiText数据
-                String code=securityCodeInput.getText().toString().trim();
-                String password=newPassword.getText().toString().trim();
-                String  phone=et_user.getText().toString().trim();
-                String confirm=confirmNewPassword.getText().toString().trim();
-                viewModel.forgetPassword(code,password,phone,confirm);
-            }
-        });
-    }
-    //发送验证码按钮监听
-    private void sendCode() {
-        sendSecurityCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    LoginUtil loginUtil=new LoginUtil(ForgetPasswordActivity.this);
-                    loginUtil.getSecurityCode(sendSecurityCode,et_user);
-            }
-        });
-    }
     @Override
     public void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    //获取验证码
+    public void getSecurityCode() {
+        LoginUtil loginUtil=new LoginUtil(ForgetPasswordActivity.this);
+
+        loginUtil.getSecurityCode(sendSecurityCode,et_user);
     }
 }

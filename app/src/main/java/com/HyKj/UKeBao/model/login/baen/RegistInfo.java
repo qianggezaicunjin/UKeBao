@@ -9,6 +9,7 @@ public class RegistInfo {
 
     public String msg;//返回消息
 
+
     public Boolean getSuccess() {
         return success;
     }
@@ -23,5 +24,13 @@ public class RegistInfo {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @Override
+    public String toString() {
+        return "RegistInfo{" +
+                "msg='" + msg + '\'' +
+                ", success=" + success +
+                '}';
     }
 }

@@ -13,6 +13,16 @@ public class WithdrawalsRecord {
 
     public String statusType;//审核状态(0:待审核，1:已通过，2：不通过..）
 
+    public int total;//记录总数
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
     public double getCounterFee() {
         return counterFee;
     }
@@ -52,6 +62,7 @@ public class WithdrawalsRecord {
                 ", time='" + time + '\'' +
                 ", quota=" + quota +
                 ", statusType='" + statusType + '\'' +
+                ", total=" + total +
                 '}';
     }
 }

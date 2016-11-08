@@ -1,6 +1,5 @@
 package com.HyKj.UKeBao.view.fragment.userInfoManage;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +8,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.FragmentLeftMenuBinding;
 import com.HyKj.UKeBao.model.userInfoManage.LeftMenuFragmentModel;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
+import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.view.activity.businessManage.giveIntegral.IntegralRecordActivity;
+import com.HyKj.UKeBao.view.activity.login.LoginActivity;
 import com.HyKj.UKeBao.view.activity.login.forgetPassword.ForgetPasswordActivity;
 import com.HyKj.UKeBao.view.activity.userInfoManage.ModifyPasswordActivity;
 import com.HyKj.UKeBao.view.activity.userInfoManage.WithdrawalsActivity;
@@ -32,6 +35,7 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
     private LeftMenuFragmentViewModel viewModel;
 
     private Context mContext;
+
     @Override
     public View inflateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewModel=new LeftMenuFragmentViewModel(new LeftMenuFragmentModel(),this);
@@ -71,6 +75,8 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
         mBinding.llPasswordSetting.setOnClickListener(this);
 
         mBinding.llApplyCash.setOnClickListener(this);
+
+        mBinding.btnExitUser.setOnClickListener(this);
     }
 
     @Override
@@ -116,7 +122,30 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
                 startActivity(intent_withdrawls);
 
                 break;
+            //退出
+            case R.id.btn_exit_user:
+                BufferCircleDialog.show(getActivity(),"正在注销，请稍候~",false,null);
+
+                //注销
+                viewModel.cancellation();
+
+                break;
         }
     }
+    //注销回调
+    public void cancellation(String msg) {
+        toast(msg,mContext);
 
+        getActivity().finish();
+
+        MyApplication.token=null;
+
+        startActivity(LoginActivity.getStartIntent(mContext));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.getBusinessInfo();//获取店铺信息
+    }
 }

@@ -17,6 +17,7 @@ import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityPaydetailBinding;
 import com.HyKj.UKeBao.model.businessManage.bean.OrderRecord;
 import com.HyKj.UKeBao.model.businessManage.payrecord.PayDetailsModel;
+import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.viewModel.businessManage.payrecord.PayRecordDetailViewModel;
 
@@ -177,7 +178,7 @@ public class PayDetailsActivity extends BaseActiviy {
 
     private void getNodiscount() {
         if (orderRecord.getFreeServiceQuota() != 0) {
-            mBinding.tvPayNodiscount.setText(orderRecord.getFreeServiceQuota() + "元");
+            mBinding.tvPayNodiscount.setText(orderRecord.getFreeServiceQuota() + "元(不参与优惠)");
         } else {
             mBinding.llPayNodiscount.setVisibility(View.GONE);
         }
@@ -199,6 +200,8 @@ public class PayDetailsActivity extends BaseActiviy {
     public void getDiscount() {
         int menberCou = orderRecord.getMenberCouponId();
 
+        LogUtil.d("卡劵优惠id"+menberCou);
+
         if (menberCou != 0) {
             //有卡券优惠
             double couponQuo = orderRecord.getCouponQuota();
@@ -209,6 +212,9 @@ public class PayDetailsActivity extends BaseActiviy {
 
             mBinding.tvIntegralDiscountAmount.setText("-" + couponQuo + "元" + "（满" + decuction + "元减" + couponQuo + "元）");
 
+            mBinding.tvServiceMoneyDetail.setText("服务费:(实付金额-免服务费金额)*1%");
+
+            mBinding.llRealMoney.setVisibility(View.VISIBLE);
         } else {
             //会员折扣
             mBinding.tvIntegralDiscountTitle.setText("会员折扣");

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityRegistBinding;
+import com.HyKj.UKeBao.model.login.baen.RegistInfo;
 import com.HyKj.UKeBao.model.login.regist.RegistModel;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LoginUtil;
@@ -18,6 +19,7 @@ import com.HyKj.UKeBao.view.activity.login.joinAlliance.JoinAllianceActivity;
 import com.HyKj.UKeBao.viewModel.login.regist.RegistViewModel;
 
 /**
+ *  注册页面
  * Created by Administrator on 2016/8/23.
  */
 public class RegistActivity extends BaseActiviy {
@@ -31,6 +33,7 @@ public class RegistActivity extends BaseActiviy {
     private ImageButton bt_back;
 
     private TextView tv_title;
+
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, RegistActivity.class);
         return intent;
@@ -39,14 +42,17 @@ public class RegistActivity extends BaseActiviy {
     @Override
     public void onCreateBinding() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_regist);
+
         viewModel = new RegistViewModel(RegistActivity.this, new RegistModel());
-        bt_back= (ImageButton) findViewById(R.id.imb_title_bar_back);
-        tv_title= (TextView) findViewById(R.id.tv_title_bar_name);
+
+        bt_back = (ImageButton) findViewById(R.id.imb_title_bar_back);
+
+        tv_title = (TextView) findViewById(R.id.tv_title_bar_name);
     }
 
     @Override
     public void setUpView() {
-        tv_title.setText("注册页面");
+        setTitleTheme("注册页面");
     }
 
     @Override
@@ -64,9 +70,9 @@ public class RegistActivity extends BaseActiviy {
         mBinding.btnSendRegisterSecurityCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //获取手机号
-                LoginUtil loginUtil = new LoginUtil(RegistActivity.this);
-                loginUtil.getSecurityCode(mBinding.btnSendRegisterSecurityCode, mBinding.etPhoneNumberInput);
+                BufferCircleDialog.show(RegistActivity.this, "数据提交中,请稍候..", false, null);
+
+                viewModel.isExistence(Long.parseLong(mBinding.etPhoneNumberInput.getText().toString().trim()));
             }
         });
 
@@ -80,6 +86,7 @@ public class RegistActivity extends BaseActiviy {
                 String passWord = mBinding.etLoginPasswordInput.getText().toString();
                 //获取确认密码
                 String passwordConfirm = mBinding.etConfirmLoginPasswordInput.getText().toString();
+                phone=Long.parseLong(mBinding.etPhoneNumberInput.getText().toString().trim());
                 if (smsSecurityCode.equals("")) {
                     toast("请输入验证码!");
                     return;
@@ -108,25 +115,35 @@ public class RegistActivity extends BaseActiviy {
                     toast("两次密码输入不一致,请重新输入！");
                     return;
                 }
-                BufferCircleDialog.show(RegistActivity.this,"数据提交中,请稍候..",false,null);
+                BufferCircleDialog.show(RegistActivity.this, "玩命注册中..请稍候~", false, null);
 
-                viewModel.regist(smsSecurityCode, phone, passWord);
+                viewModel.regist(smsSecurityCode,phone, passWord);
             }
         });
     }
 
     //注册请求成功
-    public void registSuccess(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-
+    public void registSuccess(RegistInfo registInfo) {
         BufferCircleDialog.dialogcancel();
 
-        startActivity(JoinAllianceActivity.getStartIntent(RegistActivity.this));
+        Toast.makeText(this, registInfo.getMsg(), Toast.LENGTH_SHORT).show();
 
-        RegistActivity.this.finish();
+        if (registInfo.getSuccess()) {
+            startActivity(JoinAllianceActivity.getStartIntent(RegistActivity.this));
+
+            RegistActivity.this.finish();
+        }
+
     }
 
     public void toast(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+    }
+
+    //获取验证码
+    public void getSecurityCode() {
+        LoginUtil loginUtil = new LoginUtil(RegistActivity.this);
+
+        loginUtil.getSecurityCode(mBinding.btnSendRegisterSecurityCode, mBinding.etPhoneNumberInput);
     }
 }

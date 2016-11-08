@@ -30,7 +30,9 @@ public class SplashModel extends BaseModel{
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("登陆信息获取网络失败","登陆失败"+e);
+                        Log.d("登陆信息获取网络失败","登陆失败"+e.toString());
+
+                        mRequestView.onRequestErroInfo("网络连接失败~请检查网络");
                     }
 
                     @Override

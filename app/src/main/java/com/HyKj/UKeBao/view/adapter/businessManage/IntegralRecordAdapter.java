@@ -41,10 +41,10 @@ public class IntegralRecordAdapter extends MyBaseAdapter<IntegralRecordInfo> {
 		if(recodeInfo.type){
 //			true:收入，false:支出
 			holder.account.setText("+"+recodeInfo.quota);
-			holder.account.setTextColor(mContext.getResources().getColor(R.color.text_color_red));
+			holder.account.setTextColor(mContext.getResources().getColor(R.color.blue));
 		}else{
 			holder.account.setText("-"+recodeInfo.quota);
-			holder.account.setTextColor(mContext.getResources().getColor(R.color.blue));
+			holder.account.setTextColor(mContext.getResources().getColor(R.color.text_color_red));
 		}
 		holder.date.setText(recodeInfo.time);
 		return convertView;

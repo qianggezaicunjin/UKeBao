@@ -51,9 +51,11 @@ public class CardManagerModel extends BaseModel {
 
                             int total=jsonObject.getIntValue("total");
 
-                            info.get(0).setTotal(total);
+                            if(info.size()!=0) {
+                                info.get(0).setTotal(total);
 
-                            info.set(0,info.get(0));
+                                info.set(0, info.get(0));
+                            }
 
                             action.t=info;
 

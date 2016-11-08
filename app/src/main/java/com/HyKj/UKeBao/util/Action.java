@@ -33,6 +33,8 @@ public enum Action {
     Login_Examine_loginout,
     //获取客服电话
     Login_Examine_getCostomerService,
+    //验证手机号是否存在
+    Login_ForgetPassword_isExistence,
 
     /**Mainmodule*/
     //获取当前版本号
@@ -103,4 +105,6 @@ public enum Action {
     UserInfoManage_Withdrawals,
     //获取提现记录
     UserInfoManage_getWithdrawalsRecord,
+    //注销
+    UserInfoManage_Cancellation,
 }

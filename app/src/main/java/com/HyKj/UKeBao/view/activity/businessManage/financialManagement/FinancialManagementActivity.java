@@ -187,6 +187,19 @@ public class FinancialManagementActivity extends BaseActiviy implements
 
         orderCountRule.setText("订单笔数:订单笔数为成交笔数和退款笔数之和");
 
+        Calendar calendar=Calendar.getInstance();
+
+        //获取当前年份
+        int year=calendar.get(Calendar.YEAR);
+
+        int month=calendar.get(Calendar.MONTH)+1;
+
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+
+        tv_start_time.setText(year+"-"+month+"-"+"01");
+
+        tv_end_time.setText(year+"-"+month+"-"+day);
+
         LogUtil.d("startDate:" + startDate + "stopDate" + stopDate);
 
         BufferCircleDialog.show(this, "努力加载中..", true, null);

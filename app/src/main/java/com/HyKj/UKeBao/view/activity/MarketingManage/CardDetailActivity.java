@@ -52,7 +52,7 @@ public class CardDetailActivity extends BaseActiviy {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_card_detail);
 
-        mBinding.lvCardDetail.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mBinding.lvCardDetail.setMode(PullToRefreshBase.Mode.BOTH);
 
         listView=mBinding.lvCardDetail.getRefreshableView();
 

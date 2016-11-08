@@ -21,17 +21,27 @@
 
             <!-- 标题栏 -->
 
-
+            <Button
+                android:id="@+id/radioButton_lang"
+                android:layout_width="@dimen/x60"
+                android:layout_height="@dimen/y60"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/y5"
+                android:background="@drawable/lana1"
+                android:button="@null"
+                android:drawablePadding="15dp" />
             <!-- 主页导航栏 -->
 
             <RadioGroup
-                android:id="@+id/radioGroup_guide"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y65"
+                android:paddingBottom="@dimen/y5"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/dibu_01"
+                android:id="@+id/radioGroup_guide"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/y60"
+                android:background="@drawable/mainactivity_bottom_background"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal" >
 
                 <!-- 店铺管理 -->
 
@@ -43,7 +53,7 @@
                     android:layout_marginBottom="@dimen/y2"
                     android:layout_marginLeft="@dimen/x25"
                     android:button="@null"
-                    android:drawablePadding="@dimen/x3"
+                    android:drawablePadding="3dp"
                     android:drawableTop="@drawable/selector_radiobutton__store"
                     android:gravity="center_horizontal"
                     android:text="@string/store_manager"
@@ -54,17 +64,6 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/y1"
                     android:layout_weight="1" />
-                <!-- 揽 -->
-
-                <RadioButton
-                    android:id="@+id/radioButton_lang"
-                    android:layout_width="@dimen/x65"
-                    android:layout_height="@dimen/y65"
-                    android:layout_marginBottom="@dimen/y2"
-                    android:background="@drawable/lana1"
-                    android:button="@null"
-                    android:clickable="true"
-                    android:drawablePadding="@dimen/x15"/>
 
                 <!-- 营销管理 -->
 
@@ -81,7 +80,7 @@
                     android:layout_marginBottom="@dimen/y2"
                     android:layout_marginRight="@dimen/x25"
                     android:button="@null"
-                    android:drawablePadding="@dimen/x3"
+                    android:drawablePadding="3dp"
                     android:drawableTop="@drawable/selector_radiobutton__market"
                     android:gravity="center_horizontal"
                     android:text="@string/market_manager"

@@ -34,9 +34,9 @@ public class ForgetPasswordViewModel extends BaseViewModel {
         return sp.getString("lg_account", "");
     }
 
-    //判断是否存在该手机号
-    public void sendCode(long phone) {
-        mModel.sendCode(phone);
+    //发送验证码
+    public void isExistence(long phone) {
+        mModel.isExistence(phone);
     }
 
 
@@ -58,20 +58,27 @@ public class ForgetPasswordViewModel extends BaseViewModel {
 
     @Override
     public void onRequestSuccess(ModelAction data) {
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
         if (data.action == Action.Login_ForgetPassword_getVerificationCode) {
             baseInfo = (BaseInfo) data.t;
             mActivity.toast(baseInfo.msg);
         }else if(data.action==Action.Login_ForgetPassword){
             String msg= (String) data.t;
             mActivity.toast(msg);
-            BufferCircleDialog.dialogcancel();
             mActivity.finish();
+        }else if(data.action==Action.Login_ForgetPassword_isExistence){
+            mActivity.getSecurityCode();
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
-        mActivity.toast("网络请求失败");
+
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
+        mActivity.toast(erroinfo);
     }
 }

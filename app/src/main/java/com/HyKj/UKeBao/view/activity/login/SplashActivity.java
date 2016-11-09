@@ -80,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
             } else {
                 startActivity(LoginActivity.getStartIntent(SplashActivity.this));
+
                 SplashActivity.this.finish();
             }
         }

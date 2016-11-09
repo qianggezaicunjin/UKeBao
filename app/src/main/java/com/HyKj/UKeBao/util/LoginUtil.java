@@ -85,7 +85,56 @@ public class LoginUtil {
 					}
 				});
 	}
+	/**
+	 * @param sendSecurityCode
+	 *            改变的背景
+	 * @param phoneNumberInput
+	 *            电话号码输入
+	 */
+	public void getSecurityCode(final Button sendSecurityCode,
+								String phone) {
+		if (TextUtils.isEmpty(phone)) {
+			toast(mContext, "请输入电话号码!");
+			return;
+		}
+		if (!(phone.length() == 11)) {
+			toast(mContext, "手机号长度不正确");
+			return;
+		}
+		// 修改按钮背景为灰色且不可用
+		sendSecurityCode.setBackgroundResource(R.drawable.bg_send_security_code_clicked);
+		sendSecurityCode.setEnabled(false);
+		sendSecurityCode.setTextColor(mContext.getResources().getColor(R.color.text_color_black));
+		mc = new MyCount(60000, 1000, sendSecurityCode);
+		mc.start();
+		NetWorkService mNetWorkService=RetrofitHelp.createService(NetWorkService.class, MyApplication.token);
+		Observable<BaseInfo> observable=mNetWorkService.getVerificationCode(Long.parseLong(phone));
+		observable.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Observer<BaseInfo>() {
+					@Override
+					public void onCompleted() {
 
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						toast(mContext, "发送失败！请检查网络");
+						mc.cancel();
+						sendSecurityCode.setBackgroundResource(R.drawable.bg_send_security_code);
+						sendSecurityCode.setEnabled(true);
+						sendSecurityCode.setText("重新获取");
+						sendSecurityCode.setTextColor(mContext.getResources().getColor(R.color.white));
+					}
+
+					@Override
+					public void onNext(BaseInfo baseInfo) {
+						if (baseInfo.success) {
+							toast(mContext, "验证码已发送!");
+						}
+					}
+				});
+	}
 	/* 定义一个倒计时的内部类 */
 	class MyCount extends CountDownTimer {
 		public Button button;

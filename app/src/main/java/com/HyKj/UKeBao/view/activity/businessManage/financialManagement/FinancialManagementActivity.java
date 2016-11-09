@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
+ * 财务管理
  * Created by Administrator on 2016/9/27.
  */
 public class FinancialManagementActivity extends BaseActiviy implements
@@ -183,9 +184,9 @@ public class FinancialManagementActivity extends BaseActiviy implements
 
         actualIncomeRule.setText("折后实收:折扣实结+免服务费金额");
 
-        orderTotalRule.setText("订单总额:订单总额为成交金额和退款金额之和");
+        orderTotalRule.setText("订单金额:所有支付成功的订单总额（包含已退款订单）");
 
-        orderCountRule.setText("订单笔数:订单笔数为成交笔数和退款笔数之和");
+        orderCountRule.setText("订单笔数:支付成功订单统计（包含已退款订单）");
 
         Calendar calendar=Calendar.getInstance();
 

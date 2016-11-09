@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.userInfoManage.MyBankCardViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/include_title_bar_layout" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl_bank_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/cardback_2x">
+
+                <TextView
+                    android:id="@+id/tv_bankName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="@{viewModel.businessInfo.bankName}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:hint="银行姓名"
+                    tools:textColorHint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_bankName"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="@{viewModel.businessInfo.bankUserName}"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:hint="用户姓名"
+                    tools:textColorHint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_bankNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_userName"
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_marginTop="@dimen/y15"
+                    android:text="@{viewModel.businessInfo.bankNo}"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:hint="卡号"
+                    tools:textColorHint="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_binding_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_bankicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/y30"
+                    android:src="@drawable/card_icon2x" />
+
+                <TextView
+                    android:id="@+id/tv_bank_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_bankicon"
+                    android:layout_marginTop="@dimen/y30"
+                    android:gravity="center"
+                    android:text="没有绑定银行卡"
+                    android:textColor="#999999"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/bt_binding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_bank_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="@dimen/y30"
+                    android:background="@drawable/bg_send_security_code"
+                    android:text="@string/bankActivity_button_text"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</layout>

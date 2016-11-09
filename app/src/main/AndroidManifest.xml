@@ -214,6 +214,8 @@
         <activity android:name=".view.activity.marketingManage.ExchangeDetailActivity"/>
         <activity android:name=".view.activity.userInfoManage.WithdrawalsActivity"/>
         <activity android:name=".view.activity.userInfoManage.WithdrawalsRecordActivity"/>
+        <activity android:name=".view.activity.userInfoManage.MyBankCardActivity"/>
+        <activity android:name=".view.activity.userInfoManage.AddBankActivity"/>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityCardDetailBinding;
 import com.HyKj.UKeBao.model.marketingManage.LanFragmentModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.MemberCardInfo;
+import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.adapter.MarketingManage.CardDetailAdapter;
@@ -38,7 +39,13 @@ public class CardDetailActivity extends BaseActiviy {
 
     private CardDetailAdapter adapter;
 
+    private int rows = 10;//条目显示数
+
+    private int position = 0;
+
     private List<MemberCardInfo> datalist = new ArrayList<MemberCardInfo>();
+
+    private List<MemberCardInfo> temporary_list = new ArrayList<>();
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, CardDetailActivity.class);
@@ -54,9 +61,9 @@ public class CardDetailActivity extends BaseActiviy {
 
         mBinding.lvCardDetail.setMode(PullToRefreshBase.Mode.BOTH);
 
-        listView=mBinding.lvCardDetail.getRefreshableView();
+        listView = mBinding.lvCardDetail.getRefreshableView();
 
-        id = getIntent().getIntExtra("id",0);
+        id = getIntent().getIntExtra("id", 0);
 
         viewModel = new LanFragmentViewModel(new LanFragmentModel(), this);
 
@@ -89,24 +96,63 @@ public class CardDetailActivity extends BaseActiviy {
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 if (refreshView.isHeaderShown()) {
                     //重新加载数据
-                    datalist.clear();
+                    temporary_list.clear();
 
                     viewModel.getSingCardDetail(id, false);
+
+                    position=0;
+                } else if (refreshView.isFooterShown()) {
+                    if (datalist.size() <= position) {
+
+                        mBinding.lvCardDetail.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBinding.lvCardDetail.onRefreshComplete();
+                            }
+                        },1000);
+
+                        toast("没有更多数据啦~", CardDetailActivity.this);
+                    } else {
+                        temporary_list.addAll(viewModel.getDisplayNum(position, rows));
+
+                        position += rows;
+
+                        mBinding.lvCardDetail.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBinding.lvCardDetail.onRefreshComplete();
+
+                                adapter.notifyDataSetChanged();
+                            }
+                        },1000);
+
+                    }
                 }
             }
         });
     }
 
+
     public void setDataList(List<MemberCardInfo> list) {
         datalist = list;
 
-        adapter = new CardDetailAdapter(this, datalist);
+        temporary_list.addAll(viewModel.getDisplayNum(0, rows));
+
+        adapter = new CardDetailAdapter(this, temporary_list);
+
+        position += rows;
 
         listView.setAdapter(adapter);
 
-        mBinding.lvCardDetail.onRefreshComplete();
+        mBinding.lvCardDetail.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mBinding.lvCardDetail.onRefreshComplete();
+            }
+        },1000);
 
         adapter.notifyDataSetChanged();
 
     }
+
 }

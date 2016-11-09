@@ -107,4 +107,8 @@ public enum Action {
     UserInfoManage_getWithdrawalsRecord,
     //注销
     UserInfoManage_Cancellation,
+    //银行卡信息
+    UserInfoManage_BankInfo,
+    //添加银行卡
+    UserInfoManage_AddBankCard,
 }

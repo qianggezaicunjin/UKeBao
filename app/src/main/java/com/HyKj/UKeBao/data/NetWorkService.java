@@ -434,4 +434,14 @@ public interface NetWorkService {
      */
     @POST("login!appLoginOut.do")
     Observable<JSONObject> cancellation(@Query("token")String token);
+
+    /**
+     *  添加银行卡
+     *  FBankNo 	是 	string 	银行卡号
+     *  smsCode 	是 	string 	手机验证码
+     *  FBankName 	是 	string 	银行名称
+     *  FName 	是 	string 	开户人名称
+     * */
+    @POST("bankMessage!addBusinessStore.do")
+    Observable<JSONObject> addBankCard(@Query("FBankNo")String fBankNo,@Query("smsCode")String smsCode,@Query("FBankName")String fBankName,@Query("FName")String fName,@Query("token")String token);
 }

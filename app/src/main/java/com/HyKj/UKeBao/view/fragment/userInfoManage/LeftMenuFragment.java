@@ -2,6 +2,7 @@ package com.HyKj.UKeBao.view.fragment.userInfoManage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.HyKj.UKeBao.view.activity.businessManage.giveIntegral.IntegralRecordA
 import com.HyKj.UKeBao.view.activity.login.LoginActivity;
 import com.HyKj.UKeBao.view.activity.login.forgetPassword.ForgetPasswordActivity;
 import com.HyKj.UKeBao.view.activity.userInfoManage.ModifyPasswordActivity;
+import com.HyKj.UKeBao.view.activity.userInfoManage.MyBankCardActivity;
 import com.HyKj.UKeBao.view.activity.userInfoManage.WithdrawalsActivity;
 import com.HyKj.UKeBao.view.fragment.BaseFragment;
 import com.HyKj.UKeBao.viewModel.userInfoManage.LeftMenuFragmentViewModel;
@@ -77,6 +79,8 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
         mBinding.llApplyCash.setOnClickListener(this);
 
         mBinding.btnExitUser.setOnClickListener(this);
+
+        mBinding.llApplyCashAccount.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +126,12 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
                 startActivity(intent_withdrawls);
 
                 break;
+            //提现账户
+            case R.id.ll_apply_cash_account:
+
+                startActivity(MyBankCardActivity.getStartIntent(mContext));
+
+                break;
             //退出
             case R.id.btn_exit_user:
                 BufferCircleDialog.show(getActivity(),"正在注销，请稍候~",false,null);
@@ -140,12 +150,21 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
 
         MyApplication.token=null;
 
+        SharedPreferences sp=mContext.getSharedPreferences("user_login", getActivity().MODE_PRIVATE);
+
+        SharedPreferences.Editor editor=sp.edit();
+
+        editor.putString("token",null);//注意,clear后也要commit才能生效
+
+        editor.commit();
+
         startActivity(LoginActivity.getStartIntent(mContext));
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         viewModel.getBusinessInfo();//获取店铺信息
     }
 }

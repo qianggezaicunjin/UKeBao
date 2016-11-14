@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/x20"
-                    android:layout_marginTop="@dimen/y15"
+                    android:layout_marginTop="@dimen/y10"
                     android:text="@{viewModel.businessInfo.bankName}"
                     android:textColor="@color/white"
                     android:textSize="14sp"

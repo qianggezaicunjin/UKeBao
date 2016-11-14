@@ -7,11 +7,12 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.HyKj.UKeBao.R;
-import com.HyKj.UKeBao.model.businessManage.FinancialManagementModel;
+import com.HyKj.UKeBao.model.businessManage.financial.FinancialManagementModel;
 import com.HyKj.UKeBao.model.businessManage.bean.FinancialInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
@@ -97,7 +98,7 @@ public class FinancialManagementActivity extends BaseActiviy implements
      */
     private TextView refundMoneyNumber;
 
-    private LinearLayout ll_contentFinance;
+    private RelativeLayout rl_real_income;
 
     private TextView tv_integral_finance_number;
 
@@ -144,6 +145,8 @@ public class FinancialManagementActivity extends BaseActiviy implements
         ll_integral_financeManager = (LinearLayout) findViewById(R.id.ll_integral_financeManager);
 
         ll_cash_financeManager = (LinearLayout) findViewById(R.id.ll_cash_financeManager);
+
+        rl_real_income= (RelativeLayout) findViewById(R.id.rl_real_income_detail);
 
         tv_integral_finance_number = (TextView) findViewById(R.id.tv_integral_finance_number);
 
@@ -217,6 +220,8 @@ public class FinancialManagementActivity extends BaseActiviy implements
         tv_start_time.setOnClickListener(this);
 
         tv_end_time.setOnClickListener(this);
+
+        rl_real_income.setOnClickListener(this);
     }
 
     @Override
@@ -237,6 +242,17 @@ public class FinancialManagementActivity extends BaseActiviy implements
             // 结束时间
             case R.id.tv_end_time:
                 openDatePicker(endTimePick);
+                break;
+            //实收详情
+            case R.id.rl_real_income_detail:
+                Intent intent=RealIncomeDetailActivity.getStartIntent(this);
+
+                intent.putExtra("startTime",tv_start_time.getText().toString().trim());
+
+                intent.putExtra("endTime",tv_end_time.getText().toString().trim());
+
+                startActivity(intent);
+
                 break;
         }
     }

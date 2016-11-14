@@ -1,6 +1,7 @@
 package com.HyKj.UKeBao.data;
 
 
+import com.HyKj.UKeBao.model.businessManage.businessSettings.bean.GoodsInfo;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -25,7 +26,14 @@ import rx.Observable;
  */
 public interface NetWorkService {
 
-    //注册模块
+    /******************登陆模块****************************/
+
+    /**
+     * 获取动态闪屏页信息
+     * positionId int 请求id（35）
+     * */
+    @POST("ad!listByAdPosition.do")
+    Observable<JSONObject> getBackgrounp(@Query("positionId")int positionId);
 
     /**
      * 登陆验证
@@ -183,7 +191,7 @@ public interface NetWorkService {
     @POST("menber!getNameByPhone.do")
     Observable<JSONObject> getUserName(@Query("phone") String phone);
 
-    //店铺设置
+    /******************店铺设置****************************/
 
     /**
      * 赠送积分
@@ -212,6 +220,14 @@ public interface NetWorkService {
      */
     @POST("offlineOrders!paySummary.do")
     Observable<JSONObject> getFinancialData(@Query("openDate") String openDate, @Query("stopDate") String stopDate, @Query("token") String token);
+
+    /**
+     *  获取财务实收详情
+     *  openDate 	是 	string 	开始时间 例：2016-09-01
+     *  stopDate 	是 	string 	结束时间 例：2016-09-30
+     * */
+    @POST("offlineOrders!paySummaryDetailed.do")
+    Observable<JSONObject> getRealMoneyDetail(@Query("openDate") String openDate, @Query("stopDate") String stopDate, @Query("token") String token);
 
     /**
      * 获取现金流信息
@@ -261,6 +277,7 @@ public interface NetWorkService {
      * area 	否 	string 	区
      * longitude 	否 	double 	地理坐标 （精度）
      * latitude 	否 	double 	地理坐标 （纬度）
+     * piList[0].src； piList[0].name 	否 	list 	商品相册图片路径； 商品相册图片名称
      */
     @POST("businessStore!updateForeign.do")
     Observable<JSONObject> commitBusinessSettings(@Query("tel") String tel,
@@ -272,10 +289,11 @@ public interface NetWorkService {
                                                   @Query("area") String area,
                                                   @Query("longitude") double longitude,
                                                   @Query("latitude") double latitude,
+                                                  @Query("piList[0].src； piList[0].name")List<GoodsInfo> goodsInfoList,
                                                   @Query("token") String token);
 
 
-    //营销模块
+    /******************营销模块****************************/
 
     /**
      * 获取会员数量
@@ -371,6 +389,38 @@ public interface NetWorkService {
     Observable<JSONObject> getAllRedPacketInfo(@Query("rows")int rows, @Query("page")int page, @Query("businessStoreId") int id, @Query("token")String token);
 
     /**
+     *  商家是否为vip
+     *  id 	否 	int 	商家id 不填默认为当前登录商家
+     * */
+    @POST("businessStore!isVip.do")
+    Observable<JSONObject> isVip(@Query("token") String token);
+
+    /**
+     * 申请成为vip
+     * */
+    @POST("applyVip!add.do")
+    Observable<JSONObject> applyVip(@Query("token")String token);
+
+    /**
+     * 充值vip
+     *  id 	是 	int 	支付订单id
+     *  token 	只app需要 	string 	token
+     *  paymentType 	否 	int 	支付平台（默认1）：1 微信，2 支付宝 3 现金账户
+     *  useWebPay 	否 	int 	默认：0，使用web方式支付，1使用app方式支付
+     * */
+    @POST("payApplyVipOrder!pay.do")
+    Observable<JSONObject> rechargeVip(@Query("id")int vipPayId, @Query("token")String token,@Query("paymentType")int payType,@Query("useWebPay")int useWebPay);
+
+    /**
+     * 获取升级vip信息
+     * */
+    @POST("payApplyVipOrder!getMsg.do")
+    Observable<JSONObject> getPayInfo(@Query("token") String token);
+
+
+
+    /******************用户信息模块****************************/
+    /**
      * 获取客服电话
      * */
     @POST("company!getCustomerService.do")
@@ -444,4 +494,35 @@ public interface NetWorkService {
      * */
     @POST("bankMessage!addBusinessStore.do")
     Observable<JSONObject> addBankCard(@Query("FBankNo")String fBankNo,@Query("smsCode")String smsCode,@Query("FBankName")String fBankName,@Query("FName")String fName,@Query("token")String token);
+
+    /**
+     *  充值积分（余额充值）
+     *  cash 	是 	int 	金额
+     *  integral 	是 	int 	积分
+     * */
+    @POST("businessStore!cashAccountRechargeIntegral.do")
+    Observable<JSONObject> confirmRecharge(@Query("cash")String cash,@Query("integral")String integral,@Query("token")String token);
+
+    /**
+     *  现金充值
+     *  integral 	是 	int 	充值积分
+     *  payType 	是 	int 	支付方式 1：微信 2:支付宝
+     *  useWebPay 	否 	int 	默认1：使用app ；0：使用web
+     * */
+    @POST("businessStore!appRechargeIntegral.do")
+    Observable<JSONObject> cashCharge(@Query("integral")String integral,@Query("payType")int payType,@Query("token")String token);
+
+
+
+    /**
+     * 商品列表
+     *  businessStoreId 	是 	int 	商家id
+     *  page 	是 	int 	页数
+     *  rows 	是 	int 	每页显示行数
+     *  status 	否 	int 	商品状态 （上架1，下架0，未审核3，全部99）
+     * */
+    @POST("product!listByBusinessStore.do")
+    Observable<JSONObject> getGoodsImage(@Query("businessStoreId")int id, @Query("page")int page, @Query("rows")int rows, @Query("token")String token);
+
+
 }

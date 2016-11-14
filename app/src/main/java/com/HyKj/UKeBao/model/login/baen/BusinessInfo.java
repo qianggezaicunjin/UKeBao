@@ -1,6 +1,8 @@
 package com.HyKj.UKeBao.model.login.baen;
 
 
+import com.HyKj.UKeBao.model.businessManage.businessSettings.bean.GoodsInfo;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -56,6 +58,15 @@ public class BusinessInfo implements Serializable {
 	public String parentName;// 大类型
 	public int discount;// 折扣
 	public double integral;// 赠送积分
+	public List<GoodsInfo> piList;//商品信息
+
+	public List<GoodsInfo> getPiList() {
+		return piList;
+	}
+
+	public void setPiList(List<GoodsInfo> piList) {
+		this.piList = piList;
+	}
 
 	public List<String> getPictures() {
 		return pictures;

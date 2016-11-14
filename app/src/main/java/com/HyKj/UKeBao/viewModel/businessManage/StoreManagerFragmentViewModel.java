@@ -1,6 +1,9 @@
 package com.HyKj.UKeBao.viewModel.businessManage;
 
 
+import android.databinding.Bindable;
+
+import com.HyKj.UKeBao.BR;
 import com.HyKj.UKeBao.model.businessManage.StoreManagerFragmentModel;
 import com.HyKj.UKeBao.model.businessManage.bean.NotifyInfo;
 import com.HyKj.UKeBao.util.Action;
@@ -28,6 +31,9 @@ public class StoreManagerFragmentViewModel extends BaseViewModel {
     public StoreManagerFragment mFragment;
 
     public List<NotifyInfo> mNotifyInfo;
+
+    @Bindable
+    public String erroInfo;
 
     public StoreManagerFragmentViewModel(StoreManagerFragmentModel model, StoreManagerFragment fragment) {
         mModel = model;
@@ -87,7 +93,11 @@ public class StoreManagerFragmentViewModel extends BaseViewModel {
                     }
                 });
     }
+    public void setString(String s) {
+        erroInfo=s;
 
+        notifyPropertyChanged(BR.erroInfo);
+    }
     @Override
     public void onRequestSuccess(ModelAction data) {
         if (data.action == Action.Main_getNoticeInfo) {
@@ -102,6 +112,7 @@ public class StoreManagerFragmentViewModel extends BaseViewModel {
     public void onRequestErroInfo(String erroinfo) {
         mFragment.toast(erroinfo, mFragment.mContext);
     }
+
 
 
 }

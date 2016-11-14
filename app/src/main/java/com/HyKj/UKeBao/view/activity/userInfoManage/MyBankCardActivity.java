@@ -73,8 +73,8 @@ public class MyBankCardActivity extends BaseActiviy{
         BufferCircleDialog.dialogcancel();
     }
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
 
         BufferCircleDialog.show(this,"正在加载数据...请稍候~",false,null);
 

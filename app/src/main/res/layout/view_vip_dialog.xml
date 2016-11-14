@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/x268"
+        android:layout_height="@dimen/y400"
+        android:background="@color/transparent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y164"
+            android:background="@drawable/banner" />
+
+        <TextView
+            android:layout_width="@dimen/x230"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x16"
+            android:layout_marginRight="@dimen/x16"
+            android:layout_marginTop="@dimen/y22"
+            android:text="@string/lan_vip_context"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_vip_function"
+            android:layout_width="@dimen/x120"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/y74"
+            android:layout_marginRight="@dimen/y74"
+            android:layout_marginTop="@dimen/y53"
+            android:drawableLeft="@drawable/tishi"
+            android:drawablePadding="8dp"
+            android:text="@string/lan_vip_function"
+            android:textColor="#ea48a1"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/bt_dialog_openVip"
+            android:layout_width="@dimen/x231"
+            android:layout_height="@dimen/y40"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y10"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="立即开通"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y58"
+            android:background="@color/transparent">
+
+            <Button
+                android:id="@+id/bt_dialog_close"
+                android:layout_width="@dimen/x48"
+                android:layout_height="@dimen/y48"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/y10"
+                android:background="@drawable/close" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

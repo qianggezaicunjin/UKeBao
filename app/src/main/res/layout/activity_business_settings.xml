@@ -348,16 +348,62 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/big_grey_arrow" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_store_goods_image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y1"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/x12">
+
+            <TextView
+                android:id="@+id/tv_store_goods_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品相册"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_store_goods_image_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_store_goods_image_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_toLeftOf="@+id/iv_store_goods_image"
+                android:text="设置"
+                android:textColor="@color/text_color_black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_store_goods_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/big_grey_arrow" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_store_setting_save"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x20"
-            android:layout_marginRight="@dimen/x20"
-            android:layout_marginTop="@dimen/y20"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginTop="@dimen/y5"
             android:background="@drawable/bg_send_security_code"
             android:text="@string/save"
             android:textColor="@color/white" />
+
+
     </LinearLayout>
 </layout>

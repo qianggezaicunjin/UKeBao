@@ -1,7 +1,7 @@
 package com.HyKj.UKeBao.viewModel.businessManage.financialManagement;
 
 
-import com.HyKj.UKeBao.model.businessManage.FinancialManagementModel;
+import com.HyKj.UKeBao.model.businessManage.financial.FinancialManagementModel;
 import com.HyKj.UKeBao.model.businessManage.bean.FinancialManage;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.BufferCircleDialog;

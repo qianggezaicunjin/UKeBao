@@ -39,7 +39,6 @@ import com.HyKj.UKeBao.model.marketingManage.bean.CashOrIntegralPayInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.PayInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.PayResult;
 import com.HyKj.UKeBao.model.marketingManage.bean.WXPayInfo;
-import com.HyKj.UKeBao.util.AliPayResult;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.GalleryFinalUtil;
 import com.HyKj.UKeBao.util.LogUtil;
@@ -641,15 +640,15 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SDK_PAY_FLAG: {
-                    AliPayResult payResult=new AliPayResult((String) msg.obj);
+                    com.HyKj.UKeBao.util.AliPayResult aliPayResult =new com.HyKj.UKeBao.util.AliPayResult((String) msg.obj);
                     /**
                      * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
                      * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
                      * docType=1) 建议商户依赖异步通知
                      */
-                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultInfo = aliPayResult.getResult();// 同步返回需要验证的信息
 
-                    String resultStatus = payResult.getResultStatus();
+                    String resultStatus = aliPayResult.getResultStatus();
 
                     LogUtil.d("resultStatus:"+resultStatus);
 

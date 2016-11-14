@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
-import com.HyKj.UKeBao.model.login.SplashModel;
+import com.HyKj.UKeBao.model.login.LoginModel;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.SystemBarUtil;
@@ -21,7 +21,7 @@ import com.HyKj.UKeBao.view.activity.login.examine.ExamineActivity;
 import com.HyKj.UKeBao.view.activity.login.forgetPassword.ForgetPasswordActivity;
 import com.HyKj.UKeBao.view.activity.login.joinAlliance.JoinAllianceActivity;
 import com.HyKj.UKeBao.view.activity.login.regist.RegistActivity;
-import com.HyKj.UKeBao.viewModel.login.SplashViewModel;
+import com.HyKj.UKeBao.viewModel.login.LoginViewModel;
 
 import com.HyKj.UKeBao.databinding.ActivityLoginBinding;
 import com.squareup.picasso.Picasso;
@@ -40,7 +40,7 @@ public class LoginActivity extends BaseFragmentActivity {
 
     private ActivityLoginBinding mBinding;
 
-    public SplashViewModel viewModel;
+    public LoginViewModel viewModel;
 
     private String account;//用户名
 
@@ -57,7 +57,7 @@ public class LoginActivity extends BaseFragmentActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        viewModel = new SplashViewModel(new SplashModel(), LoginActivity.this);
+        viewModel = new LoginViewModel(new LoginModel(), LoginActivity.this);
 
         sharedPreferences = getSharedPreferences("user_login", MODE_PRIVATE);
 

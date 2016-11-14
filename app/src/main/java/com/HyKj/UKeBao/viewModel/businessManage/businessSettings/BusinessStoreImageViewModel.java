@@ -26,24 +26,28 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
  */
 public class BusinessStoreImageViewModel extends BaseViewModel {
 
-    private BusinessStoreImageActivity mActivitiy;
+    private BusinessStoreImageActivity activitiy;
 
     private BusinessStoreImageModel mModel;
 
     @Bindable
-    private int pictureNum;//相片数量
+    public int pictureNum;//相片数量
 
-    private int position;//添加第一张本地照片的下标
+    public int position;//添加第一张本地照片的下标
 
     @Bindable
-    private List<String> pictureList;
+    public List<String> pictureList;
 
     public BusinessStoreImageViewModel(BusinessStoreImageActivity activity, BusinessStoreImageModel model) {
-        mActivitiy = activity;
+        activitiy = activity;
 
         mModel = model;
 
         mModel.setView(this);
+    }
+
+    public BusinessStoreImageViewModel() {
+
     }
 
     //判断是否显示添加图片背景
@@ -60,7 +64,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
                         FunctionConfig functionConfig,
                         GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback) {
         if (data.get(postion).equals("end")) {
-            GalleryFinalUtil.openMuti(mActivitiy, mActivitiy.getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);
+            GalleryFinalUtil.openMuti(activitiy, activitiy.getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);
         }
     }
 
@@ -100,16 +104,16 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
         pictureList = data;
 
         if (((pictureList.size() - 1) < 3)) {
-            mActivitiy.toast("至少上传三张照片哦~亲", mActivitiy);
+            activitiy.toast("至少上传三张照片哦~亲", activitiy);
         } else {
-            BufferCircleDialog.show(mActivitiy,"上传中，请稍候..",false,null);
+            BufferCircleDialog.show(activitiy,"上传中，请稍候..",false,null);
 
             getUpdataPosition();//上传图片到服务器
         }
     }
 
     //从集合中判断出本地图片并做标记
-    private void getUpdataPosition() {
+    public void getUpdataPosition() {
         for (int i = 0; i < pictureList.size(); i++) {
             String tag = pictureList.get(i).substring(0, 3);
 
@@ -126,7 +130,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
     }
 
     //执行上传方法，发送请求
-    private void updata(List<String> data, int position) {
+    public void updata(List<String> data, int position) {
         this.position = position;
         if (data.get(data.size() - 1).equals("end")) {
             for (int i = 0; i < data.size() - 1 - position; i++) {
@@ -153,12 +157,12 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             //把服务器返回的路径替换掉集合原来的本地路径
             pictureList.set(position++, url);
 
-            LogUtil.d("position" + position);
+            LogUtil.d("addGoods_position" + position);
 
             LogUtil.d(pictureList.toString());
 
             if (position == pictureList.size()) {
-                mActivitiy.updataSuccess(pictureList);
+                activitiy.updataSuccess(pictureList);
             }
 
         } else if (data.action == Action.BusinessManage_businessSettings_updataImageVacancy) {
@@ -174,7 +178,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             LogUtil.d(pictureList.toString());
 
             if (position == pictureList.size() - 1) {
-                mActivitiy.updataSuccess(pictureList);
+                activitiy.updataSuccess(pictureList);
             }
         }
     }
@@ -183,6 +187,6 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
     public void onRequestErroInfo(String erroinfo) {
         BufferCircleDialog.dialogcancel();
 
-        mActivitiy.toast(erroinfo, mActivitiy);
+        activitiy.toast(erroinfo, activitiy);
     }
 }

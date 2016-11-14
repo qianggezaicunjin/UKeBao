@@ -5,6 +5,7 @@ import android.support.v4.widget.DrawerLayout;
 import com.HyKj.UKeBao.model.MainModel;
 import com.HyKj.UKeBao.model.bean.ToUpDateInfo;
 import com.HyKj.UKeBao.util.Action;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.MainActivity;
@@ -56,6 +57,16 @@ public class MainViewModel extends BaseViewModel {
         return clickOpen;
     }
 
+    //判断是否是vip
+    public void isVip() {
+        mModel.isVip();
+    }
+
+    //申请vip
+    public void applyVip() {
+       mModel.applyVip();
+    }
+
     @Override
     public void onRequestSuccess(ModelAction data) {
         if (data.action == Action.Main_getVersion_num) {
@@ -76,13 +87,22 @@ public class MainViewModel extends BaseViewModel {
             } else {
                 mActivty.toast("未知错误!");
             }
+        }else if(data.action==Action.MarketingManage_isVip){
+            mActivty.isVip((int)data.t);
+        }else if (data.action==Action.MarketingManage_ApplyVip){
+            BufferCircleDialog.dialogcancel();
+
+            mActivty.setVipPayInfo((int)data.t);
+
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        LogUtil.d("MainViewModel" + erroinfo);
 
-        mActivty.toast("您的网络出故障啦~", mActivty);
+        mActivty.toast(erroinfo, mActivty);
     }
+
+
+
 }

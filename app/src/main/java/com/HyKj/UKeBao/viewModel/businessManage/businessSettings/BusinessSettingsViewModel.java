@@ -12,6 +12,8 @@ import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.businessManage.businessSettings.BusinessSettingsActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/10/8.
  */
@@ -50,7 +52,8 @@ public class BusinessSettingsViewModel extends BaseViewModel{
                 businessInfo.getCity(),
                 businessInfo.getArea(),
                 businessInfo.getLongitude(),
-                businessInfo.getLatitude());
+                businessInfo.getLatitude(),
+                businessInfo.getPiList());
     }
 
     @Override
@@ -83,7 +86,4 @@ public class BusinessSettingsViewModel extends BaseViewModel{
 
         mActivity.toast(erroinfo,mActivity);
     }
-
-
-
 }

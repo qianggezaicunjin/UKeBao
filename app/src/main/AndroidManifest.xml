@@ -216,6 +216,11 @@
         <activity android:name=".view.activity.userInfoManage.WithdrawalsRecordActivity"/>
         <activity android:name=".view.activity.userInfoManage.MyBankCardActivity"/>
         <activity android:name=".view.activity.userInfoManage.AddBankActivity"/>
+        <activity android:name=".view.activity.businessManage.financialManagement.RealIncomeDetailActivity"/>
+        <activity android:name=".view.activity.userInfoManage.IntegralRechargeActivity"/>
+        <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreGoodsActivity"/>
+        <activity android:name=".view.activity.marketingManage.VipFunctionActivity"/>
+        <activity android:name=".view.activity.marketingManage.PayVipActivity"/>
     </application>
 
 </manifest>

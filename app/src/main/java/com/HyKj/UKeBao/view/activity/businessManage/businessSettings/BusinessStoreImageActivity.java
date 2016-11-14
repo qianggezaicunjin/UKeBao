@@ -44,11 +44,11 @@ public class BusinessStoreImageActivity extends BaseActiviy {
 
     public RecycleViewBaen bean = new RecycleViewBaen();
 
-    private FunctionConfig functionConfig;
+    public FunctionConfig functionConfig;
 
-    private cn.finalteam.galleryfinal.ImageLoader imageloade;
+    public  cn.finalteam.galleryfinal.ImageLoader imageloade;
 
-    private List<String> data;//店铺照片集合
+    public List<String> data;//店铺照片集合
 
     private MyRecycleViewAdapter adapter;
 
@@ -88,7 +88,7 @@ public class BusinessStoreImageActivity extends BaseActiviy {
     }
 
     //初始化RecycleView
-    private void initRecycleView(Intent intent) {
+    public void initRecycleView(Intent intent) {
         data = viewModel.isAddImage((List<String>) intent.getSerializableExtra("pictures"));
 
         adapter = new MyRecycleViewAdapter(data, this);
@@ -145,7 +145,7 @@ public class BusinessStoreImageActivity extends BaseActiviy {
     }
 
     //选择相册图片后回调
-    private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
+    public GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
         @Override
         public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
             //添加相册或者相机图片到RecycleView中

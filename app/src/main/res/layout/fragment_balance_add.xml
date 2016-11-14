@@ -1,0 +1,174 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical" >
+
+    <!-- 充值金额输入 -->
+
+    <LinearLayout
+        android:id="@+id/ll_add_money"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_add_money_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="充值积分"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <EditText
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:maxLength="10"
+            android:id="@+id/et_add_money_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="@string/add_money_hint"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_integral_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/unit_integral"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 需支付 -->
+
+    <LinearLayout
+        android:id="@+id/ll_need_pay_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_need_pay_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/need_pay"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_need_pay_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text=""
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_need_pay_util"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/unit_money"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 现金账户 -->
+
+    <LinearLayout
+        android:id="@+id/ll_cash_account"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_weight="2"
+            android:id="@+id/tv_cash_account_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cash_account"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+        <View
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="2"
+            android:id="@+id/tv_cash_account_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 可用余额 -->
+
+    <LinearLayout
+        android:id="@+id/ll_available_balance"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y1"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_weight="2"
+            android:id="@+id/tv_available_balance_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/available_balance"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="2"
+            android:id="@+id/tv_available_balance_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm_add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_send_security_code"
+        android:text="@string/confirm_add"
+        android:textColor="@color/white" />
+
+</LinearLayout>

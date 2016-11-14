@@ -1,0 +1,192 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical" >
+
+    <!-- 充值金额输入 -->
+
+    <LinearLayout
+        android:id="@+id/ll_add_money"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_add_money_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="充值积分"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <EditText
+            android:inputType="numberDecimal"
+            android:id="@+id/et_add_money_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@null"
+            android:maxLength="10"
+            android:hint="@string/add_money_hint"
+            android:singleLine="true"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_integral_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/unit_integral"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 需支付 -->
+
+    <LinearLayout
+        android:id="@+id/ll_need_pay_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_need_pay_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/need_pay"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:singleLine="true"
+            android:id="@+id/tv_need_pay_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_need_pay_util"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/unit_money"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 选择支付方式 -->
+
+    <RelativeLayout
+        android:id="@+id/rl_select_pay_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/tv_select_pay_type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/select_pay_type"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+    <!-- 微信支付 -->
+
+    <LinearLayout
+        android:id="@+id/ll_wechat_pay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <RadioButton
+            android:id="@+id/radioBtn_wechatPay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:scaleType="centerInside"
+            android:id="@+id/iv_wechat_pay_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:src="@drawable/wechat" />
+
+        <TextView
+            android:id="@+id/tv_wechat_pay_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="3"
+            android:text="@string/wechat_pay"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 支付宝支付 -->
+
+    <LinearLayout
+        android:id="@+id/ll_alipay_pay"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <RadioButton
+            android:layout_weight="1"
+            android:id="@+id/radioBtn_alipay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:scaleType="centerInside"
+            android:layout_weight="3"
+            android:id="@+id/iv_alipay_pay_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/alipay" />
+
+        <TextView
+            android:layout_weight="3"
+            android:id="@+id/tv_alipay_pay_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/alipay_pay"
+            android:textColor="@color/text_color_grey"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm_pay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_send_security_code"
+        android:text="@string/confirm_pay"
+        android:textColor="@color/white" />
+
+</LinearLayout>

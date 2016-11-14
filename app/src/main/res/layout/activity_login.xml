@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.HyKj.UKeBao.viewModel.login.SplashViewModel"/>
+            type="com.HyKj.UKeBao.viewModel.login.LoginViewModel"/>
     </data>
 <RelativeLayout
     android:layout_width="match_parent"

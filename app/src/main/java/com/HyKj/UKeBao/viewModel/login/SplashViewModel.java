@@ -1,110 +1,69 @@
 package com.HyKj.UKeBao.viewModel.login;
 
-import android.content.SharedPreferences;
 import android.databinding.Bindable;
-import android.util.Log;
+import android.text.TextUtils;
 
-import com.HyKj.UKeBao.MyApplication;
+import com.HyKj.UKeBao.BR;
 import com.HyKj.UKeBao.model.login.SplashModel;
-import com.HyKj.UKeBao.model.login.baen.LoginInfo;
 import com.HyKj.UKeBao.util.Action;
-import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
-import com.HyKj.UKeBao.view.activity.login.LoginActivity;
+import com.HyKj.UKeBao.view.activity.login.SplashActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
 
 /**
- * Created by Administrator on 2016/8/22.
+ * Created by Administrator on 2016/11/11.
  */
 public class SplashViewModel extends BaseViewModel {
 
-    public SplashModel mModel;
+    private SplashModel mModel;
 
     @Bindable
-    public LoginInfo loginInfo;
+    public String erroInfo;
 
-    public LoginActivity mActivity;
+    @Bindable
+    public String splash_imagerUrl="";//图片地址
 
-    public SplashViewModel(SplashModel model, LoginActivity activity) {
+    public String text;
+
+    @Bindable
+    public boolean jump_flag = false;//跳转判断标记
+
+    @Bindable
+    public SplashActivity splashActivity;
+
+    public SplashViewModel(SplashModel model, SplashActivity activity) {
+        splashActivity=activity;
+
         mModel = model;
-        mActivity = activity;
+
         mModel.setView(this);
     }
 
-    //登陆验证
-    public void userLogin(String account, String passwd, String identityId, int deviceType, String deviceNo) {
-        mModel.userLogin(account, passwd, identityId, deviceType, deviceNo);
-    }
-
-
-    //当用户登陆成功时保存用户信息
-    public void savaUserInfo(SharedPreferences.Editor editor, String passWord) {
-
-        editor.putString("lg_account", loginInfo.rows.account);//存入账号
-
-        editor.putString("lg_passwd", passWord);//存入密码
-
-        editor.putString("token", loginInfo.rows.token);//token
-
-        editor.putInt("isExamine", loginInfo.rows.isExamine);//审核状态
-
-        editor.putString("businessStoreId", loginInfo.rows.businessStoreId);//店铺id
-
-        editor.putString("businessStoreImage", loginInfo.rows.businessStoreImage);//商家店招
-
-        editor.putString("businessName",loginInfo.rows.businessName);
-
-        editor.putString("id", loginInfo.rows.id);//用户id
-
-        editor.putString("ip", loginInfo.rows.ip);//ip地址
-
-        editor.putString("name", loginInfo.rows.name);//用户昵称
-
-        editor.putString("phone", loginInfo.rows.phone);//用户号码
-
-        editor.putString("status", loginInfo.rows.status);
-
-        editor.putString("companyTel", loginInfo.rows.companyTel);//客户电话
-
-        editor.putString("integral", loginInfo.rows.integral);
-
-        editor.putString("integralScale", loginInfo.rows.integralScale);
-
-        editor.putString("recharge", loginInfo.rows.recharge);
-
-        LogUtil.d("刷新token" + loginInfo.rows.token);
-
-        MyApplication.token = loginInfo.rows.token;//把token赋值到全局
-
-        editor.commit();
+    //获取动态闪屏页背景图
+    public void getBackground() {
+        mModel.getBackground();
     }
 
     @Override
     public void onRequestSuccess(ModelAction data) {
-        //用户登陆成功回调
-        if (data.action == Action.Login_UserLogin) {
+        if (data.action == Action.Login_getSplashBackGround) {
+            splash_imagerUrl = (String) data.t;
 
-            loginInfo = (LoginInfo) data.t;
+            jump_flag=true;
 
-            //判断账号密码是否正确
-            if (loginInfo.success) {
-                mActivity.getData(loginInfo.msg, loginInfo.rows.isExamine);
+            notifyPropertyChanged(BR.splash_imagerUrl);
 
-                LogUtil.d("审核状态码" + loginInfo.rows.isExamine);
-            } else {
-                mActivity.getErroInfo(loginInfo.msg);
-            }
-            BufferCircleDialog.dialogcancel();
+            notifyPropertyChanged(BR.splashActivity);
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        erroInfo = erroinfo;
 
-        mActivity.getErroInfo(erroinfo);
+        LogUtil.d("erro" + erroInfo);
+
+        notifyPropertyChanged(BR.erroInfo);
     }
-
-
 }

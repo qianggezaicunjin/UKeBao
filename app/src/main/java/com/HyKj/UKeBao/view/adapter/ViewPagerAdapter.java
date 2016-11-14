@@ -54,7 +54,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 	@Override
 	public void destroyItem(View container, int position, Object object) {
 		// TODO Auto-generated method stub
-//		((ViewPager) container).removeView(views.get(position));
+//		((ViewPager) container).removeView(views.get(addGoods_position));
 	}
 
 	@Override

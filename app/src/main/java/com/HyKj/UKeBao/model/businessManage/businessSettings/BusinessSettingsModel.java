@@ -2,6 +2,7 @@ package com.HyKj.UKeBao.model.businessManage.businessSettings;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.model.BaseModel;
+import com.HyKj.UKeBao.model.businessManage.businessSettings.bean.GoodsInfo;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.LogUtil;
@@ -75,6 +76,8 @@ public class BusinessSettingsModel extends BaseModel {
 
                             businessInfo.area = obj.getString("area");
 
+                            businessInfo.id=obj.getIntValue("id");
+
                             businessInfo.setLongitude(Double.valueOf(obj.getString("longitude")));
 
                             businessInfo.setLatitude(Double.valueOf(obj.getString("latitude")));
@@ -86,6 +89,8 @@ public class BusinessSettingsModel extends BaseModel {
                             businessInfo.businessDiscount = obj.getDouble("businessDiscount");
 
                             businessInfo.pictures = JSON.parseArray(obj.getJSONArray("pictures").toString(), String.class);
+
+                            businessInfo.setPiList(JSON.parseArray(obj.getJSONArray("piList").toString(), GoodsInfo.class));
 
                             action.t = businessInfo;
 
@@ -99,8 +104,8 @@ public class BusinessSettingsModel extends BaseModel {
 
     //提交店铺设置信息
     public void commit(String tel, String name, List<String> pictures, String address,
-                       String province, String city, String area, double longitude, double latitude) {
-        Observable<JSONObject> observable = mDataManager.commitBusinessSettings(tel, name, pictures, address, province, city, area, longitude, latitude, MyApplication.token);
+                       String province, String city, String area, double longitude, double latitude,List<GoodsInfo> goodsInfoList) {
+        Observable<JSONObject> observable = mDataManager.commitBusinessSettings(tel, name, pictures, address, province, city, area, longitude, latitude, goodsInfoList,MyApplication.token);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {
@@ -130,4 +135,5 @@ public class BusinessSettingsModel extends BaseModel {
                     }
                 });
     }
+
 }

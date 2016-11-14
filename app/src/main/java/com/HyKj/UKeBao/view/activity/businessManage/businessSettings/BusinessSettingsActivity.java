@@ -9,6 +9,7 @@ import android.view.View;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityBusinessSettingsBinding;
 import com.HyKj.UKeBao.model.businessManage.businessSettings.BusinessSettingsModel;
+import com.HyKj.UKeBao.model.businessManage.businessSettings.bean.GoodsInfo;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
@@ -19,6 +20,7 @@ import com.HyKj.UKeBao.viewModel.businessManage.businessSettings.BusinessSetting
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/8.
@@ -42,6 +44,12 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
     public final int RESULT_Settings_ChooseCity = 8;
 
     public final int RESULT_Settings_Coordinate =7 ;
+
+    public final int RESULT_Settings_GoodsImage =6 ;
+
+    private int page=1;//商品页
+
+    private int rows=5;//商品数据
 
     @Override
     public void onCreateBinding() {
@@ -70,6 +78,8 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
         mBinding.rlStoreAddressSetting.setOnClickListener(this);
 
         mBinding.rlGeographyCoordinateSetting.setOnClickListener(this);
+
+        mBinding.rlStoreGoodsImage.setOnClickListener(this);
 
         mBinding.btnStoreSettingSave.setOnClickListener(this);
     }
@@ -107,6 +117,28 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                 startActivityForResult(intent_coordinate,RESULT_Settings_Coordinate);
 
                 break;
+            //商品相册
+            case R.id.rl_store_goods_image:
+                List<String> goodsImage_list=new ArrayList<>();
+
+                List<String> goodImageName_list=new ArrayList<>();
+
+                for(int i=0;i<businessInfo.getPiList().size();i++){
+                    goodsImage_list.add(businessInfo.getPiList().get(i).getSrc());
+
+                    goodImageName_list.add(businessInfo.getPiList().get(i).getName());
+                }
+
+                Intent goodsImage_intent=BusinessStoreGoodsActivity.getStartIntent(this);
+
+                goodsImage_intent.putExtra("goods_list", (Serializable) goodsImage_list);
+
+                goodsImage_intent.putExtra("goodImageName_list", (Serializable) goodImageName_list);
+
+                startActivityForResult(goodsImage_intent,RESULT_Settings_GoodsImage);
+
+                break;
+
             //保存提交
             case R.id.btn_store_setting_save:
                 BufferCircleDialog.show(this,"正在提交~请稍候",false,null);
@@ -124,6 +156,7 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                //店铺照片
                 case RESULT_Settings_Success:
 
                     LogUtil.d("BusinessSettings回调成功");
@@ -137,6 +170,7 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                     }
 
                     break;
+                //店铺地址
                 case RESULT_Settings_ChooseCity:
 
                     businessInfo.setProvince(data.getStringExtra("provinceName"));
@@ -150,6 +184,7 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                     mBinding.tvStoreAddress.setText("修改/已设置");
 
                     break;
+                //店铺坐标
                 case RESULT_Settings_Coordinate:
 
                     businessInfo.setLatitude(data.getDoubleExtra("latitude",-1));
@@ -159,11 +194,35 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                     mBinding.tvGeographyCoordinate.setText("修改/已设置");
 
                     break;
+                //商品相册
+                case RESULT_Settings_GoodsImage:
+                    List<GoodsInfo> goodsInfoList=new ArrayList<>();
+
+                    ArrayList<String> updata_goodsImage = data.getStringArrayListExtra("updata_goodsImage");
+
+                    ArrayList<String> updata_goodsName = data.getStringArrayListExtra("updata_goodsName");
+
+                    for(int i=0;i<updata_goodsImage.size();i++){
+                        GoodsInfo goodsInfo=new GoodsInfo();
+
+                        goodsInfo.setName(updata_goodsName.get(i));
+
+                        goodsInfo.setSrc(updata_goodsImage.get(i));
+
+                        goodsInfoList.add(goodsInfo);
+                    }
+
+                    businessInfo.setPiList(goodsInfoList);
+
+                    mBinding.tvStoreGoodsImageSettings.setText("修改/已设置");
+
+                    break;
             }
         }
     }
     public void setBusinessInfo(BusinessInfo businessInfo) {
         this.businessInfo = businessInfo;
     }
+
 
 }

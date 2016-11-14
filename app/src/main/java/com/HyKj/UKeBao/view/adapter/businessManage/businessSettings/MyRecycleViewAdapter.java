@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.util.LogUtil;
@@ -42,6 +43,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if (mList.get(position).equals("end") && position != 5) {
+
             holder.addPhoto.setImageResource(R.drawable.add_businessimage);
 
             holder.addPhoto.setPadding(45, 45, 45, 45);
@@ -108,6 +110,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
         public MyItemClickListener mlistener;
 
+        public TextView goodsName;
+
         public ViewHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
 
@@ -117,6 +121,8 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
             deletePhoto = (ImageView) itemView.findViewById(R.id.delephoto);
 
+            goodsName= (TextView) itemView.findViewById(R.id.et_goodsName);
+
             deletePhoto.setOnClickListener(this);
 
             addPhoto.setOnClickListener(this);
@@ -124,7 +130,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
 
         @Override
         public void onClick(View view) {
-            LogUtil.d("点击了delete按钮,LayoutPosition:" + getLayoutPosition() + "----position:" + getPosition());
+            LogUtil.d("点击了delete按钮,LayoutPosition:" + getLayoutPosition() + "----addGoods_position:" + getPosition());
             if (mlistener != null) {
                 mlistener.onItemClick(view, getLayoutPosition());
             }

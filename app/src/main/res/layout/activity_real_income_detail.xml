@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.HyKj.UKeBao.viewModel.businessManage.financialManagement.RealIncomeDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_title_bar_layout" />
+
+            <!--合计-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y130"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--合计订单笔数-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_real_income_detail_orderNum"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_orderNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:text="@{viewModel.realMoneyDetail.allCount}"
+                        android:textSize="14sp"
+                        tools:hint="@string/finacia_real_income_detail_orderNum" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+                <!--订单金额-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_real_income_detail_orderMoney"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_orderMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:text="@{viewModel.realMoneyDetail.allPrice}"
+                        android:textSize="14sp"
+                        tools:hint="@string/finacia_real_income_detail_orderMoney" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+                <!--实收净额-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_real_income_detail_realMoney"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_real_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:textSize="14sp"
+                        android:text="@{viewModel.realMoneyDetail.allRealPrice}"
+                        tools:hint="@string/finacia_real_income_detail_realMoney" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y15" />
+
+            <!--会员折扣订单-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y200"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--会员折扣订单-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_discount_order"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_finacia_discount_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:textSize="14sp"
+                        tools:hint="3笔"
+                        android:text="@{viewModel.realMoneyDetail.discountCount}"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+                <!--订单金额-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_finacia_discount_order_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_discount_order_money"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_finacia_discount_orderMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_finacia_discount_order_money"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.discountAllPrice}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_finacia_discount_order_money_notDiscount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_discount_order_money_notDiscount"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_notDiscount_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_finacia_discount_order_money_notDiscount"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:textSize="14sp"
+                            tools:hint="$100"
+                            android:text="@{viewModel.realMoneyDetail.discountFreeServiceCash}"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#999999"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_finacia_discount_order_money_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_discount_order_money_discount"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_finacia_discountMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_finacia_discount_order_money_discount"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:textSize="14sp"
+                            tools:hint="$100"
+                            android:text="@{viewModel.realMoneyDetail.discountPrice}"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@id/tv_finacia_discountMoney"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/x5"
+                            android:textColor="#BBBBBB"
+                            android:text="@{viewModel.realMoneyDetail.discount}"
+                            android:textSize="14sp"
+                            tools:hint="9折" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_finacia_discount_order_realMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_discount_order_realMoney"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_Discount_realMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_finacia_discount_order_realMoney"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:textSize="14sp"
+                            android:text="@{viewModel.realMoneyDetail.discountRealPrice}"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+                <!--实收净额-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_real_income_detail_realMoney"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:text="@{viewModel.realMoneyDetail.discountAllRealPrice}"
+                        android:textSize="14sp"
+                        tools:hint="562元" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y30"
+                android:layout_marginLeft="@dimen/x10"
+                android:gravity="center_vertical"
+                android:text="@string/finacia_real_income_rule"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+
+            <!--卡劵优惠订单-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y200"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--卡劵优惠订单-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_card_orderNum"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_finacia_card_orderNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:text="@{viewModel.realMoneyDetail.couponCount}"
+                        android:textSize="14sp"
+                        tools:hint="3笔" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+                <!--订单金额-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_card_orderMoney_font"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_real_income_detail_orderMoney"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_card_orderMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_card_orderMoney_font"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.couponPrice}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_card_payMoney_font"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_card_orderInfo_realMoney"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_card_payMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_card_payMoney_font"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.couponRealPrice}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@id/tv_card_payMoney"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/x10"
+                            android:textColor="#BBBBBB"
+                            android:textSize="14sp"
+                            android:text="@{viewModel.realMoneyDetail.couponCash}"
+                            tools:hint="减卡劵60元" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#999999"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_finacia_card_orderInfo_notServiceMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_card_orderInfo_notServiceMoney"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_finacia_notServiceMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_finacia_card_orderInfo_notServiceMoney"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.couponFreeServiceCash}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_finacia_card_orderInfo_serviceMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_card_orderInfo_serviceMoney"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_serviceMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_finacia_card_orderInfo_serviceMoney"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.couponServiceCost}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_real_income_detail_realMoney"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:text="@{viewModel.realMoneyDetail.couponAllRealPrice}"
+                        android:textSize="14sp"
+                        tools:hint="333.1元" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y40"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:text="@string/finacia_real_income_rule2"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:text="@string/finacia_service_money_rule"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!--兑换-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y140"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--超值兑换订单-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_exchange_order"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_exchange_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:textSize="14sp"
+                        android:text="@{viewModel.realMoneyDetail.superDiscountCount}"
+                        tools:hint="3笔" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+                <!--订单金额-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_exchange_orderMoney_font"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_real_income_detail_orderMoney"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_exchange_orderMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_exchange_orderMoney_font"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.superDiscountPrice}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_exchange_payMoney_font"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:text="@string/finacia_exchange_settlement_amount"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_exchange_payMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_exchange_payMoney_font"
+                            android:layout_marginLeft="@dimen/x10"
+                            android:textColor="#999999"
+                            android:text="@{viewModel.realMoneyDetail.superDiscountRealPrice}"
+                            android:textSize="14sp"
+                            tools:hint="$100" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:layout_marginRight="@dimen/x3"
+                    android:background="#999999" />
+
+                <!--兑换记录-->
+                <RelativeLayout
+                    android:id="@+id/rl_exchangeRecord"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:text="@string/finacia_exchange_record_font"
+                        android:textColor="#999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:textColor="#999999"
+                        android:textSize="14sp"
+                        android:text="@string/finacia_real_income_detail_see" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y30"
+                android:layout_marginLeft="@dimen/x10"
+                android:gravity="center_vertical"
+                android:text="@string/finacia_payMoney_rule"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

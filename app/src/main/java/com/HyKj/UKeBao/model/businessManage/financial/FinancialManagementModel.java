@@ -1,4 +1,4 @@
-package com.HyKj.UKeBao.model.businessManage;
+package com.HyKj.UKeBao.model.businessManage.financial;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

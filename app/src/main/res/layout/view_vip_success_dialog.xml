@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/ll_title_all"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/status_color"
+        android:padding="@dimen/x5">
+
+        <!-- 标题栏 -->
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:padding="@dimen/x10"
+            android:id="@+id/imb_title_bar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/tv_title_bar_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="支付成功"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/vip"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/y100"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lan_vip_recharge_success"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y15"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lan_vip_recharge_success1"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/bt_experience"
+        android:layout_width="@dimen/x180"
+        android:layout_height="@dimen/y40"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y37"
+        android:background="@drawable/pay_success_button"
+        android:text="马上体验"
+        android:textColor="#eb48a1"
+        android:textSize="18sp"/>
+</LinearLayout>

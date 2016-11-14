@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.HyKj.UKeBao.model.marketingManage.bean.WXPayResult;
+
 public abstract class BaseFragment extends Fragment {
 
     public Activity mContext;
@@ -70,6 +72,8 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initViews();
 
     public void toast(String msg, Context context) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
+
+
 }

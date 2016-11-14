@@ -18,6 +18,8 @@ import cn.finalteam.galleryfinal.ThemeConfig;
 public class MyApplication extends Application {
     public static String token;
 
+    public static boolean isJump = false;//闪屏页跳转标记
+
     public static String channelId = "";
 
     public static ThemeConfig themeConfig = null;

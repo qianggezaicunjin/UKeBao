@@ -6,6 +6,8 @@ package com.HyKj.UKeBao.util;
 public enum Action {
 
     /**LoginModule*/
+    //获取动态闪屏页背景图
+    Login_getSplashBackGround,
     //登陆验证
     Login_UserLogin,
     //注册
@@ -49,6 +51,8 @@ public enum Action {
     BusinessManage_GiveIntegral_getRecordData,
     //获取财务数据
     BusinessManage_getFinanicalData,
+    //获取财务数据实收详情
+    BusinessManage_GetRealMoneyDetail,
     //获取现金流记录
     BusinessMange_getCashRecord,
     //获取买单记录
@@ -61,6 +65,8 @@ public enum Action {
     BusinessManage_businessSettings_updataImageVacancy,
     //店铺相册(图片占满状态)
     BusinessManage_businessSettings_updataImage,
+    //商品相册
+    BusinessManage_BusinessSettings_GoodsImage,
     //提交店铺设置
     BusinessManage_businessSettings_commit,
 
@@ -87,6 +93,18 @@ public enum Action {
     MarketingManage_getCardListInfo,
     //获取卡劵列表
     MarketingManage_getRedPacketListInfo,
+    //判断是否为vip
+    MarketingManage_isVip,
+    //申请vip
+    MarketingManage_ApplyVip,
+    //申请vip（现金支付）
+    MarketingManage_ApplyVip_CashPay,
+    //申请vip（微信支付）
+    MarketingManage_ApplyVip_WxPay,
+    //申请vip（支付宝支付）
+    MarketingManage_ApplyVip_AliPay,
+    //获取升级vip信息
+    MarketingManage_GetUpgradeVipInfo,
 
     /**UserInfoManage*/
     //获取商家信息
@@ -111,4 +129,10 @@ public enum Action {
     UserInfoManage_BankInfo,
     //添加银行卡
     UserInfoManage_AddBankCard,
+    //积分充值（余额）
+    UserInfoManage_ConfirmRecharge_Balance,
+    //积分充值（支付宝现金）
+    UserInfoManage_CashCharge_Alipay,
+    //积分充值（微信现金）
+    UserInfoManage_CashCharge_WxPay,
 }

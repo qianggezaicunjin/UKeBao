@@ -34,6 +34,7 @@ import com.HyKj.UKeBao.view.activity.businessManage.financialManagement.Financia
 import com.HyKj.UKeBao.view.activity.businessManage.payrecord.PayRecordActivity;
 import com.HyKj.UKeBao.view.activity.businessManage.giveIntegral.GiveIntegralActivity;
 import com.HyKj.UKeBao.view.activity.marketingManage.ExchangActivity;
+import com.HyKj.UKeBao.view.activity.userInfoManage.IntegralRechargeActivity;
 import com.HyKj.UKeBao.view.adapter.HomeGridViewAdapter;
 import com.HyKj.UKeBao.view.customView.MyGridView;
 import com.HyKj.UKeBao.view.fragment.BaseFragment;
@@ -48,7 +49,7 @@ import java.util.List;
  */
 public class StoreManagerFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     /**
-     * 赠送积分
+     * 积分充值
      */
     private ImageButton presentIntegral;
 
@@ -291,6 +292,8 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
             case 8:
                 LogUtil.d("OnClick Goods Manage!");
 
+                viewModel.setString("敬请期待~");
+
                 break;
         }
     }
@@ -298,9 +301,9 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            // 赠送积分
+            // 积分充值
             case R.id.imb_present_integral:
-                startActivity(GiveIntegralActivity.getStartIntent(getActivity()));
+                startActivity(IntegralRechargeActivity.getStartIntent(getActivity()));
 
                 break;
             case R.id.imb_user_icon:

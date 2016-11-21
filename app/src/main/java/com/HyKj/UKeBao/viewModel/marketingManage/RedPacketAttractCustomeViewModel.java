@@ -122,7 +122,6 @@ public class RedPacketAttractCustomeViewModel extends BaseViewModel {
         }
         //发送揽客红包
         else if (data.action == Action.MarketingManage_RedPacketAttractCustome_sendRedPacket) {
-
             BufferCircleDialog.dialogcancel();
 
             if (payType == 1) {
@@ -130,46 +129,48 @@ public class RedPacketAttractCustomeViewModel extends BaseViewModel {
 
                 mActivity.alipay(payInfo);
             } else if (payType == 2) {
-                wxPayInfo= (WXPayInfo) data.t;
+                wxPayInfo = (WXPayInfo) data.t;
 
-                WXPayResult result=wxPayInfo.getPayResult();
+                WXPayResult result = wxPayInfo.getPayResult();
 
-                PayReq req=new PayReq();
+                PayReq req = new PayReq();
 
-                req.appId=result.getAppid();
+                req.appId = result.getAppid();
 
-                req.partnerId=result.getMch_id();
+                req.partnerId = result.getMch_id();
 
-                req.nonceStr=result.getNoncestr();
+                req.nonceStr = result.getNoncestr();
 
-                req.packageValue=result.getPackages();
+                req.packageValue = result.getPackages();
 
-                req.prepayId=result.getPrepayid();
+                req.prepayId = result.getPrepayid();
 
-                req.sign=result.getSign();
+                req.sign = result.getSign();
 
-                req.timeStamp=result.getTimestamp();
+                req.timeStamp = result.getTimestamp();
 
                 wxPayInfo.getPayResult().getAppid();
 
-                IWXAPI api= WXAPIFactory.createWXAPI(mActivity,req.appId);
+                IWXAPI api = WXAPIFactory.createWXAPI(mActivity, req.appId);
 
                 api.registerApp(req.appId);
 
                 api.sendReq(req);
-            }else if (payType==0||payType==3){
-                CashOrIntegralPayInfo cashOrIntegralPayInfo= (CashOrIntegralPayInfo) data.t;
+            } else if (payType == 0 || payType == 3) {
+                CashOrIntegralPayInfo cashOrIntegralPayInfo = (CashOrIntegralPayInfo) data.t;
 
-                mActivity.jump(cashOrIntegralPayInfo,3);
+                mActivity.jump(cashOrIntegralPayInfo, 3);
             }
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        mActivity.toast(erroinfo, mActivity);
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
 
-        BufferCircleDialog.dialogcancel();
+        mActivity.toast(erroinfo, mActivity);
 
         mActivity.isShow();
     }

@@ -27,6 +27,7 @@ import com.HyKj.UKeBao.view.activity.MainActivity;
 import com.HyKj.UKeBao.view.activity.login.GuideActivity;
 import com.HyKj.UKeBao.view.activity.login.LoginActivity;
 import com.HyKj.UKeBao.view.activity.login.SplashActivity;
+import com.HyKj.UKeBao.view.activity.marketingManage.PayVipActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -38,9 +39,9 @@ import java.io.File;
  * Created by Administrator on 2016/10/7.
  */
 public class DatabindingAdapter {
-    public  final static int LISTVIEW=0x00;
+    public final static int LISTVIEW = 0x00;
 
-    public  final static int GIRDVIEW=0x01;
+    public final static int GIRDVIEW = 0x01;
 
     //ImageVie 设置网络图片
     @BindingAdapter({"imageUrl"})
@@ -51,9 +52,11 @@ public class DatabindingAdapter {
             if (tag.equals("http")) {
                 Picasso.with(iv.getContext())
                         .load(imageUrl)
+                        .config(Bitmap.Config.RGB_565)
                         .placeholder(R.drawable.default_picture)
                         .error(R.drawable.default_picture)
                         .into(iv);
+
             } else {
                 Picasso.with(iv.getContext())
                         .load(new File(imageUrl))
@@ -76,12 +79,12 @@ public class DatabindingAdapter {
 
     //RecycleView的排列模式
     @BindingAdapter({"setData"})
-    public static void setRecycleViewData(RecyclerView ry,RecycleViewBaen data){
-        switch (data.getMode()){
+    public static void setRecycleViewData(RecyclerView ry, RecycleViewBaen data) {
+        switch (data.getMode()) {
             case GIRDVIEW:
-                ry.setLayoutManager(new GridLayoutManager(data.getmContext(),data.getNum()));
+                ry.setLayoutManager(new GridLayoutManager(data.getmContext(), data.getNum()));
 
-                LogUtil.d("配置GirdView_RecycleView适配器，获取数据:"+data.toString());
+                LogUtil.d("配置GirdView_RecycleView适配器，获取数据:" + data.toString());
 
                 ry.setAdapter(data.getAdapter());
 
@@ -89,7 +92,7 @@ public class DatabindingAdapter {
             case LISTVIEW:
                 ry.setLayoutManager(new LinearLayoutManager(data.getmContext()));
 
-                LogUtil.d("配置ListView_RecycleView适配器，获取数据:"+data.toString());
+                LogUtil.d("配置ListView_RecycleView适配器，获取数据:" + data.toString());
 
                 ry.setAdapter(data.getAdapter());
         }
@@ -99,70 +102,69 @@ public class DatabindingAdapter {
     public static void toastErroInfo(View view, String erroInfo) {
         LogUtil.d("databinding冒泡调用成功");
 
-        if(erroInfo!=null){
-            CustomToast.makeText(view.getContext(),erroInfo, Toast.LENGTH_SHORT).show();
+        if (erroInfo != null) {
+            CustomToast.makeText(view.getContext(), erroInfo, Toast.LENGTH_SHORT).show();
         }
 
     }
 
 
-
     //动态闪屏页
     @BindingAdapter({"background"})
-    public static void getbackground(ImageView view,String text){
+    public static void getbackground(ImageView view, String text) {
         LogUtil.d("进入设置动态背景方法");
 
-        SharedPreferences sp=view.getContext().getSharedPreferences("splash_cache", view.getContext().MODE_PRIVATE);
+        SharedPreferences sp = view.getContext().getSharedPreferences("splash_cache", view.getContext().MODE_PRIVATE);
 
-        String new_imageUrl=sp.getString("new_imageUrl",null);
+        String new_imageUrl = sp.getString("new_imageUrl", null);
 
-        if(TextUtils.isEmpty(new_imageUrl)){
-            LogUtil.d("new_imageUrl———__—new_imageUrl——__—new_imageUrl"+new_imageUrl);
+        if (TextUtils.isEmpty(new_imageUrl)) {
+            LogUtil.d("new_imageUrl———__—new_imageUrl——__—new_imageUrl" + new_imageUrl);
 
             view.setBackgroundResource(R.drawable.guide);
-        }else {
-            WindowManager wm= (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
+        } else {
+            WindowManager wm = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
 
-            LogUtil.d("-----——————————"+new_imageUrl+"——————————");
+            LogUtil.d("-----——————————" + new_imageUrl + "——————————");
 
             //获取屏幕宽
-            int width=wm.getDefaultDisplay().getWidth();
+            int width = wm.getDefaultDisplay().getWidth();
             //获取屏幕高
-            int height=wm.getDefaultDisplay().getHeight();
+            int height = wm.getDefaultDisplay().getHeight();
 
             Picasso.with(view.getContext())
-                    .load(new_imageUrl+"@"+height+"h_"+width+"w_1e_1c")
+                    .load(new_imageUrl + "@" + height + "h_" + width + "w_1e_1c")
                     .error(R.drawable.guide1)
                     .config(Bitmap.Config.RGB_565)
                     .into(view);
 
-            LogUtil.d("闪屏页设置成功:"+width+"height"+height);
+            LogUtil.d("闪屏页设置成功:" + width + "height" + height);
         }
     }
 
     //设置缓存闪屏页
     @BindingAdapter({"setCache"})
-    public static void setCacheData(ImageView view,String imageUrl){
+    public static void setCacheData(ImageView view, String imageUrl) {
         LogUtil.d("setCache————setCache————setCache");
 
         //当服务器返回图片地址为空时,清空数据
-        if(imageUrl.equals("noting")){
+        if (imageUrl.equals("noting")) {
 
-            SharedPreferences sp=view.getContext().getSharedPreferences("splash_cache", view.getContext().MODE_PRIVATE);
+            SharedPreferences sp = view.getContext().getSharedPreferences("splash_cache", view.getContext().MODE_PRIVATE);
 
-            SharedPreferences.Editor editor=sp.edit();
+            SharedPreferences.Editor editor = sp.edit();
 
             editor.clear();
 
             editor.commit();
-        }else if(!imageUrl.equals("noting")&&!TextUtils.isEmpty(imageUrl)){
-            LogUtil.d("setCache————success————success"+imageUrl);
+        } else if (!imageUrl.equals("noting") && !TextUtils.isEmpty(imageUrl)) {
+            LogUtil.d("setCache————success————success" + imageUrl);
 
-            SharedPreferences sp=view.getContext().getSharedPreferences("splash_cache", view.getContext().MODE_PRIVATE);
+            SharedPreferences sp = view.getContext().getSharedPreferences("splash_cache", view.getContext().MODE_PRIVATE);
 
-            SharedPreferences.Editor editor=sp.edit();
+            SharedPreferences.Editor editor = sp.edit();
 
-            editor.putString("new_imageUrl",imageUrl);
+            editor.putString("new_imageUrl", imageUrl);
 
             editor.commit();
         }
@@ -177,7 +179,7 @@ public class DatabindingAdapter {
 
             Context context = activity;
 
-            SplashBean bean=activity.splashBean;
+            SplashBean bean = activity.splashBean;
 
             if (bean.isFirst) {
                 //第一次登陆跳转到新手引导页
@@ -212,23 +214,44 @@ public class DatabindingAdapter {
 
     //获取客服电话并跳转到拨号界面
     @BindingAdapter({"callOffice"})
-    public static void callOfficePhone(Button button, final String phoneNumber){
-        final Context context=button.getContext();
+    public static void callOfficePhone(View view, final String phoneNumber) {
+        final Context context = view.getContext();
 
-        button.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(phoneNumber)) {
+                if (!TextUtils.isEmpty(phoneNumber)) {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     context.startActivity(intent);
-                }else {
-                    Toast.makeText(context,"正在获取电话~稍等片刻",Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    //申请vip资格回调
+    @BindingAdapter({"applyVip"})
+    public static void applyVip(View view, int orderId) {
+        SharedPreferences sp = view.getContext().getSharedPreferences("user_login", view.getContext().MODE_PRIVATE);
+
+        int id = sp.getInt("vipPayId", 0);
+
+        if (orderId != 0 && id == 0) {
+
+            SharedPreferences.Editor editor = sp.edit();
+
+            //vip支付id
+            editor.putInt("vipPayId", orderId);
+
+            editor.commit();
+
+            view.getContext().startActivity(PayVipActivity.getStartIntent(view.getContext()));
+
+        } else if (id != 0) {
+            view.getContext().startActivity(PayVipActivity.getStartIntent(view.getContext()));
+        }
     }
 }

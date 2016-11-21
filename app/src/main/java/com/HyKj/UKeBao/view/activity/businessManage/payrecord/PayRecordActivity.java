@@ -28,6 +28,7 @@ import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.activity.businessManage.financialManagement.FinancialManagementActivity;
 import com.HyKj.UKeBao.view.adapter.businessManage.PayRecordAdapter;
 import com.HyKj.UKeBao.viewModel.businessManage.payrecord.PayRecordViewModel;
+import com.alibaba.fastjson.JSONObject;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -399,7 +400,6 @@ public class PayRecordActivity extends BaseActiviy implements View.OnClickListen
 
     //获取订单数据
     public void getData(Object t) {
-
         switch (statuss) {
             //全部订单
             case -1:

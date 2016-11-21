@@ -19,6 +19,7 @@ public class ExamineViewModel extends BaseViewModel {
     private ExamineActivity mActivity;
 
     private BaseInfo baseInfo;
+
     public ExamineViewModel(ExamineActivity activity,ExamineModel model){
         mModel=model;
 
@@ -46,7 +47,7 @@ public class ExamineViewModel extends BaseViewModel {
                 mActivity.loginOut();
                 LogUtil.d("注销成功"+ MyApplication.token);
             }else {
-                mActivity.toast("注销失败~");
+                mActivity.loginoutFail();
             }
         }
         //获取客服电话

@@ -32,18 +32,29 @@ public class SettledAllianceModel extends BaseModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d("请求失败"+e.toString());
+                        LogUtil.d("请求失败" + e.toString());
+
                         mRequestView.onRequestErroInfo("请求失败");
                     }
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        ModelAction action=new ModelAction();
-                        JSONObject obj=jsonObject.getJSONObject("rows");
-                        LogUtil.d("请求店铺数据成功，返回结果为："+obj);
-                        action.t= JSON.parseObject(obj.toString(),BusinessInfo.class);
-                        action.action=Action.Login_SettledAlliance_getBusinessInfo;
-                        mRequestView.onRequestSuccess(action);
+
+                        if(jsonObject.getIntValue("status")==0) {
+                            ModelAction action = new ModelAction();
+
+                            JSONObject obj = jsonObject.getJSONObject("rows");
+
+                            LogUtil.d("请求店铺数据成功，返回结果为：" + obj);
+
+                            action.t = JSON.parseObject(obj.toString(), BusinessInfo.class);
+
+                            action.action = Action.Login_SettledAlliance_getBusinessInfo;
+
+                            mRequestView.onRequestSuccess(action);
+                        }else {
+                            mRequestView.onRequestErroInfo("获取店铺数据失败~请重试！");
+                        }
                     }
                 });
     }

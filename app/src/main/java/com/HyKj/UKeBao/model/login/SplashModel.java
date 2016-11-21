@@ -43,10 +43,10 @@ public class SplashModel extends BaseModel {
                             ModelAction action = new ModelAction();
 
                             action.action = Action.Login_getSplashBackGround;
-                            if(jsonObject.getJSONArray("rows")!=null) {
+                            try {
                                 action.t = jsonObject.getJSONArray("rows").getJSONObject(0).getString("content");
-                            }else {
-                                action.t="noting";
+                            }catch (Exception e){
+                                action.t = "noting";
                             }
                             mRequestView.onRequestSuccess(action);
                         } else {

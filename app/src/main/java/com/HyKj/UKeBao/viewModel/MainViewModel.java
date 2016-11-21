@@ -64,7 +64,7 @@ public class MainViewModel extends BaseViewModel {
 
     //申请vip
     public void applyVip() {
-       mModel.applyVip();
+        mModel.applyVip();
     }
 
     @Override
@@ -87,22 +87,26 @@ public class MainViewModel extends BaseViewModel {
             } else {
                 mActivty.toast("未知错误!");
             }
-        }else if(data.action==Action.MarketingManage_isVip){
-            mActivty.isVip((int)data.t);
-        }else if (data.action==Action.MarketingManage_ApplyVip){
+        } else if (data.action == Action.MarketingManage_isVip) {
+
+            mActivty.isVip((int) data.t);
+        } else if (data.action == Action.MarketingManage_ApplyVip) {
             BufferCircleDialog.dialogcancel();
 
-            mActivty.setVipPayInfo((int)data.t);
+            mActivty.setVipPayInfo((int) data.t);
 
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
+        if (BufferCircleDialog.isShowDialog()) {
 
+            BufferCircleDialog.dialogcancel();
+
+        }
         mActivty.toast(erroinfo, mActivty);
     }
-
 
 
 }

@@ -46,14 +46,20 @@ public class PayVipViewModel extends BaseViewModel{
     public void onRequestSuccess(ModelAction data) {
         //现金支付
         if(data.action== Action.MarketingManage_ApplyVip_CashPay){
+            BufferCircleDialog.dialogcancel();
+
             mActivity.paySuccessDialog();
         }
         //微信支付
         else if(data.action==Action.MarketingManage_ApplyVip_WxPay){
+            BufferCircleDialog.dialogcancel();
+
             mActivity.wxPay((WXPayResult) data.t);
         }
         //支付宝支付
         else if(data.action==Action.MarketingManage_ApplyVip_AliPay){
+            BufferCircleDialog.dialogcancel();
+
             mActivity.pay((PayResult) data.t);
         }
         //获取升级vip所需信息
@@ -71,7 +77,7 @@ public class PayVipViewModel extends BaseViewModel{
             if(cash<money) {
                 mActivity.btFlase();
 
-                onRequestErroInfo("余额不足哦~");
+                onRequestErroInfo("抱歉，您的现金余额不足，无法使用现金支付~");
             }
         }
 
@@ -80,7 +86,9 @@ public class PayVipViewModel extends BaseViewModel{
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        if (BufferCircleDialog.isShowDialog()){
+            BufferCircleDialog.dialogcancel();
+        }
 
         this.erroInfo=erroinfo;
 

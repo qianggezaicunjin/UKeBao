@@ -34,9 +34,13 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
 
     private FragmentLeftMenuBinding mBinding;
 
-    private LeftMenuFragmentViewModel viewModel;
+    public LeftMenuFragmentViewModel viewModel;
 
     private Context mContext;
+
+    private SharedPreferences sp;
+
+    private String versonName;
 
     @Override
     public View inflateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +70,11 @@ public class LeftMenuFragment extends BaseFragment implements OnClickListener {
 
         viewModel.getCustomerPhone();//获取客服电话
 
+        sp=getActivity().getSharedPreferences("user_login", getActivity().MODE_PRIVATE);
+
+        versonName = sp.getString("versonName","1.0.0");
+
+        mBinding.tvVersionName.setText("优客宝:"+versonName);
     }
 
     @Override

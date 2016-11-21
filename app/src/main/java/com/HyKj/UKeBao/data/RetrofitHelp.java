@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.util.concurrent.TimeUnit;
 
 
 import javax.net.ssl.HostnameVerifier;
@@ -36,8 +37,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitHelp {
 
-//    public final static String BASE_URL = "https://www.51ujf.cn/";//正式版端口
-    public final static String BASE_URL = "https://test.51ujf.cn/";//测试端口
+    public final static String BASE_URL = "https://www.51ujf.cn/";//正式版端口
+//    public final static String BASE_URL = "https://test.51ujf.cn/";//测试端口
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -65,7 +66,11 @@ public class RetrofitHelp {
                 }
             });
         }
-        OkHttpClient client = httpClient.build();
+        OkHttpClient client = httpClient
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
+                .writeTimeout(1, TimeUnit.MINUTES)
+                .build();
 
         Retrofit retrofit = builder.client(client).build();
 

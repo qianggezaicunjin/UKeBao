@@ -2,6 +2,7 @@ package com.HyKj.UKeBao.view.activity.marketingManage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityVipFunctionBinding;
 import com.HyKj.UKeBao.model.userInfoManage.VipFunctionModel;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.viewModel.marketingManage.VipFunctionViewModel;
@@ -36,6 +38,8 @@ public class VipFunctionActivity extends BaseActiviy{
 
         viewModel=new VipFunctionViewModel(new VipFunctionModel());
 
+        BufferCircleDialog.show(VipFunctionActivity.this,"获取数据中，请稍候...",true,null);
+
         //获取客服电话
         viewModel.getOfficePhone();
 
@@ -61,7 +65,10 @@ public class VipFunctionActivity extends BaseActiviy{
         mBinding.btChargeVip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(PayVipActivity.getStartIntent(VipFunctionActivity.this));
+
+                BufferCircleDialog.show(VipFunctionActivity.this,"正在申请成为vip~",true,null);
+
+                viewModel.applyVip();
             }
         });
     }

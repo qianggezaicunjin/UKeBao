@@ -16,18 +16,17 @@
 
         <RelativeLayout
             android:id="@+id/rl_title_mainActivity"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="@dimen/x8" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/imb_user_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/x27"
+                android:layout_height="@dimen/y27"
                 android:background="@color/transparent"
-                android:paddingLeft="@dimen/x5"
-                android:src="@drawable/user" />
+                android:src="@drawable/user"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_alignParentTop="true"/>
 
             <TextView
                 android:id="@+id/tv_mainTitle"
@@ -168,7 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textColor="@color/text_color_grey" />
+                android:textColor="@color/text_color_grey"
+                android:maxLines="1"/>
 
             <TextView
                 android:id="@+id/tv_next_notify"

@@ -42,6 +42,7 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
     private String area;
 
     private String address;
+
     public static Intent getStartIntent(Context context) {
 
         Intent intent = new Intent(context, ChooseCityActivity.class);
@@ -116,9 +117,11 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
 
         area=businessInfo.area;
 
-        tv_province.setText(provinceName+cityName+area);
+        if(provinceName!=null||cityName!=null||area!=null) {
+            tv_province.setText(provinceName + cityName + area);
 
-        et_address_detail.setText(businessInfo.address);
+            et_address_detail.setText(businessInfo.address);
+        }
     }
 
     //跳转到选择城市页面

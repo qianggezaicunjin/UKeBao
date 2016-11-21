@@ -20,42 +20,33 @@
             android:background="@color/white">
 
             <!-- 标题栏 -->
+            <FrameLayout
+                android:id="@+id/fl_mainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y432"
+                android:fitsSystemWindows="true"/>
 
-            <Button
-                android:id="@+id/radioButton_lang"
-                android:layout_width="@dimen/x60"
-                android:layout_height="@dimen/y60"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/y5"
-                android:background="@drawable/lana1"
-                android:button="@null"
-                android:drawablePadding="15dp" />
             <!-- 主页导航栏 -->
-
             <RadioGroup
-                android:paddingBottom="@dimen/y5"
-                android:layout_alignParentBottom="true"
                 android:id="@+id/radioGroup_guide"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/y60"
+                android:layout_height="@dimen/y48"
                 android:background="@drawable/mainactivity_bottom_background"
-                android:gravity="center"
-                android:orientation="horizontal" >
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true">
 
                 <!-- 店铺管理 -->
 
                 <RadioButton
                     android:id="@+id/radioButton_store_manager"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="@dimen/y2"
-                    android:layout_marginLeft="@dimen/x25"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/x45"
                     android:button="@null"
                     android:drawablePadding="3dp"
+                    android:paddingTop="@dimen/y5"
                     android:drawableTop="@drawable/selector_radiobutton__store"
-                    android:gravity="center_horizontal"
                     android:text="@string/store_manager"
                     android:textColor="@color/selector_radiobutton__textcolor"
                     android:textSize="13sp" />
@@ -65,6 +56,13 @@
                     android:layout_height="@dimen/y1"
                     android:layout_weight="1" />
 
+                <RadioButton
+                    android:id="@+id/radioButton_lang"
+                    android:layout_width="@dimen/x55"
+                    android:layout_height="@dimen/y55"
+                    android:background="@drawable/lana1"
+                    android:layout_marginTop="-5dp"
+                    android:button="@null" />
                 <!-- 营销管理 -->
 
                 <View
@@ -75,27 +73,18 @@
                 <RadioButton
                     android:id="@+id/radioButton_market_manager"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="@dimen/y2"
-                    android:layout_marginRight="@dimen/x25"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/x45"
+                    android:paddingTop="@dimen/y5"
                     android:button="@null"
                     android:drawablePadding="3dp"
                     android:drawableTop="@drawable/selector_radiobutton__market"
-                    android:gravity="center_horizontal"
                     android:text="@string/market_manager"
                     android:textColor="@color/selector_radiobutton__textcolor"
                     android:textSize="13sp" />
             </RadioGroup>
 
-            <FrameLayout
-                android:id="@+id/fl_mainActivity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/radioGroup_guide"
-                android:fitsSystemWindows="true">
                 <!-- -15dp -->
-            </FrameLayout>
         </RelativeLayout>
     </FrameLayout>
 
@@ -106,7 +95,7 @@
         android:id="@+id/fl_leftMenu"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start" />
     <!-- The navigation view -->
 
 </android.support.v4.widget.DrawerLayout>

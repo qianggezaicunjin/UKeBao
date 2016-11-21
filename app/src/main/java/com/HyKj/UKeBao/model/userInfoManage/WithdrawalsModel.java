@@ -41,7 +41,7 @@ public class WithdrawalsModel extends BaseModel{
                         if(jsonObject.getBoolean("success")){
                             ModelAction action=new ModelAction();
 
-                            action.t=jsonObject.getString("msg");
+                            action.t="申请提现成功!";
 
                             action.action= Action.UserInfoManage_Withdrawals;
 

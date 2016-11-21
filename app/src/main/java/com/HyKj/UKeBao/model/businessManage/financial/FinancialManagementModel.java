@@ -40,17 +40,22 @@ public class FinancialManagementModel extends BaseModel{
                     public void onNext(JSONObject jsonObject) {
                         LogUtil.d("请求财务数据成功，回调结果为:"+jsonObject.toString());
 
-                        ModelAction action=new ModelAction();
+                        if(jsonObject.getIntValue("satatus")==0) {
 
-                        FinancialManage finacialManage= JSON.parseObject(jsonObject.toString(),FinancialManage.class);
+                            ModelAction action = new ModelAction();
 
-                        LogUtil.d("获取财务数据成功,数据为："+finacialManage.toString());
+                            FinancialManage finacialManage = JSON.parseObject(jsonObject.toString(), FinancialManage.class);
 
-                        action.action= Action.BusinessManage_getFinanicalData;
+                            LogUtil.d("获取财务数据成功,数据为：" + finacialManage.toString());
 
-                        action.t=finacialManage;
+                            action.action = Action.BusinessManage_getFinanicalData;
 
-                        mRequestView.onRequestSuccess(action);
+                            action.t = finacialManage;
+
+                            mRequestView.onRequestSuccess(action);
+                        }else {
+                            mRequestView.onRequestErroInfo("获取财务数据失败~请重试！");
+                        }
                     }
                 });
     }

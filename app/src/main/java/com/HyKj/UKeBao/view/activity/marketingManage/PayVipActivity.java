@@ -79,6 +79,7 @@ public class PayVipActivity extends BaseActiviy{
     private PayVipViewModel viewModel;
     private Button bt_experience;
     private ImageButton bt_back;
+    private SharedPreferences sp;
 
     public static Intent getStartIntent(Context context){
         Intent intent=new Intent(context,PayVipActivity.class);
@@ -139,13 +140,19 @@ public class PayVipActivity extends BaseActiviy{
 
                 BufferCircleDialog.show(PayVipActivity.this,"正在操作，请稍候..",false,null);
 
-                SharedPreferences sp=getSharedPreferences("user_login",MODE_PRIVATE);
+                sp = getSharedPreferences("user_login",MODE_PRIVATE);
 
-                int vipPayId=sp.getInt("vipPayId",0);
+                int vipPayId= sp.getInt("vipPayId",0);
 
                 LogUtil.d("vip充值支付类型payType"+payType+"vipPayId------"+vipPayId);
 
-                viewModel.rechargeVip(payType,vipPayId);
+                if(vipPayId!=0) {
+                    viewModel.rechargeVip(payType, vipPayId);
+                }else {
+                    BufferCircleDialog.dialogcancel();
+
+                    toast("抱歉，您不具备vip申请资格!",PayVipActivity.this);
+                }
             }
         });
 
@@ -350,6 +357,8 @@ public class PayVipActivity extends BaseActiviy{
 
     //支付成功界面
     public void paySuccessDialog(){
+        sp.edit().putInt("vipPayId",0);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         View dialogContentView = View.inflate(this, R.layout.view_vip_success_dialog, null);
@@ -410,6 +419,6 @@ public class PayVipActivity extends BaseActiviy{
 
     //支付按钮设置为不可用
     public void btFlase() {
-       mBinding.btVipPay.setEnabled(false);
+       mBinding.btCashPay.setEnabled(false);
     }
 }

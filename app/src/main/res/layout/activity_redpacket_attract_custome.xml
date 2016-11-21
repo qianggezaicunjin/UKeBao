@@ -1,6 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="view"
             type="com.HyKj.UKeBao.view.activity.marketingManage.RedPacketAttractCustomeActivity" />
@@ -38,7 +39,7 @@
                     <LinearLayout
                         android:id="@+id/viewTop_lanfragment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/y53"
                         android:background="#FDFDFDff"
                         android:orientation="vertical">
 
@@ -116,45 +117,27 @@
 
                     <LinearLayout
                         android:id="@+id/backGroundRed_RedPacketAttractCustome_Activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/x258"
+                        android:layout_height="@dimen/y240"
                         android:layout_gravity="center"
-                        android:layout_margin="@dimen/x10"
+                        android:layout_marginLeft="@dimen/x31"
+                        android:layout_marginRight="@dimen/x31"
+                        android:layout_marginTop="@dimen/y10"
                         android:background="@drawable/lanred_pocket_red"
                         android:orientation="vertical">
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:id="@+id/adImag_RedPacketAttractCustome_Activity"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/y160"
-                                android:layout_marginLeft="@dimen/x15"
-                                android:layout_marginRight="@dimen/x15"
-                                android:layout_marginTop="@dimen/y12"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/big_white_camera"/>
-
-                            <TextView
-                                android:id="@+id/addImageText_RedPacketAttractCustome_Activity"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:gravity="center"
-                                android:paddingBottom="@dimen/y15"
-                                android:paddingTop="@dimen/y10"
-                                android:text="点击添加图片"
-                                android:textColor="@color/txt_while" />
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/adImag_RedPacketAttractCustome_Activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y178"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/big_white_camera" />
 
                         <TextView
                             android:id="@+id/showAdContent_RedPacketAttractCustome_Activity"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/y10"
-                            android:layout_marginTop="@dimen/y10"
                             android:gravity="center"
                             android:lines="2"
                             android:text="广告内容"
@@ -174,7 +157,7 @@
                     <LinearLayout
                         android:id="@+id/guanggaoneirong__"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/y45"
                         android:background="#fff"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -215,7 +198,7 @@
                     <LinearLayout
                         android:id="@+id/zongjifen__"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y40"
+                        android:layout_height="@dimen/y45"
                         android:background="#fff"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -255,7 +238,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y40"
+                        android:layout_height="@dimen/y45"
                         android:background="#F5F5F5"
                         android:gravity="center_vertical">
 
@@ -272,7 +255,7 @@
                     <LinearLayout
                         android:id="@+id/geshu__"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y40"
+                        android:layout_height="@dimen/y45"
                         android:background="#fff"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -314,7 +297,7 @@
                     <LinearLayout
                         android:id="@+id/xianshiJIfen__"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y50"
+                        android:layout_height="@dimen/y45"
                         android:background="#F5F5F5"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -331,10 +314,10 @@
 
                     <Button
                         android:id="@+id/senRedPacket_RedPacketAttractCustome_Activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/x20"
-                        android:layout_marginRight="@dimen/x20"
+                        android:layout_width="@dimen/x299"
+                        android:layout_height="@dimen/y45"
+                        android:layout_marginLeft="@dimen/x11"
+                        android:layout_marginRight="@dimen/x11"
                         android:background="@drawable/lan_style"
                         android:gravity="center"
                         android:padding="@dimen/x10"

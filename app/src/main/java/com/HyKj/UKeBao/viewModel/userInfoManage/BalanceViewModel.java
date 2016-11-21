@@ -37,6 +37,7 @@ public class BalanceViewModel extends BaseViewModel{
     @Override
     public void onRequestSuccess(ModelAction data) {
         if(data.action == Action.UserInfoManage_GetBusinessInfo){
+
             mFragment.setCashData((BusinessInfo) data.t);
         }else if(data.action==Action.UserInfoManage_ConfirmRecharge_Balance){
             mFragment.confirmRecharge((String)data.t);
@@ -45,7 +46,9 @@ public class BalanceViewModel extends BaseViewModel{
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
 
         mFragment.toast(erroinfo,mFragment.getContext());
     }

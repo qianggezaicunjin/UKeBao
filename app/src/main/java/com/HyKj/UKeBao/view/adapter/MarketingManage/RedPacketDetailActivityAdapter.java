@@ -12,6 +12,7 @@ import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetailInfo;
 import com.HyKj.UKeBao.view.adapter.MyBaseAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
@@ -56,7 +57,8 @@ public class RedPacketDetailActivityAdapter extends MyBaseAdapter<RedPacketDetai
                 .showImageForEmptyUri(R.drawable.default_coupons)
                 .showImageOnFail(R.drawable.default_coupons).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
+                .bitmapConfig(Bitmap.Config.ARGB_8888)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .displayer(new FadeInBitmapDisplayer(388)).build();
 
         ImageLoader.getInstance().displayImage(list.get(position).getWxHeadImage() + "", mHolder.userIcon, optionse);

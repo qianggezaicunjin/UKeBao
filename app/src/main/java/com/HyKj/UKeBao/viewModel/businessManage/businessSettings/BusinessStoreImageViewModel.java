@@ -15,6 +15,7 @@ import com.HyKj.UKeBao.view.adapter.businessManage.businessSettings.MyRecycleVie
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.finalteam.galleryfinal.FunctionConfig;
@@ -33,10 +34,10 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
     @Bindable
     public int pictureNum;//相片数量
 
-    public int position;//添加第一张本地照片的下标
+    public int addImage_position;//添加第一张本地照片的下标
 
     @Bindable
-    public List<String> pictureList;
+    public List<String> pictureList = new ArrayList<>();
 
     public BusinessStoreImageViewModel(BusinessStoreImageActivity activity, BusinessStoreImageModel model) {
         activitiy = activity;
@@ -68,6 +69,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
         }
     }
 
+    //添加本地图片操作
     public List<String> addLocalImage(List<String> data, List<PhotoInfo> resultList) {
         int size = data.size();
 
@@ -106,7 +108,7 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
         if (((pictureList.size() - 1) < 3)) {
             activitiy.toast("至少上传三张照片哦~亲", activitiy);
         } else {
-            BufferCircleDialog.show(activitiy,"上传中，请稍候..",false,null);
+            BufferCircleDialog.show(activitiy, "上传中，请稍候..", false, null);
 
             getUpdataPosition();//上传图片到服务器
         }
@@ -122,28 +124,32 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             if (!tag.equals("htt") && !tag.equals("end")) {
                 LogUtil.d("i" + i);
 
-                updata(pictureList, i);
+                updata(i);
 
-                break;
+                return;
             }
         }
+        //判断最后一张图是否为添加背景图
+        if (pictureList.get(pictureList.size() - 1).equals("end")) {
+            pictureList.remove(pictureList.size() - 1);
+        }
+        activitiy.updataSuccess(pictureList);
     }
 
     //执行上传方法，发送请求
-    public void updata(List<String> data, int position) {
-        this.position = position;
-        if (data.get(data.size() - 1).equals("end")) {
-            for (int i = 0; i < data.size() - 1 - position; i++) {
-                File file = new File(data.get(position));
+    public void updata(int position) {
+        addImage_position = position;
+        //判断是否存在添加背景
+        if (pictureList.get(pictureList.size() - 1).equals("end")) {
 
-                mModel.updataIamgeVacancy(file);
-            }
-        } else {
-            for (int i = 0; i < data.size() - position; i++) {
-                File file = new File(data.get(position));
+            File file = new File(pictureList.get(addImage_position));
 
-                mModel.updataIamge(file);
-            }
+            mModel.updataIamgeVacancy(file);
+
+        }else{
+            File file = new File(pictureList.get(addImage_position));
+
+            mModel.updataIamge(file);
         }
     }
 
@@ -155,14 +161,19 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             String url = storeSignage.getRows().getImagePrefix() + storeSignage.getRows().getImageSrc();
 
             //把服务器返回的路径替换掉集合原来的本地路径
-            pictureList.set(position++, url);
+            pictureList.set(addImage_position++, url);
 
-            LogUtil.d("addGoods_position" + position);
+            LogUtil.d("addGoods_position" + addImage_position);
 
             LogUtil.d(pictureList.toString());
 
-            if (position == pictureList.size()) {
+            if (addImage_position == pictureList.size()) {
+
                 activitiy.updataSuccess(pictureList);
+            } else {
+                File file = new File(pictureList.get(addImage_position));
+
+                mModel.updataIamge(file);
             }
 
         } else if (data.action == Action.BusinessManage_businessSettings_updataImageVacancy) {
@@ -171,22 +182,30 @@ public class BusinessStoreImageViewModel extends BaseViewModel {
             String url = storeSignage.getRows().getImagePrefix() + storeSignage.getRows().getImageSrc();
 
             //把服务器返回的路径替换掉集合原来的本地路径
-            pictureList.set(position++, url);
+            pictureList.set(addImage_position++, url);
 
-            LogUtil.d("Vacancy_position" + position);
+            LogUtil.d("Vacancy_position" + addImage_position);
 
             LogUtil.d(pictureList.toString());
 
-            if (position == pictureList.size() - 1) {
+            if (addImage_position == pictureList.size() - 1) {
+                pictureList.remove(pictureList.size()-1);//移除最后一张背景图
+
                 activitiy.updataSuccess(pictureList);
+            } else {
+                File file = new File(pictureList.get(addImage_position));
+
+                mModel.updataIamgeVacancy(file);
             }
         }
     }
 
-    @Override
-    public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        @Override
+        public void onRequestErroInfo (String erroinfo){
+            if (BufferCircleDialog.isShowDialog()) {
+                BufferCircleDialog.dialogcancel();
+            }
 
-        activitiy.toast(erroinfo, activitiy);
+            activitiy.toast(erroinfo, activitiy);
+        }
     }
-}

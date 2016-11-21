@@ -5,6 +5,7 @@ import com.HyKj.UKeBao.util.Action;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.userInfoManage.WithdrawalsActivity;
+import com.HyKj.UKeBao.view.activity.userInfoManage.WithdrawalsRecordActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
 import com.baidu.platform.comapi.map.A;
 
@@ -38,7 +39,7 @@ public class WithdrawalsViewModel extends BaseViewModel{
         if(data.action== Action.UserInfoManage_Withdrawals){
             mActivity.toast((String) data.t,mActivity);
 
-            mActivity.finish();
+           mActivity.jump_withdrawlsRecord();
         }
     }
 

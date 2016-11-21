@@ -116,6 +116,7 @@ public class MarketManagerFragment extends BaseFragment implements View.OnClickL
                 break;
             //超值兑换
             case R.id.ll_manager_overflow_exchange:
+                toast("超值兑换全新升级中,更多惊喜，敬请期待！！",getActivity());
 
                 break;
         }

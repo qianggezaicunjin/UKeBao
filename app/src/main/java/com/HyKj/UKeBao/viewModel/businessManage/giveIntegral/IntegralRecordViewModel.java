@@ -5,6 +5,7 @@ import com.HyKj.UKeBao.model.businessManage.bean.CashRecordInfo;
 import com.HyKj.UKeBao.model.businessManage.bean.IntegralRecordInfo;
 import com.HyKj.UKeBao.model.businessManage.giveIntegral.IntegralRecordModel;
 import com.HyKj.UKeBao.util.Action;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.businessManage.giveIntegral.IntegralRecordActivity;
 import com.HyKj.UKeBao.viewModel.BaseViewModel;
@@ -45,10 +46,14 @@ public class IntegralRecordViewModel extends BaseViewModel {
     @Override
     public void onRequestSuccess(ModelAction data) {
         if (data.action == Action.BusinessManage_GiveIntegral_getRecordData) {
+            BufferCircleDialog.dialogcancel();
+
             List<IntegralRecordInfo> mList = (List<IntegralRecordInfo>) data.t;
 
             mActivity.getRecordData(mList);
         }else if(data.action == Action.BusinessMange_getCashRecord){
+            BufferCircleDialog.dialogcancel();
+
             List<CashRecordInfo> mList = (List<CashRecordInfo>) data.t;
 
             mActivity.getCashRecord(mList);

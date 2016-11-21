@@ -74,6 +74,20 @@ public class MainModel extends BaseModel {
                     public void onNext(JSONObject jsonObject) {
                         LogUtil.d("获取用户vip信息成功:" + jsonObject.toString());
 
+//                        JSONObject jsonObject1=new JSONObject();
+//
+//                        jsonObject1.put("msg","请先开通vip!");
+//
+//                        jsonObject1.put("rows",null);
+//
+//                        jsonObject1.put("status",2);
+//
+//                        jsonObject1.put("success",false);
+//
+//                        jsonObject=jsonObject1;
+//
+//                        LogUtil.d("获取用户vip镜像信息成功:" + jsonObject.toString());
+
                         ModelAction action = new ModelAction();
 
                         action.action = Action.MarketingManage_isVip;

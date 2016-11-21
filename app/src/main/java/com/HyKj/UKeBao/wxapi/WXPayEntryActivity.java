@@ -97,8 +97,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 		else if(resp.errCode==0 && MyApplication.payTpye==5){
 			paySuccessDialog();
 
-			finish();
-
 		}
 		
 		else {

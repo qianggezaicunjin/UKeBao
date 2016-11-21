@@ -51,7 +51,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
 		tv.setText(textStr[position]);
 
-		if(newCount!=0&&position==2){
+		if(newCount!=0&&position==1){
 			tv_newsCount.setVisibility(View.VISIBLE);
 
 			tv_newsCount.setText(newCount+"");

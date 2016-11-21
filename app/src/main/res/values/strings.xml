@@ -165,4 +165,7 @@
     <string name="lan_vip_text_openVip7">确认支付</string>
     <string name="lan_vip_recharge_success">恭喜您</string>
     <string name="lan_vip_recharge_success1">成为VIP商家，获得尊贵特权！</string>
+    <string name="withdrawals_sure">交易确认</string>
+    <string name="withdrawals_sure1">确认</string>
+    <string name="withdrawals_sure2">取消</string>
 </resources>

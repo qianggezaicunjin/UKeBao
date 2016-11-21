@@ -1,8 +1,8 @@
 <com.HyKj.UKeBao.view.customView.MyGridViewItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/include_gridview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/x106"
+    android:layout_height="@dimen/y106"
     android:background="@drawable/selector_gridview_item"
     android:gravity="center"
     android:padding="5dp">
@@ -26,8 +26,8 @@
         <ImageView
             android:padding="5dp"
             android:id="@+id/iv_gridview_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/y35"
             android:scaleType="centerCrop"
             android:src="@drawable/finance_manager" />
     </RelativeLayout>
@@ -40,6 +40,7 @@
         android:layout_marginTop="@dimen/y5"
         android:gravity="center"
         android:text="@string/exchange_testing"
+        android:textSize="16sp"
         android:textColor="@color/text_color_black" />
 
 </com.HyKj.UKeBao.view.customView.MyGridViewItemLayout>

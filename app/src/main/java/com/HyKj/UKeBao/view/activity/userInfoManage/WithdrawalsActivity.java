@@ -1,8 +1,10 @@
 package com.HyKj.UKeBao.view.activity.userInfoManage;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,7 @@ import com.HyKj.UKeBao.viewModel.userInfoManage.WithdrawalsViewModel;
  * 申请提现
  * Created by Administrator on 2016/11/3.
  */
-public class WithdrawalsActivity extends BaseActiviy implements View.OnClickListener{
+public class WithdrawalsActivity extends BaseActiviy implements View.OnClickListener {
     /**
      * 标题名称
      */
@@ -50,7 +52,7 @@ public class WithdrawalsActivity extends BaseActiviy implements View.OnClickList
     private TextView availableAccountBalance;
     /**
      * 提现记录
-     * */
+     */
     private Button btn_applyCash_record;
 
     private EditText et_apply_cash_limits;//提现金额
@@ -64,7 +66,10 @@ public class WithdrawalsActivity extends BaseActiviy implements View.OnClickList
     private WithdrawalsViewModel viewModel;
 
     private SharedPreferences sp;
+
     private String businessStoreId;
+
+    private String demand_amount;
 
     public static Intent getStartIntent(Context context) {
 
@@ -98,15 +103,15 @@ public class WithdrawalsActivity extends BaseActiviy implements View.OnClickList
     }
 
     private void initData() {
-        sp=getSharedPreferences("user_login", MODE_PRIVATE);
+        sp = getSharedPreferences("user_login", MODE_PRIVATE);
 
         businessStoreName = getIntent().getStringExtra("businessStoreName");
 
         all_money = getIntent().getStringExtra("all_money");
 
-        cash = getIntent().getDoubleExtra("cash",0.0);
+        cash = getIntent().getDoubleExtra("cash", 0.0);
 
-        viewModel=new WithdrawalsViewModel(this, new WithdrawalsModel());
+        viewModel = new WithdrawalsViewModel(this, new WithdrawalsModel());
     }
 
     @Override
@@ -131,7 +136,7 @@ public class WithdrawalsActivity extends BaseActiviy implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             //退出
             case R.id.imb_applyCash:
                 finish();
@@ -146,17 +151,45 @@ public class WithdrawalsActivity extends BaseActiviy implements View.OnClickList
             case R.id.btn_confirm_apply_cash:
                 businessStoreId = sp.getString("businessStoreId", "");
 
-                String demand_amount=et_apply_cash_limits.getText().toString();//需要金额
+                //需要金额
+                demand_amount = et_apply_cash_limits.getText().toString();
 
-                if(!(TextUtils.isEmpty(demand_amount)||Integer.valueOf(demand_amount)<5)) {
-                    BufferCircleDialog.show(this, "正在提交中，请稍候~", false, null);
-
-                    viewModel.withdrawals(businessStoreId, demand_amount);
-                }else {
-                    toast("请输入正确的提现金额~",this);
+                if (!(TextUtils.isEmpty(demand_amount) || Integer.valueOf(demand_amount) < 5)) {
+                    if(Double.valueOf(demand_amount)<500){
+                        initDialog("本次交易金额为:"+demand_amount+"(服务费：5元)");
+                    }else {
+                        initDialog("本次交易金额为:"+demand_amount+"(免手续费)");
+                    }
+                } else {
+                    toast("请输入正确的提现金额~", this);
                 }
 
                 break;
         }
+    }
+    //初始化对话框
+    private void initDialog(String message){
+        new AlertDialog.Builder(this).setTitle(R.string.withdrawals_sure)//显示对话框标题
+        .setMessage(message)//显示正文内容
+        .setPositiveButton(R.string.withdrawals_sure1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                BufferCircleDialog.show(WithdrawalsActivity.this, "正在提交中，请稍候~", false, null);
+
+                viewModel.withdrawals(businessStoreId, demand_amount);
+            }
+        }).setNegativeButton(R.string.withdrawals_sure2, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).show();
+    }
+
+    //跳转到提现记录
+    public void jump_withdrawlsRecord() {
+        et_apply_cash_limits.setText("");
+
+       startActivity(WithdrawalsRecordActivity.getStartIntent(this));
     }
 }

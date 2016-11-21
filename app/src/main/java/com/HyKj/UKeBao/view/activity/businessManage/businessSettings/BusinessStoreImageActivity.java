@@ -100,9 +100,14 @@ public class BusinessStoreImageActivity extends BaseActiviy {
             public void onItemClick(View v, int postion) {
                 switch (v.getId()) {
                     case R.id.delephoto:
+                        BufferCircleDialog.show(BusinessStoreImageActivity.this,"正在执行删除操作,请稍候~",false,null);
+
                         data = adapter.removeData(postion);
 
                         viewModel.refresh(data);
+
+                        BufferCircleDialog.dialogcancel();
+
                         break;
                     case R.id.addphoto:
                         initGalleryFinal();
@@ -166,6 +171,8 @@ public class BusinessStoreImageActivity extends BaseActiviy {
         Intent intent = new Intent();
 
         intent.putStringArrayListExtra("pictures", (ArrayList<String>) pictureList);
+
+        LogUtil.d("店铺相册dataList:"+pictureList.toString());
 
         setResult(RESULT_OK, intent);
 

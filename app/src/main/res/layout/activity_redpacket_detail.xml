@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
 
     <data>
 
@@ -21,12 +22,12 @@
             android:id="@+id/viewGroup_RedPacketDetailAcitivity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2.5"
             android:background="#F5F5F5"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/x320"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/x5"
@@ -38,23 +39,22 @@
                 <ImageView
                     android:id="@+id/adImag_RedPacketDetailAcitivity"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y200"
-                    android:layout_marginLeft="@dimen/x15"
-                    android:layout_marginRight="@dimen/x15"
-                    android:layout_marginTop="@dimen/y12"
-                    android:scaleType="fitXY"
+                    android:layout_height="@dimen/y178"
+                    android:scaleType="fitCenter"
+                    android:layout_marginTop="@dimen/y5"
                     android:src="@drawable/red_packet"
                     app:imageUrl="@{viewModel.redPacketDetail.image}" />
 
                 <TextView
                     android:id="@+id/context_RedPacketDetailAcitivity"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/y10"
                     android:layout_marginTop="@dimen/y10"
                     android:gravity="center"
                     android:maxLength="50"
-                    android:text=""
+                    android:maxLines="1"
+                    android:text="@{viewModel.redPacketDetail.context}"
                     android:textColor="#fff"
                     android:textSize="16sp" />
 
@@ -79,7 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,7 +88,7 @@
                     android:layout_marginLeft="@dimen/x8"
                     android:gravity="center"
                     android:text="已领取 :"
-                    android:textColor="@color/text_color_grey" />
+                    android:textColor="#333333" />
 
                 <TextView
                     android:id="@+id/redcount_RedPacketDetailAcitivity"
@@ -95,8 +96,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x8"
                     android:gravity="center"
+                    tool:hint="我是红包个数"
                     android:text="@{viewModel.redPacketDetail.surplusCount}"
-                    android:textColor="@color/text_color_grey" />
+                    android:textColor="#333333" />
 
                 <TextView
                     android:id="@+id/scored_RedPacketDetailAcitivity"
@@ -105,16 +107,13 @@
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_marginRight="@dimen/x8"
                     android:gravity="end"
-                    android:text="@{viewModel.redPacketDetail.surplusQuota}"
-                    android:textColor="@color/text_color_grey" />
+                    tool:hint="我是领取数"
+                    android:textColor="#333333" />
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y10"
-                android:background="#F5F5F5" />
-
-
+                android:layout_height="1dp"
+                android:background="#999999" />
         </LinearLayout>
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView

@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -129,7 +131,10 @@ public class ExamineActivity extends BaseActiviy implements View.OnClickListener
         switch (v.getId()) {
             //注销登陆
             case R.id.btn_jumpLogin:
+                btn_jumpLogin.setEnabled(false);
+
                 viewModel.loginOut();
+
                 break;
             case R.id.rl_change_businessInfo:
                 Intent intent = SettledAllianceActivity.getStartIntent(this);
@@ -192,5 +197,21 @@ public class ExamineActivity extends BaseActiviy implements View.OnClickListener
         setResult(RESULT_OK);
 
         finish();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            System.exit(0);
+
+            return true;
+        } else
+            return super.onKeyDown(keyCode, event);
+    }
+
+    //当注销失败时，推出登录按钮恢复
+    public void loginoutFail() {
+        toast("注销失败~请重试",this);
+
+        btn_jumpLogin.setEnabled(true);
     }
 }

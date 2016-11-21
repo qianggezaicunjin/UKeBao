@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/x5"
-                android:hint="hellow！优积分"
+                android:hint="该用户暂无昵称~"
                 android:textColor="@color/text_color_grey" />
 
             <TextView

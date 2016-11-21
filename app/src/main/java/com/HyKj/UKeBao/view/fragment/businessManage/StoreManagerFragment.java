@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
+import com.HyKj.UKeBao.data.RetrofitHelp;
 import com.HyKj.UKeBao.model.businessManage.StoreManagerFragmentModel;
 import com.HyKj.UKeBao.model.businessManage.bean.NotifyInfo;
 import com.HyKj.UKeBao.two_dimensioncode.CaptureActivity;
@@ -42,6 +43,8 @@ import com.HyKj.UKeBao.view.listener.MainFragmentListener;
 import com.HyKj.UKeBao.viewModel.businessManage.StoreManagerFragmentViewModel;
 
 import java.util.List;
+
+import retrofit2.Retrofit;
 
 /**
  * 店铺管理页面
@@ -222,7 +225,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent.putExtra("title", "会员管理");
 
-                intent.putExtra("url", HttpHeadUtil.HTTP_HEAD + "business/member.html?v=1000&token=" + MyApplication.token);
+                intent.putExtra("url", RetrofitHelp.BASE_URL + "business/member.html?v=1000&token=" + MyApplication.token);
 
                 startActivity(intent);
 
@@ -242,7 +245,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent_comment.putExtra("title", "评价管理");
 
-                intent_comment.putExtra("url", HttpHeadUtil.HTTP_HEAD
+                intent_comment.putExtra("url", RetrofitHelp.BASE_URL
                         + "business/comment.html?v=1000&token="
                         + MyApplication.token);
 
@@ -257,7 +260,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent_notice.putExtra("title", "公告设置");
 
-                intent_notice.putExtra("url", HttpHeadUtil.HTTP_HEAD
+                intent_notice.putExtra("url", RetrofitHelp.BASE_URL
                         + "business/notice.html?v=1000&token="
                         + MyApplication.token);
 
@@ -279,7 +282,7 @@ public class StoreManagerFragment extends BaseFragment implements View.OnClickLi
 
                 intent_browse.putExtra("title", "店铺浏览");
 
-                intent_browse.putExtra("url", HttpHeadUtil.HTTP_HEAD
+                intent_browse.putExtra("url", RetrofitHelp.BASE_URL
                         + "mobile/details.html?id="
                         + businessStoreId
                         + "&v=1000&token="

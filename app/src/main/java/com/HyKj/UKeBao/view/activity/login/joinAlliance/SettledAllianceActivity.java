@@ -2,6 +2,7 @@ package com.HyKj.UKeBao.view.activity.login.joinAlliance;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ import com.HyKj.UKeBao.view.activity.login.joinAlliance.VerifyInfo.VerifyInfoAct
 import com.HyKj.UKeBao.viewModel.login.joinAlliance.SettledAllianceViewModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -123,6 +126,7 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
     public final static int UPLOAD_PICTURE = 5;
 
     public SettledAllianceViewModel viewModel;
+    private String feedBack;
 
     public static Intent getStartIntent(Context context) {
 
@@ -183,15 +187,14 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
 
         ll_feedBack = (LinearLayout) findViewById(R.id.ll_feedBack);
 
-
         businessInfo = new BusinessInfo();
 
         initGalleryFinal();
 
-        String feedBack=getIntent().getStringExtra("feedBack");
+        String feedBack = getIntent().getStringExtra("feedBack");
 
-        if (!TextUtils.isEmpty(feedBack)){
-            BufferCircleDialog.show(SettledAllianceActivity.this,"正在获取数据...",false,null);
+        if (!TextUtils.isEmpty(feedBack)) {
+            BufferCircleDialog.show(SettledAllianceActivity.this, "正在获取数据...", false, null);
 
             //当审核不成功时，来到该页面时，请求商家数据
             ll_feedBack.setVisibility(View.VISIBLE);
@@ -206,38 +209,29 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
     public void setUpView() {
         tv_title.setText("加入联盟");
 
-        businessInfo.businessStoreImages=new ArrayList<>();
+        businessInfo.businessStoreImages = new ArrayList<>();
 
-        businessInfo.businessStoreImages.add(0,null);
+        businessInfo.businessStoreImages.add(0, null);
 
-        businessInfo.identityPicture=new ArrayList<>(3);
+        businessInfo.identityPicture = new ArrayList<>(3);
 
-        businessInfo.identityPicture.add(0,null);
+        businessInfo.identityPicture.add(0, null);
 
-        businessInfo.identityPicture.add(1,null);
+        businessInfo.identityPicture.add(1, null);
 
-        businessInfo.identityPicture.add(2,null);
+        businessInfo.identityPicture.add(2, null);
 
-        PhotoInfo photoInfo=new PhotoInfo();
+        mPhotoList.add(0, new PhotoInfo());
 
-        mPhotoList.add(0,photoInfo);
+        mPhotoList.add(1, new PhotoInfo());
 
-        mPhotoList.add(1,photoInfo);
+        mPhotoList.add(2, new PhotoInfo());
 
-        mPhotoList.add(2,photoInfo);
-
+        ib_back.setVisibility(View.GONE);//隐藏返回按钮
     }
 
     @Override
     public void setListeners() {
-
-        //设置返回按钮监听
-        ib_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         chooseIndustryType.setOnClickListener(this);
 
@@ -289,65 +283,44 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
 
                 Intent intent = ChooseCityActivity.getStartIntent(this);
 
-                intent.putExtra("province", businessInfo.province);
-
-                intent.putExtra("city", businessInfo.city);
-
-                intent.putExtra("area", businessInfo.area);
-
-                intent.putExtra("address", businessInfo.address);
+                intent.putExtra("businessInfo_address", businessInfo);
 
                 startActivityForResult(intent, CHOOSE_CITY);
 
                 break;
             //上传营业执照
             case R.id.iv_businessLicense:
-                GalleryFinalUtil.go(this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
+                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 0;
                 break;
             //手持身份证
             case R.id.iv_identityCard_obverse:
-                GalleryFinalUtil.go(this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
+                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 1;
                 break;
             //身份证背面
             case R.id.iv_identityCard_reverse:
-                GalleryFinalUtil.go(this,getSupportFragmentManager(),functionConfig,mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
+                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 2;
                 break;
             //下一步
             case R.id.btn_fillNext:
                 //拿到EditText中的数据(店铺姓名，注册工商号，联系电话，联系人)
-                BufferCircleDialog.show(SettledAllianceActivity.this,"请稍候....",false,null);
-                if(TextUtils.isEmpty(getIntent().getStringExtra("feedBack"))) {
-                    String name = storeNameInput.getText().toString();
+                BufferCircleDialog.show(SettledAllianceActivity.this, "请稍候....", false, null);
 
-                    String contacts_name = contactsNameInput.getText().toString();
+                //反馈
+                feedBack = getIntent().getStringExtra("feedBack");
 
-                    String phone_num = contactsNumberInput.getText().toString();
+                String name = storeNameInput.getText().toString();
 
-                    String regis_number = regisNumberInput.getText().toString();
+                String contacts_name = contactsNameInput.getText().toString();
 
-                    viewModel.submitData(name, contacts_name, phone_num, regis_number, businessInfo, hasSetCoordinate, mPhotoList);
-                }
+                String phone_num = contactsNumberInput.getText().toString();
 
-                if (businessInfo.identityPicture.get(0)!=null&&businessInfo.identityPicture.get(1)!=null&&businessInfo.identityPicture.get(2)!=null) {
-                    Intent next_intent = VerifyInfoActivity.getStartIntent(this);
+                String regis_number = regisNumberInput.getText().toString();
 
-                    businessInfo.identityPicture.set(0,mPhotoList.get(0).getPhotoPath());
+                viewModel.submitData(name, contacts_name, phone_num, regis_number, businessInfo, hasSetCoordinate, mPhotoList);
 
-                    businessInfo.identityPicture.set(1,mPhotoList.get(1).getPhotoPath());
-
-                    businessInfo.identityPicture.set(2,mPhotoList.get(2).getPhotoPath());
-
-                    next_intent.putExtra("businessInfo", businessInfo);
-
-                    next_intent.putExtra("feedBack",getIntent().getStringExtra("feedBack"));
-
-                    startActivityForResult(next_intent, COMMIT_APPLY);
-
-                    BufferCircleDialog.dialogcancel();
-                }
                 break;
         }
     }
@@ -361,6 +334,13 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
     public void setData() {
         hasSetCoordinate = true;
 
+
+        for (int i=0;i<businessInfo.identityPicture.size();i++) {
+            mPhotoList.get(i).setPhotoPath(businessInfo.identityPicture.get(i));
+        }
+
+        LogUtil.d("审核失败，mPhotoList："+mPhotoList.toString());
+
         storeNameInput.setText(businessInfo.businessName);
 
         contactsNameInput.setText(businessInfo.name);
@@ -370,11 +350,11 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
         regisNumberInput.setText(businessInfo.businessRegistrationNo);
 
         if (businessInfo.identityPicture.size() == 3) {
-            Picasso.with(this).load(businessInfo.identityPicture.get(0)).into(iv_businessLicense);
+            Picasso.with(this).load(businessInfo.identityPicture.get(0)).resize(100,60).config(Bitmap.Config.RGB_565).into(iv_businessLicense);
 
-            Picasso.with(this).load(businessInfo.identityPicture.get(1)).into(iv_identityCard_obverse);
+            Picasso.with(this).load(businessInfo.identityPicture.get(1)).resize(100,60).config(Bitmap.Config.RGB_565).into(iv_identityCard_obverse);
 
-            Picasso.with(this).load(businessInfo.identityPicture.get(2)).into(iv_identityCard_reverse);
+            Picasso.with(this).load(businessInfo.identityPicture.get(2)).resize(100,60).config(Bitmap.Config.RGB_565).into(iv_identityCard_reverse);
         }
         if (businessInfo.businessStoreImages != null) {
             tv_storeSignage_status.setText("已上传");
@@ -422,12 +402,14 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
                 options = new DisplayImageOptions.Builder()
                         .showImageOnFail(R.drawable.ic_gf_default_photo)
                         .showImageForEmptyUri(R.drawable.ic_gf_default_photo)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .imageScaleType(ImageScaleType.EXACTLY)
                         .showImageOnLoading(R.drawable.ic_gf_default_photo).build();
                 switch (photoNo) {
                     case 0:
                         mPhotoList.set(photoNo, resultList.get(0));
                         LogUtil.d("文件路径为:" + mPhotoList.get(photoNo).getPhotoPath());
-                        ImageLoader.getInstance().displayImage("file:/" + mPhotoList.get(photoNo).getPhotoPath(), iv_businessLicense, options);
+                        ImageLoader.getInstance().displayImage("file:/" + mPhotoList.get(photoNo).getPhotoPath(),iv_businessLicense,options);
                         break;
                     case 1:
                         mPhotoList.set(photoNo, resultList.get(0));
@@ -527,5 +509,18 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
         else if (resultCode == RESULT_OK && requestCode == COMMIT_APPLY) {
             finish();
         }
+    }
+
+    //跳到申请页
+    public void jump() {
+        Intent next_intent = VerifyInfoActivity.getStartIntent(this);
+
+        next_intent.putExtra("businessInfo", businessInfo);
+
+        next_intent.putExtra("feedBack", feedBack);
+
+        startActivityForResult(next_intent, COMMIT_APPLY);
+
+        BufferCircleDialog.dialogcancel();
     }
 }

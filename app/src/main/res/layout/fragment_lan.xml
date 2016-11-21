@@ -11,7 +11,7 @@
     >
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y22" />
+        android:layout_height="@dimen/y30" />
     <include layout="@layout/topbars_main" />
 
     <RelativeLayout
@@ -192,6 +192,7 @@
                             android:background="@drawable/lan_kaquan"
                             android:gravity="center"
                             android:text="卡券引客"
+                            android:textSize="14sp"
                             android:textColor="#fff" />
 
                         <View
@@ -209,6 +210,7 @@
                             android:background="@drawable/lanred_pocket_red"
                             android:gravity="center"
                             android:text="红包揽客"
+                            android:textSize="14sp"
                             android:textColor="#fff"/>
 
                         <View

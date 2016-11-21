@@ -375,7 +375,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/status_color"
-            android:padding="15dp" >
+            android:padding="15dp"
+            app:callOffice="@{viewModel.customer_phone}">
 
             <TextView
                 android:id="@+id/tv_service_telephone_name"

@@ -156,7 +156,7 @@
                     android:id="@+id/iv_store_icon_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:paddingTop="@dimen/y10"
                     android:paddingBottom="@dimen/y10"
                     android:src="@drawable/default_shops"

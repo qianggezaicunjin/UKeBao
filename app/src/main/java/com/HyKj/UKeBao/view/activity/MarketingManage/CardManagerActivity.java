@@ -50,6 +50,8 @@ public class CardManagerActivity extends BaseActiviy{
 
     @Override
     public void onCreateBinding() {
+        BufferCircleDialog.dialogcancel();
+
         mBinding= DataBindingUtil.setContentView(this, R.layout.activity_marketing_cardmanager);
 
         viewModel=new CardManagerViewModel(new CardManagerModel(),this);
@@ -111,7 +113,6 @@ public class CardManagerActivity extends BaseActiviy{
             mBinding.lvCardManager.onRefreshComplete();
 
             toast("没有更多数据啦!~",this);
-
         }else {
             cardListInfo.addAll(cardListInfos);
 

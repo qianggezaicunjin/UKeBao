@@ -49,11 +49,14 @@ public class RedPacketDetailViewModel extends BaseViewModel {
     @Override
     public void onRequestSuccess(ModelAction data) {
         if (data.action == Action.MarketingManage_GetSingRedPacketDetail) {
+
             redPacketDetail = (RedPacketDetail) data.t;
 
             notifyPropertyChanged(BR.redPacketDetail);
 
         } else if (data.action == Action.MarketingManage_RedPacket_Collect_Record) {
+            BufferCircleDialog.dialogcancel();
+
             recordList = (RedPacket_collect_record) data.t;
 
             LogUtil.d("红包领取记录回调:" + recordList.toString());
@@ -67,8 +70,6 @@ public class RedPacketDetailViewModel extends BaseViewModel {
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
-
         mActivity.toast(erroinfo, mActivity);
     }
 }

@@ -69,6 +69,8 @@ public enum Action {
     BusinessManage_BusinessSettings_GoodsImage,
     //提交店铺设置
     BusinessManage_businessSettings_commit,
+    //删除商品
+    BusinessManage_Delete_Goods,
 
     /**MarketingManage*/
     //获取会员数量

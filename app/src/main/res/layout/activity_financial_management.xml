@@ -66,8 +66,8 @@
                                 android:id="@+id/tv_integral_finance_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/y10"
                                 android:textColor="@color/text_color_red"
+                                android:layout_gravity="center_horizontal"
                                 android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -109,8 +109,8 @@
                                 android:id="@+id/tv_cash_account_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/y10"
                                 android:textColor="@color/text_color_red"
+                                android:layout_gravity="center_horizontal"
                                 android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>

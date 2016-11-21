@@ -4,6 +4,7 @@ package com.HyKj.UKeBao.model.login.baen;
 import com.HyKj.UKeBao.model.businessManage.businessSettings.bean.GoodsInfo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class BusinessInfo implements Serializable {
@@ -139,7 +140,9 @@ public class BusinessInfo implements Serializable {
 	}
 	//冻结金额+可提金额
 	public String getCash() {
-		return (cash+freezeCash)+"元";
+		double allCash=BigDecimal.valueOf(cash+freezeCash).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
+
+		return allCash+"元";
 	}
 	public String getBusinessRegistrationNo() {
 		return businessRegistrationNo;

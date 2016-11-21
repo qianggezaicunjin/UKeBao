@@ -6,5 +6,5 @@ package com.HyKj.UKeBao.util;
  */
 public class  HttpHeadUtil {
 //    public final static String HTTP_HEAD = "https://www.51ujf.cn/";
-    public final static String HTTP_HEAD = "http://test.51ujf.cn/";//test
+    public final static String HTTP_HEAD = "https://test.51ujf.cn/";//test
 }

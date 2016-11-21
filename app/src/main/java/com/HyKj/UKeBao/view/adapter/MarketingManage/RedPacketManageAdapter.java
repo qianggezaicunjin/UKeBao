@@ -57,9 +57,13 @@ public class RedPacketManageAdapter extends MyBaseAdapter<RedPacketListInfo> {
 			.displayer(new FadeInBitmapDisplayer(388)).build();
 		
 			mHolder.userName.setText(list.get(position).getContext()+"");
+
 			mHolder.payRecordDate.setText(list.get(position).getTime()+"");
-			ImageLoader.getInstance().displayImage(list.get(position).getImage()+"",mHolder.userIcon,optionse);
+
+			ImageLoader.getInstance().displayImage(list.get(position).getImage(),mHolder.userIcon,optionse);
+
 			mHolder.recordAmount.setText(list.get(position).getIntegralQuota()+"积分");
+
 			mHolder.orderState.setText(list.get(position).getSurplusCount()+"/"+list.get(position).getCount()+"");
 		
 		return convertView;

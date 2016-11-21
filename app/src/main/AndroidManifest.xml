@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.HyKj.UKeBao"
-    android:versionCode="4"
+    android:versionCode="5"
     android:versionName="2.0.0">
 
     <uses-sdk
@@ -89,7 +89,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote"/>
 
         <!-- push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->
@@ -221,6 +221,7 @@
         <activity android:name=".view.activity.businessManage.businessSettings.BusinessStoreGoodsActivity"/>
         <activity android:name=".view.activity.marketingManage.VipFunctionActivity"/>
         <activity android:name=".view.activity.marketingManage.PayVipActivity"/>
+        <service android:name=".util.NetWorkService"/>
     </application>
 
 </manifest>

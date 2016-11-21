@@ -41,6 +41,7 @@ public class VerifyInfoModel extends BaseModel {
                     @Override
                     public void onError(Throwable e) {
                         LogUtil.d("上传店铺营业信息照片失败" + e.toString());
+
                         mRequestView.onRequestErroInfo("网络连接失败");
                     }
 

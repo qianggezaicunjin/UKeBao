@@ -98,7 +98,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{view.orderRecord.menberName}"
-                            android:hint="hellow！优积分"
+                            android:hint="该用户暂无昵称~"
                             android:textColor="@color/white"
                             android:textColorHint="@color/white"
                             android:textSize="16sp" />

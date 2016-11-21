@@ -36,20 +36,22 @@ public class CashChargeViewModel extends BaseViewModel {
         LogUtil.d("现金充值viewModel，回调成功" + data.t.toString());
 
         //支付宝支付
-        if (data.action== Action.UserInfoManage_CashCharge_Alipay) {
+        if (data.action == Action.UserInfoManage_CashCharge_Alipay) {
             BufferCircleDialog.dialogcancel();
 
             mFragment.pay((PayResult) data.t);
-        }else if(data.action==Action.UserInfoManage_CashCharge_WxPay){
+        } else if (data.action == Action.UserInfoManage_CashCharge_WxPay) {
             BufferCircleDialog.dialogcancel();
 
-            mFragment.wxPay((WXPayResult)data.t);
+            mFragment.wxPay((WXPayResult) data.t);
         }
     }
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
 
         mFragment.toast(erroinfo, mFragment.getContext());
     }

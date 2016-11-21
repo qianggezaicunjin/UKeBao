@@ -24,12 +24,12 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Administrator on 2016/10/21.
  */
-public class RedPacketAttractCustomeModel extends BaseModel{
+public class RedPacketAttractCustomeModel extends BaseModel {
     //获取图片路径
-    public void getImagePath(File file,int modelType) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+    public void getImagePath(File file, int modelType) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        Observable<JSONObject> observable=mDataManager.uploadPictures(requestBody,modelType,"广告图");
+        Observable<JSONObject> observable = mDataManager.uploadPictures(requestBody, modelType, "广告图");
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {
@@ -40,24 +40,29 @@ public class RedPacketAttractCustomeModel extends BaseModel{
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d("揽客红包页面获取图片路径异常:"+e.toString());
+                        LogUtil.d("揽客红包页面获取图片路径异常:" + e.toString());
 
                         mRequestView.onRequestErroInfo("获取图片路径失败~请检查网络连接");
                     }
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        LogUtil.d("揽客红包页面获取图片路径成功:"+jsonObject.toString());
+                        LogUtil.d("揽客红包页面获取图片路径成功:" + jsonObject.toString());
 
-                        StoreSignage storeSignage= JSON.parseObject(jsonObject.toString(),StoreSignage.class);
+                        if (jsonObject.getIntValue("status") == 0) {
 
-                        ModelAction action=new ModelAction();
+                            StoreSignage storeSignage = JSON.parseObject(jsonObject.toString(), StoreSignage.class);
 
-                        action.action= Action.MarketingManage_RedPacketAttractCustome_AddImage;
+                            ModelAction action = new ModelAction();
 
-                        action.t=storeSignage;
+                            action.action = Action.MarketingManage_RedPacketAttractCustome_AddImage;
 
-                        mRequestView.onRequestSuccess(action);
+                            action.t = storeSignage;
+
+                            mRequestView.onRequestSuccess(action);
+                        } else {
+                            mRequestView.onRequestErroInfo("获取图片路径失败~请重试!");
+                        }
                     }
                 });
 
@@ -67,8 +72,8 @@ public class RedPacketAttractCustomeModel extends BaseModel{
     public void sendDataToWeb(String count, double integralQuota, int distance,
                               String redPacketImage, String context, double curryentLatitude,
                               double currryentLongtitude, final short payType) {
-        Observable<JSONObject> observable=mDataManager.sendDataToWeb(count,integralQuota,distance, redPacketImage,
-                context,curryentLatitude,currryentLongtitude,payType,MyApplication.token);
+        Observable<JSONObject> observable = mDataManager.sendDataToWeb(count, integralQuota, distance, redPacketImage,
+                context, curryentLatitude, currryentLongtitude, payType, MyApplication.token);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {
@@ -79,50 +84,50 @@ public class RedPacketAttractCustomeModel extends BaseModel{
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d("sendRedpacket_Exception"+e.toString());
+                        LogUtil.d("sendRedpacket_Exception" + e.toString());
 
                         mRequestView.onRequestErroInfo("发送揽客红包失败，请检查网络~");
                     }
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        LogUtil.d("发送揽客红包成功，返回数据为:"+jsonObject.toString());
-                        String status=jsonObject.getString("status");
+                        LogUtil.d("发送揽客红包成功，返回数据为:" + jsonObject.toString());
+                        String status = jsonObject.getString("status");
 
-                        String msg=jsonObject.getString("msg");
+                        String msg = jsonObject.getString("msg");
 
-                        JSONObject obj=jsonObject.getJSONObject("rows");
+                        JSONObject obj = jsonObject.getJSONObject("rows");
 
                         //判断服务器信息返回是否异常
-                        if(obj.toString().equals("{}")&&status=="1"){
+                        if (obj.toString().equals("{}") && status == "1") {
                             mRequestView.onRequestErroInfo(msg);
                         }
 
                         ModelAction action = new ModelAction();
 
-                        if(payType==1) {
+                        if (payType == 1) {
                             PayInfo payInfo = JSON.parseObject(obj.toString(), PayInfo.class);
 
                             action.t = payInfo;
 
-                            LogUtil.d("支付宝支付调起成功:"+payInfo.toString());
-                        }else if(payType==2){
-                            WXPayInfo wxPayInfo=JSON.parseObject(obj.toString(),WXPayInfo.class);
+                            LogUtil.d("支付宝支付调起成功:" + payInfo.toString());
+                        } else if (payType == 2) {
+                            WXPayInfo wxPayInfo = JSON.parseObject(obj.toString(), WXPayInfo.class);
 
-                            MyApplication.payTpye=2;
+                            MyApplication.payTpye = 2;
 
-                            action.t=wxPayInfo;
+                            action.t = wxPayInfo;
 
-                            LogUtil.d("微信支付调起成功:"+wxPayInfo.toString());
-                        }else if(payType==0||payType==3){
-                            CashOrIntegralPayInfo cashOrIntegralPayInfo=JSON.parseObject(obj.toString(),CashOrIntegralPayInfo.class);
+                            LogUtil.d("微信支付调起成功:" + wxPayInfo.toString());
+                        } else if (payType == 0 || payType == 3) {
+                            CashOrIntegralPayInfo cashOrIntegralPayInfo = JSON.parseObject(obj.toString(), CashOrIntegralPayInfo.class);
 
-                            action.t=cashOrIntegralPayInfo;
+                            action.t = cashOrIntegralPayInfo;
 
-                            LogUtil.d("现金或者积分支付调起成功:"+cashOrIntegralPayInfo.toString());
+                            LogUtil.d("现金或者积分支付调起成功:" + cashOrIntegralPayInfo.toString());
                         }
 
-                        action.action=Action.MarketingManage_RedPacketAttractCustome_sendRedPacket;
+                        action.action = Action.MarketingManage_RedPacketAttractCustome_sendRedPacket;
 
                         mRequestView.onRequestSuccess(action);
                     }

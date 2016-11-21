@@ -1,5 +1,6 @@
 package com.HyKj.UKeBao.model.userInfoManage;
 
+
 import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.model.BaseModel;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
@@ -9,6 +10,8 @@ import com.HyKj.UKeBao.util.ModelAction;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import java.math.BigDecimal;
 
 import rx.Observable;
 import rx.Observer;
@@ -39,37 +42,50 @@ public class LeftMenuFragmentModel extends BaseModel{
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        LogUtil.d("侧边栏页面获取店铺数据成功~");
+                        if(jsonObject.getIntValue("status")==0) {
 
-                        JSONObject obj=jsonObject.getJSONObject("rows");
+                            LogUtil.d("侧边栏页面获取店铺数据成功~");
 
-                        BusinessInfo businessInfo=new BusinessInfo();
+                            JSONObject obj = jsonObject.getJSONObject("rows");
 
-                        businessInfo.setCash(obj.getDouble("cash"));
+                            BusinessInfo businessInfo = new BusinessInfo();
 
-                        businessInfo.setIntegral(obj.getDouble("integral"));
+                            double cash=BigDecimal.valueOf(obj.getDouble("cash")).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 
-                        businessInfo.setBusinessName(obj.getString("businessName"));
+                            double integral=BigDecimal.valueOf(obj.getDouble("integral")).setScale(1, BigDecimal.ROUND_DOWN).doubleValue();
 
-                        businessInfo.setBusinessDiscount(obj.getDouble("businessDiscount"));
+                            double freezeCash=BigDecimal.valueOf(obj.getDouble("freezeCash")).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 
-                        businessInfo.setFreezeCash(obj.getDouble("freezeCash"));
+                            LogUtil.d("侧边栏页面获取店铺数据成功~cash:"+cash+"----integral"+integral);
 
-                        businessInfo.setTel(obj.getString("tel"));
+                            businessInfo.setCash(cash);
 
-                        JSONArray arr=obj.getJSONArray("businessStoreImages");
+                            businessInfo.setIntegral(integral);
 
-                        businessInfo.setBusinessStoreImages(JSON.parseArray(arr.toString(),String.class));
+                            businessInfo.setBusinessName(obj.getString("businessName"));
 
-                        LogUtil.d("揽页面获取店铺数据成功，回调数据为:"+businessInfo.toString());
+                            businessInfo.setBusinessDiscount(obj.getDouble("businessDiscount"));
 
-                        ModelAction action=new ModelAction();
+                            businessInfo.setFreezeCash(freezeCash);
 
-                        action.t=businessInfo;
+                            businessInfo.setTel(obj.getString("tel"));
 
-                        action.action= Action.UserInfoManage_GetBusinessInfo;
+                            JSONArray arr = obj.getJSONArray("businessStoreImages");
 
-                        mRequestView.onRequestSuccess(action);
+                            businessInfo.setBusinessStoreImages(JSON.parseArray(arr.toString(), String.class));
+
+                            LogUtil.d("揽页面获取店铺数据成功，回调数据为:" + businessInfo.toString());
+
+                            ModelAction action = new ModelAction();
+
+                            action.t = businessInfo;
+
+                            action.action = Action.UserInfoManage_GetBusinessInfo;
+
+                            mRequestView.onRequestSuccess(action);
+                        }else {
+                            mRequestView.onRequestErroInfo("获取店铺数据失败~请重试!");
+                        }
                     }
                 });
     }

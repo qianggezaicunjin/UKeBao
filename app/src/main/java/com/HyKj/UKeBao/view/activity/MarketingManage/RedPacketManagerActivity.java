@@ -52,6 +52,8 @@ public class RedPacketManagerActivity extends BaseActiviy {
 
     @Override
     public void onCreateBinding() {
+        BufferCircleDialog.dialogcancel();
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_marketing_redmanager);
 
         viewModel = new RedPacketManagerViewModel(new RedPacketManagerModel(), this);
@@ -60,7 +62,7 @@ public class RedPacketManagerActivity extends BaseActiviy {
 
         businessStoreId = Integer.valueOf(sp.getString("businessStoreId", ""));
 
-        viewModel.getAllRedPacketInfo(page, rows, businessStoreId);//获取全部卡劵信息
+        viewModel.getAllRedPacketInfo(page, rows, businessStoreId);//获取全部红包信息
 
         mBinding.lvRedpacketManager.setMode(PullToRefreshBase.Mode.BOTH);
 
@@ -111,7 +113,7 @@ public class RedPacketManagerActivity extends BaseActiviy {
     }
 
     public void setData(List<RedPacketListInfo> list) {
-        if (list.get(0).getTotal() == list.size() && list.size() != 0) {
+        if (list.size()==0||(list.size()!=0&&list.get(0).getTotal()==redPacketList.size())) {
             mBinding.lvRedpacketManager.onRefreshComplete();
 
             toast("没有更多数据啦!~", this);

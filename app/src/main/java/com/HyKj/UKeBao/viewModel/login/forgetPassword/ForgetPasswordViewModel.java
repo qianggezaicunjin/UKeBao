@@ -63,11 +63,12 @@ public class ForgetPasswordViewModel extends BaseViewModel {
         }
         if (data.action == Action.Login_ForgetPassword_getVerificationCode) {
             baseInfo = (BaseInfo) data.t;
+
             mActivity.toast(baseInfo.msg);
         }else if(data.action==Action.Login_ForgetPassword){
             String msg= (String) data.t;
+
             mActivity.toast(msg);
-            mActivity.finish();
         }else if(data.action==Action.Login_ForgetPassword_isExistence){
             mActivity.getSecurityCode();
         }

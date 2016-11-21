@@ -50,6 +50,7 @@ public class RedPacketDetailActivity extends BaseActiviy {
 
     @Override
     public void onCreateBinding() {
+        BufferCircleDialog.dialogcancel();
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_redpacket_detail);
 

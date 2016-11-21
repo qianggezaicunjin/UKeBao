@@ -51,7 +51,9 @@ public class FinancialManagementViewModel extends BaseViewModel {
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        if (BufferCircleDialog.isShowDialog()){
+            BufferCircleDialog.dialogcancel();
+        }
 
         mActivity.toast(erroinfo);
     }

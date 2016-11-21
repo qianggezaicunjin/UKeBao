@@ -24,9 +24,9 @@ import rx.schedulers.Schedulers;
 public class BusinessStoreImageModel extends BaseModel {
     //上传图片(图片达到最大)
     public void updataIamge(File file) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        Observable<JSONObject> observable=mDataManager.uploadPictures(requestBody,2,"店铺相册");
+        Observable<JSONObject> observable = mDataManager.uploadPictures(requestBody, 2, "店铺相册");
 
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -38,33 +38,38 @@ public class BusinessStoreImageModel extends BaseModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d("店铺相册上传图片网络请求错误，异常信息为"+e.toString());
+                        LogUtil.d("店铺相册上传图片网络请求错误，异常信息为" + e.toString());
 
-                        mRequestView.onRequestSuccess("网络请求失败，请检查网络~");
+                        mRequestView.onRequestErroInfo("网络请求失败，请检查网络~");
                     }
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        LogUtil.d("上传图片获取数据成功:"+jsonObject.toString());
+                        LogUtil.d("上传图片获取数据成功:" + jsonObject.toString());
 
-                        StoreSignage storeSignage= JSON.parseObject(jsonObject.toString(),StoreSignage.class);
+                        if (jsonObject.getIntValue("status") == 0) {
 
-                        ModelAction action=new ModelAction();
+                            StoreSignage storeSignage = JSON.parseObject(jsonObject.toString(), StoreSignage.class);
 
-                        action.action= Action.BusinessManage_businessSettings_updataImage;
+                            ModelAction action = new ModelAction();
 
-                        action.t=storeSignage;
+                            action.action = Action.BusinessManage_businessSettings_updataImage;
 
-                        mRequestView.onRequestSuccess(action);
+                            action.t = storeSignage;
+
+                            mRequestView.onRequestSuccess(action);
+                        } else {
+                            mRequestView.onRequestErroInfo("图片上传失败，请重试~");
+                        }
                     }
                 });
     }
 
     //上传图片（图片可添加）
     public void updataIamgeVacancy(File file) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        Observable<JSONObject> observable=mDataManager.uploadPictures(requestBody,2,"店铺相册");
+        Observable<JSONObject> observable = mDataManager.uploadPictures(requestBody, 2, "店铺相册");
 
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -76,24 +81,29 @@ public class BusinessStoreImageModel extends BaseModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d("店铺相册上传图片网络请求错误，异常信息为"+e.toString());
+                        LogUtil.d("店铺相册上传图片网络请求错误，异常信息为" + e.toString());
 
-                        mRequestView.onRequestSuccess("网络请求失败，请检查网络~");
+                        mRequestView.onRequestErroInfo("网络请求失败，请检查网络~");
                     }
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        LogUtil.d("上传图片获取数据成功:"+jsonObject.toString());
+                        LogUtil.d("上传图片获取数据成功:" + jsonObject.toString());
 
-                        StoreSignage storeSignage= JSON.parseObject(jsonObject.toString(),StoreSignage.class);
+                        if (jsonObject.getIntValue("status") == 0) {
 
-                        ModelAction action=new ModelAction();
+                            StoreSignage storeSignage = JSON.parseObject(jsonObject.toString(), StoreSignage.class);
 
-                        action.action= Action.BusinessManage_businessSettings_updataImageVacancy;
+                            ModelAction action = new ModelAction();
 
-                        action.t=storeSignage;
+                            action.action = Action.BusinessManage_businessSettings_updataImageVacancy;
 
-                        mRequestView.onRequestSuccess(action);
+                            action.t = storeSignage;
+
+                            mRequestView.onRequestSuccess(action);
+                        } else {
+                            mRequestView.onRequestErroInfo("图片上传失败，请重试~");
+                        }
                     }
                 });
     }

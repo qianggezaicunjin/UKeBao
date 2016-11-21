@@ -10,11 +10,15 @@ import com.HyKj.UKeBao.util.ModelAction;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.zxing.MultiFormatReader;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -105,7 +109,15 @@ public class BusinessSettingsModel extends BaseModel {
     //提交店铺设置信息
     public void commit(String tel, String name, List<String> pictures, String address,
                        String province, String city, String area, double longitude, double latitude,List<GoodsInfo> goodsInfoList) {
-        Observable<JSONObject> observable = mDataManager.commitBusinessSettings(tel, name, pictures, address, province, city, area, longitude, latitude, goodsInfoList,MyApplication.token);
+        MultipartBody.Builder builder=new MultipartBody.Builder();
+
+        builder.setType(MultipartBody.FORM);
+
+        builder.addFormDataPart("piList",JSONObject.toJSONString(goodsInfoList));
+
+        LogUtil.d("//////////////////"+JSONObject.toJSONString(goodsInfoList).toString());
+        Observable<JSONObject> observable = mDataManager.commitBusinessSettings(tel,
+                name, pictures, address, province, city, area, longitude, latitude, builder.build(),MyApplication.token);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {
@@ -125,13 +137,18 @@ public class BusinessSettingsModel extends BaseModel {
                     public void onNext(JSONObject jsonObject) {
                         LogUtil.d("提交店铺设置信息成功，返回信息为:"+jsonObject.toString());
 
-                        ModelAction action=new ModelAction();
+                        if(jsonObject.getBoolean("success")) {
 
-                        action.action=Action.BusinessManage_businessSettings_commit;
+                            ModelAction action = new ModelAction();
 
-                        action.t=jsonObject.getString("msg");
+                            action.action = Action.BusinessManage_businessSettings_commit;
 
-                        mRequestView.onRequestSuccess(action);
+                            action.t = jsonObject.getString("msg");
+
+                            mRequestView.onRequestSuccess(action);
+                        }else {
+                            mRequestView.onRequestErroInfo(jsonObject.getString("msg"));
+                        }
                     }
                 });
     }

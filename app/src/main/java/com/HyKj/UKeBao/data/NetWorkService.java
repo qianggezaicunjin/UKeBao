@@ -14,6 +14,8 @@ import com.HyKj.UKeBao.model.login.baen.VerificationInfo;
 import java.util.List;
 
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -289,9 +291,15 @@ public interface NetWorkService {
                                                   @Query("area") String area,
                                                   @Query("longitude") double longitude,
                                                   @Query("latitude") double latitude,
-                                                  @Query("piList[0].src； piList[0].name")List<GoodsInfo> goodsInfoList,
+                                                  @Body RequestBody piList,
                                                   @Query("token") String token);
 
+    /**
+     * 删除商品
+     * id 	是 	int 	商品ID
+     * */
+    @POST("bsProductImg!delete.do")
+    Observable<JSONObject> delete_goods(@Query("id") int id,@Query("token") String token);
 
     /******************营销模块****************************/
 

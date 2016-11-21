@@ -54,11 +54,13 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             if (mList.get(position).substring(0, 4).equals("http")) {
                 Picasso.with(mContext)
                         .load(mList.get(position))
+                        .resize(60,60)
                         .config(Bitmap.Config.RGB_565)
                         .into(holder.addPhoto);
             } else {
                 Picasso.with(mContext)
                         .load(new File(mList.get(position)))
+                        .resize(60,60)
                         .config(Bitmap.Config.RGB_565)
                         .into(holder.addPhoto);
             }

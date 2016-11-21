@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
 import com.HyKj.UKeBao.model.login.joinAlliance.SettledAllianceModel;
 import com.HyKj.UKeBao.util.Action;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.ModelAction;
 import com.HyKj.UKeBao.view.activity.login.joinAlliance.SettledAllianceActivity;
@@ -55,59 +56,82 @@ public class SettledAllianceViewModel extends BaseViewModel {
                            List<PhotoInfo> mlist) {
 
         if (TextUtils.isEmpty(name)) {
+            BufferCircleDialog.dialogcancel();
+
             mActivity.toast("请输入用户名");
+
             return;
         }
         if (TextUtils.isEmpty(contacts_name)) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请输入联系人姓名");
             return;
         }
         if (TextUtils.isEmpty(phone_num)) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请输入联系电话");
             return;
         }
         if (TextUtils.isEmpty(regis_number)||regis_number.length()!=15) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请输入15位工商注册号");
             return;
         }
         if (TextUtils.isEmpty(businessInfo.ptype)) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请选择行业类型");
             return;
         }
         if (TextUtils.isEmpty(businessInfo.province)) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请选择城市");
             return;
         }
         if (TextUtils.isEmpty(businessInfo.city)) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请选择城市");
             return;
         }
         if (TextUtils.isEmpty(businessInfo.address)) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请填写详细地址");
             return;
         }
         if (!hasSetCoordinate) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("设置店铺坐标");
             return;
         }
         if (TextUtils.isEmpty(businessInfo.businessStoreImages.get(0))) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("设置店铺招牌");
             return;
         }
         if (businessInfo.category == -1) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请选择行业类型");
             return;
         }
         if (TextUtils.isEmpty(mlist.get(0).getPhotoPath())){
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请添加营业执照信息");
             return;
         }
         if (TextUtils.isEmpty(mlist.get(1).getPhotoPath())) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请添加手持身份证信息");
             return;
         }
         if (TextUtils.isEmpty(mlist.get(2).getPhotoPath())) {
+            BufferCircleDialog.dialogcancel();
             mActivity.toast("请添加身份证背面信息");
+            return;
+        }
+        if(!phone_num.matches("1[345789][0-9]{9,9}")){
+            BufferCircleDialog.dialogcancel();
+
+            mActivity.toast("请输入正确的联系电话");
+
             return;
         }
         List<String> list=new ArrayList<>();
@@ -116,16 +140,25 @@ public class SettledAllianceViewModel extends BaseViewModel {
             list.add(i,mlist.get(i).getPhotoPath());
         }
         businessInfo.identityPicture=list;
+
         businessInfo.businessName=name;
+
         businessInfo.name=contacts_name;
+
         businessInfo.tel=phone_num;
+
         businessInfo.businessRegistrationNo=regis_number;
+
         mActivity.businessInfo=businessInfo;
+
+        mActivity.jump();
     }
 
     @Override
     public void onRequestSuccess(ModelAction data) {
         if (data.action == Action.Login_SettledAlliance_getBusinessInfo) {
+            BufferCircleDialog.dialogcancel();
+
             mBusinessinfo = (BusinessInfo) data.t;
 
             mActivity.businessInfo = mBusinessinfo;
@@ -136,6 +169,10 @@ public class SettledAllianceViewModel extends BaseViewModel {
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
+        if (BufferCircleDialog.isShowDialog()) {
+            BufferCircleDialog.dialogcancel();
+        }
+
         mActivity.toast(erroinfo);
     }
 

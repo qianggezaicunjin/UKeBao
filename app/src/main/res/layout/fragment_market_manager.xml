@@ -7,7 +7,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y22"
+        android:layout_height="@dimen/y30"
         android:background="@color/status_color" />
 
     <include layout="@layout/topbars_main" />
@@ -34,8 +34,8 @@
 
             <ImageView
                 android:id="@+id/iv_cardJuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/x35"
+                android:layout_height="@dimen/y35"
                 android:src="@drawable/card_manager" />
 
             <TextView
@@ -65,8 +65,8 @@
 
             <ImageView
                 android:id="@+id/iv_redPacket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/x35"
+                android:layout_height="@dimen/y35"
                 android:src="@drawable/red_packet" />
 
             <TextView
@@ -96,8 +96,8 @@
 
             <ImageView
                 android:id="@+id/iv_overflow_exchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/x35"
+                android:layout_height="@dimen/y35"
                 android:src="@drawable/gift" />
 
             <TextView

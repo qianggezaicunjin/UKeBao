@@ -53,7 +53,7 @@ public class RedPacketDetail {
     }
 
     public String getImage() {
-        return image;
+        return image+"@178h_320w_1e_1c";
     }
 
     public void setImage(String image) {

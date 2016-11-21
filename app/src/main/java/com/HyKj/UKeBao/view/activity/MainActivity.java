@@ -64,7 +64,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
     private RadioButton radioButtonStoreManager;
 
-    private Button radioButtonLang;
+    private RadioButton radioButtonLang;
 
     private RadioButton radioButtonMarketManager;
 
@@ -133,8 +133,12 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
     private MainViewModel viewModel;
 
     private Button bt_dialog_close;
+
     private Button bt_dialog_openVip;
+
     private TextView tv_vip_function;
+
+    private boolean setCenter_flag=false;//是否启动点击回到中心点
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -158,7 +162,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
         radioButtonStoreManager = (RadioButton) findViewById(R.id.radioButton_store_manager);
 
-        radioButtonLang = (Button) findViewById(R.id.radioButton_lang);
+        radioButtonLang = (RadioButton) findViewById(R.id.radioButton_lang);
 
         radioButtonMarketManager = (RadioButton) findViewById(R.id.radioButton_market_manager);
 
@@ -206,7 +210,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
     public void setListeners() {
         radioGroupGuide.setOnCheckedChangeListener(this);
 
-        radioButtonLang.setOnClickListener(this);
+        radioButtonLang.setOnClickListener(this);//当揽视图加载完毕之后，添加点击揽返回原坐标点击事件
 
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -243,7 +247,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
         if (!mDrawerLayout.isDrawerOpen(leftMenu)) {
             mDrawerLayout.openDrawer(leftMenu);
             if (leftFragment != null) {
-//                leftFragment.reflishData();
+                leftFragment.viewModel.getBusinessInfo();
             }
         } else {
             mDrawerLayout.closeDrawers();
@@ -258,22 +262,18 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
             SystemBarUtil.changeColor(R.color.transparent);
 
-            switchFragment(0);
+            setCenter_flag=false;
 
-            radioGroupGuide.check(R.id.radioButton_store_manager);
+            switchFragment(0);
         }
-//        // 揽
+        // 揽
 //        else if (checkedId == radioButtonLang.getId()) {
-//            LogUtil.d("点击了揽fragment");
-//
-//            switchFragment(1);
-//
-//            SystemBarUtil.changeColor(R.color.status_color);
-//
-//            radioGroupGuide.check(R.id.radioButton_lang);
+//            LogUtil.d("执行了揽onCheckedChanged");
 //        }
         // 营销管理
         else if (checkedId == radioButtonMarketManager.getId()) {
+
+            setCenter_flag=false;
 
             switchFragment(2);
 
@@ -332,15 +332,16 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
                 exitDialog.dismiss();
 
                 break;
-            //揽
-            case R.id.radioButton_lang:
-                LogUtil.d("点击了揽fragment");
-
-                viewModel.isVip();
-
-                break;
+//            //揽
+//            case R.id.radioButton_lang:
+//                LogUtil.d("点击了揽fragment");
+//
+//                viewModel.isVip();
+//
+//                break;
             //VIP取消框按钮
             case R.id.bt_dialog_close:
+
                 vipDialog.dismiss();
 
                 break;
@@ -355,14 +356,23 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             case R.id.bt_dialog_openVip:
                 vipDialog.dismiss();
 
-                BufferCircleDialog.show(this,"正在申请成为vip~",true,null);
+                BufferCircleDialog.show(this, "正在申请成为vip~", true, null);
 
                 viewModel.applyVip();
 
 //                startActivity(PayVipActivity.getStartIntent(this));
 
                 break;
+            //揽
+            case R.id.radioButton_lang:
+                LogUtil.d("执行揽onclick");
 
+                if(setCenter_flag){
+                    langFragment.moveThePositon();
+                }else{
+                    viewModel.isVip();
+                }
+                break;
             default:
                 break;
         }
@@ -488,6 +498,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
         currentTabIndex = targetTabIndex;
     }
+
 
     //订单提醒框
     private void showMessageDialog(String count) {
@@ -644,8 +655,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             bean.setCount(count);
 
             langFragment.setToMessageFromRedPacket(bean);
-        }
-        else if (intent.getIntExtra("typeAll", -1) == 11) {
+        } else if (intent.getIntExtra("typeAll", -1) == 11) {
             LanBean bean = new LanBean();
 
             intent.getStringExtra("id");
@@ -665,12 +675,12 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             bean.setNameTiltle(intent.getStringExtra("nameTiltle") + "");
 
             langFragment.setToMessageFromCardDetail(bean);
-        }
-        else if(intent.getBooleanExtra("vip_pay_success",false)){
+        } else if (intent.getBooleanExtra("vip_pay_success", false)) {
             switchFragment(1);
 
             SystemBarUtil.changeColor(R.color.status_color);
 
+            setCenter_flag=true;
         }
     }
 
@@ -681,56 +691,62 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             case 0:
                 switchFragment(1);
 
+                setCenter_flag=true;
+
                 SystemBarUtil.changeColor(R.color.status_color);
 
                 break;
 
             //非会员
             case 2:
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-
-                View dialogContentView = View.inflate(mContext, R.layout.view_vip_dialog, null);
-
-                bt_dialog_close = (Button) dialogContentView.findViewById(R.id.bt_dialog_close);//关闭
-
-                bt_dialog_openVip = (Button) dialogContentView.findViewById(R.id.bt_dialog_openVip);//开通vip
-
-                tv_vip_function = (TextView) dialogContentView.findViewById(R.id.tv_vip_function);//开通vip功能提示
-
-                bt_dialog_close.setOnClickListener(this);
-
-                bt_dialog_openVip.setOnClickListener(this);
-
-                tv_vip_function.setOnClickListener(this);
-
-                vipDialog = builder.create();
-
-                vipDialog.show();
-
-                vipDialog.setCancelable(true);
-
-                vipDialog.setCanceledOnTouchOutside(true);
-
-                // 设置dialog的大小
-                // 将对话框的大小按屏幕大小的百分比设置
-                Window dialogWindow = vipDialog.getWindow();
-
-                dialogWindow.setContentView(dialogContentView);
-
-                WindowManager windowManager = getWindowManager();
-
-                Display display = windowManager.getDefaultDisplay(); // 获取屏幕
-
-                WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-
-                lp.height = (int) (display.getHeight() * 0.9); // 高度设置为屏幕的0.87
-
-                lp.width = (int) (display.getWidth() * 0.92); // 宽度设置为屏幕的0.9
-
-                dialogWindow.setAttributes(lp);
+                initDialog();
 
                 break;
         }
+    }
+
+    private void initDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        View dialogContentView = View.inflate(mContext, R.layout.view_vip_dialog, null);
+
+        bt_dialog_close = (Button) dialogContentView.findViewById(R.id.bt_dialog_close);//关闭
+
+        bt_dialog_openVip = (Button) dialogContentView.findViewById(R.id.bt_dialog_openVip);//开通vip
+
+        tv_vip_function = (TextView) dialogContentView.findViewById(R.id.tv_vip_function);//开通vip功能提示
+
+        bt_dialog_close.setOnClickListener(this);
+
+        bt_dialog_openVip.setOnClickListener(this);
+
+        tv_vip_function.setOnClickListener(this);
+
+        vipDialog = builder.create();
+
+        vipDialog.show();
+
+        vipDialog.setCancelable(true);
+
+        vipDialog.setCanceledOnTouchOutside(true);
+
+        // 设置dialog的大小
+        // 将对话框的大小按屏幕大小的百分比设置
+        Window dialogWindow = vipDialog.getWindow();
+
+        dialogWindow.setContentView(dialogContentView);
+
+        WindowManager windowManager = getWindowManager();
+
+        Display display = windowManager.getDefaultDisplay(); // 获取屏幕
+
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+
+        lp.height = (int) (display.getHeight() * 0.63); // 高度设置为屏幕的0.63
+
+        lp.width = (int) (display.getWidth() * 0.73); // 宽度设置为屏幕的0.73
+
+        dialogWindow.setAttributes(lp);
     }
 
     @Override
@@ -744,12 +760,12 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
     //申请vip资格成功回调
     public void setVipPayInfo(int id) {
-        SharedPreferences sp=getSharedPreferences("user_login",MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("user_login", MODE_PRIVATE);
 
-        SharedPreferences.Editor editor=sp.edit();
+        SharedPreferences.Editor editor = sp.edit();
 
         //vip支付id
-        editor.putInt("vipPayId",id);
+        editor.putInt("vipPayId", id);
 
         editor.commit();
 

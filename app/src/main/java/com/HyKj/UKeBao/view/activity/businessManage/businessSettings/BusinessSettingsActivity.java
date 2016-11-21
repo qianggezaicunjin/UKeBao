@@ -123,10 +123,14 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
 
                 List<String> goodImageName_list=new ArrayList<>();
 
+                List<Integer> goodsImageid_list=new ArrayList<>();
+
                 for(int i=0;i<businessInfo.getPiList().size();i++){
                     goodsImage_list.add(businessInfo.getPiList().get(i).getSrc());
 
                     goodImageName_list.add(businessInfo.getPiList().get(i).getName());
+
+                    goodsImageid_list.add(businessInfo.getPiList().get(i).getId());
                 }
 
                 Intent goodsImage_intent=BusinessStoreGoodsActivity.getStartIntent(this);
@@ -134,6 +138,8 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
                 goodsImage_intent.putExtra("goods_list", (Serializable) goodsImage_list);
 
                 goodsImage_intent.putExtra("goodImageName_list", (Serializable) goodImageName_list);
+
+                goodsImage_intent.putExtra("goodsImageid_list", (Serializable) goodsImageid_list);
 
                 startActivityForResult(goodsImage_intent,RESULT_Settings_GoodsImage);
 
@@ -145,7 +151,7 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
 
                 businessInfo.setTel(mBinding.etStorePhoneNumberInput.getText().toString());
 
-                businessInfo.setName(mBinding.tvStoreNameDetail.getText().toString());
+                businessInfo.setName(mBinding.etContactsNameInput.getText().toString());
 
                 viewModel.commit(businessInfo);
         }
@@ -202,17 +208,39 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
 
                     ArrayList<String> updata_goodsName = data.getStringArrayListExtra("updata_goodsName");
 
+                    ArrayList<Integer> updata_goodsId=data.getIntegerArrayListExtra("goodsImageid_list");
+
                     for(int i=0;i<updata_goodsImage.size();i++){
-                        GoodsInfo goodsInfo=new GoodsInfo();
+                        if(updata_goodsImage.get(i).equals("end")){
+                            break;
+                        }
 
-                        goodsInfo.setName(updata_goodsName.get(i));
+                        try {
+                            GoodsInfo goodsInfo = new GoodsInfo();
 
-                        goodsInfo.setSrc(updata_goodsImage.get(i));
+                            goodsInfo.setName(updata_goodsName.get(i));
 
-                        goodsInfoList.add(goodsInfo);
+                            goodsInfo.setSrc(updata_goodsImage.get(i));
+
+                            goodsInfo.setId(updata_goodsId.get(i));
+
+                            goodsInfoList.add(goodsInfo);
+                        }catch (Exception e){
+                            LogUtil.d("BusinessSettings"+e.toString());
+
+                            GoodsInfo goodsInfo = new GoodsInfo();
+
+                            goodsInfo.setName(updata_goodsName.get(i));
+
+                            goodsInfo.setSrc(updata_goodsImage.get(i));
+
+                            goodsInfoList.add(goodsInfo);
+                        }
+
                     }
-
                     businessInfo.setPiList(goodsInfoList);
+
+                    LogUtil.d("回调商品相册成功，返回数据为"+"goodsInfoList"+goodsInfoList);
 
                     mBinding.tvStoreGoodsImageSettings.setText("修改/已设置");
 

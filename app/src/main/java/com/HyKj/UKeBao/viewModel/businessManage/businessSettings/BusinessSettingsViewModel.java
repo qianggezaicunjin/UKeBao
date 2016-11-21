@@ -29,6 +29,8 @@ public class BusinessSettingsViewModel extends BaseViewModel{
     @Bindable
     public String businessImage;
 
+    private String image_percent="@110h_110w_1e_1c";//头像比例
+
     public BusinessSettingsViewModel(BusinessSettingsActivity activity,BusinessSettingsModel model){
         mActivity=activity;
 
@@ -62,7 +64,7 @@ public class BusinessSettingsViewModel extends BaseViewModel{
         if(data.action== Action.BusinessManage_businessSettings_getbusinessInfo){
             businessInfo= (BusinessInfo) data.t;
 
-            businessImage=businessInfo.businessStoreImages.get(0);
+            businessImage=businessInfo.businessStoreImages.get(0)+image_percent;
 
             mActivity.setBusinessInfo(businessInfo);
 
@@ -82,7 +84,9 @@ public class BusinessSettingsViewModel extends BaseViewModel{
 
     @Override
     public void onRequestErroInfo(String erroinfo) {
-        BufferCircleDialog.dialogcancel();
+        if (BufferCircleDialog.isShowDialog()){
+            BufferCircleDialog.dialogcancel();
+        }
 
         mActivity.toast(erroinfo,mActivity);
     }

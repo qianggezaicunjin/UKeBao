@@ -119,6 +119,7 @@ public class VerifyInfoActivity extends BaseActiviy implements View.OnClickListe
             //商家协议
             case R.id.tv_agreement:
                 LogUtil.d("点击了商家协议TextView");
+
                 startActivity(AgreementActivity.getStartIntent(this));
                 break;
             //提交申请
@@ -126,6 +127,7 @@ public class VerifyInfoActivity extends BaseActiviy implements View.OnClickListe
                 BufferCircleDialog.show(VerifyInfoActivity.this,"正在提交中...",false,null);
 
                 viewModel.commit(businessInfo,checkBox_agree,feedBack,businessStoreId);
+
                 break;
             default:
                 break;

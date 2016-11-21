@@ -31,6 +31,7 @@ import com.HyKj.UKeBao.model.marketingManage.LanFragmentModel;
 import com.HyKj.UKeBao.model.marketingManage.bean.CardDetail;
 import com.HyKj.UKeBao.model.marketingManage.bean.LanBean;
 import com.HyKj.UKeBao.model.marketingManage.bean.RedPacketDetail;
+import com.HyKj.UKeBao.util.BufferCircleDialog;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.util.MapZoomUtils;
 import com.HyKj.UKeBao.view.activity.marketingManage.CardCustomerActivity;
@@ -311,7 +312,7 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
     }
 
     //移动位置
-    private void moveThePositon() {
+    public void moveThePositon() {
         if (currentLocation_LanFragment_MainActivity != null) {
             currentLocation_LanFragment_MainActivity.setText("正在获取位置信息...");
         }
@@ -631,6 +632,8 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
                 break;
             case R.id.toastPopUp_Lanfragment:
                 if (fromWhere.equals("红包")) {
+                    BufferCircleDialog.show(getActivity(),"努力加载中,请稍候...",false,null);
+
                     Intent intents = RedPacketDetailActivity.getStartIntent(getActivity());
 
                     intents.putExtra("id", bean.getId());

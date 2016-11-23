@@ -15,16 +15,16 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion '22.0.1'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
     dataBinding {
         enabled = true
     }
     defaultConfig {
         applicationId "com.HyKj.UKeBao"
-        minSdkVersion 18
-        targetSdkVersion 22
-        versionCode 4
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 5
         versionName "2.0.0"
         signingConfig signingConfigs.debug
         multiDexEnabled true

@@ -1,23 +1,14 @@
 package com.HyKj.UKeBao.view.activity.login;
 
 import android.content.SharedPreferences;
-import android.databinding.BaseObservable;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-
-import com.HyKj.UKeBao.MyApplication;
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivitySplashBinding;
 import com.HyKj.UKeBao.model.login.SplashModel;
 import com.HyKj.UKeBao.model.login.baen.SplashBean;
 import com.HyKj.UKeBao.util.LogUtil;
-import com.HyKj.UKeBao.util.NetWorkUtils;
-import com.HyKj.UKeBao.view.activity.MainActivity;
 import com.HyKj.UKeBao.viewModel.login.SplashViewModel;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;

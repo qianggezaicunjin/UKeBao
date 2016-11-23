@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_bar_layout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Frist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="@dimen/y20"
+        android:background="#fff"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="定单类型" />
+
+        <TextView
+            android:id="@+id/scoreExchagne_ExchangDetailFromSearchActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="积分兑换" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_thrid"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"
+        android:background="#ccc"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y10"
+        android:layout_marginTop="@dimen/y20"
+        android:background="#fff"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="订单金额" />
+
+        <TextView
+            android:id="@+id/orderPrice_ExchangDetailFromSearchActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="￥  45 元"
+            android:textColor="#f00"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_fourth"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y10"
+        android:background="#eee"
+        android:visibility="invisible" />
+    <TextView
+        android:id="@+id/tv_exchangInfo_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/listView_ExchangDetailFromSearchActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginTop="@dimen/y10"
+            android:divider="@color/grey"
+            android:dividerHeight="@dimen/y1"/>
+
+        <TextView
+            android:id="@+id/noData_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="暂无信息"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -104,7 +104,7 @@ public class PayVipActivity extends BaseActiviy{
     public void setUpView() {
         setTitleTheme("支付订单");
 
-        mBinding.rgPayVipPayType.check(0);//初始化支付方式
+        mBinding.rgPayVipPayType.check(R.id.bt_cashPay);//初始化支付方式
     }
 
     @Override
@@ -410,7 +410,7 @@ public class PayVipActivity extends BaseActiviy{
 
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
 
-        lp.height = (int) (display.getHeight() * 1); // 高度设置为屏幕的1
+        lp.height = (int) (display.getHeight() * 0.9); // 高度设置为屏幕的1
 
         lp.width = (int) (display.getWidth() * 1); // 宽度设置为屏幕的1
 

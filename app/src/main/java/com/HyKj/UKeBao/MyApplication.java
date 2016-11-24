@@ -8,6 +8,7 @@ import android.support.multidex.MultiDex;
 import com.HyKj.UKeBao.util.PicassoPauseOnScrollListener;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.testin.agent.TestinAgent;
 
 
 import cn.finalteam.galleryfinal.PauseOnScrollListener;
@@ -41,6 +42,8 @@ public class MyApplication extends Application {
         //CrashHandler catchHandler = CrashHandler.getInstance();
 
         //catchHandler.init(getApplicationContext());
+        TestinAgent.init(this, "ba61b5016879b5eafc8b5d53b16a0f43", "yingyongbao_360_xiaomi_doubai_huawei");//云测崩溃分析
+
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration
                 .createDefault(this);
 

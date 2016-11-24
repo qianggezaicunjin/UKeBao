@@ -15,6 +15,7 @@ public class BusinessInfo implements Serializable {
 	public String bankNo;
 	public String bankUserName;
 	public String businessArea;
+	public String phone;
 	public double businessDiscount;
 	public List<String> businessStoreImages;
 	public double cash;
@@ -378,36 +379,71 @@ public class BusinessInfo implements Serializable {
 	public void setBusinessDiscount(double businessDiscount) {
 		this.businessDiscount = businessDiscount;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
-		return "BusinessInfo [alreadyCollection=" + alreadyCollection
-				+ ", bankMessage=" + bankMessage + ", bankName=" + bankName
-				+ ", bankNo=" + bankNo + ", bankUserName=" + bankUserName
-				+ ", businessArea=" + businessArea + ", businessDiscount="
-				+ businessDiscount + ", businessStoreImages="
-				+ businessStoreImages + ", cash=" + cash + ", changeIncome="
-				+ changeIncome + ", freezeCash=" + freezeCash + ", id=" + id
-				+ ", integralScale=" + integralScale + ", isDouble=" + isDouble
-				+ ", isExamine=" + isExamine + ", isExchange=" + isExchange
-				+ ", isHavePay=" + isHavePay + ", isIntegral=" + isIntegral
-				+ ", isValue=" + isValue + ", isVip=" + isVip
-				+ ", limitCashOutQuota=" + limitCashOutQuota
-				+ ", menberCostCash=" + menberCostCash
-				+ ", menberCostIntegral=" + menberCostIntegral
-				+ ", messageCount=" + messageCount + ", messageMark="
-				+ messageMark + ", projectDesc=" + projectDesc + ", ptype="
-				+ ptype + ", pictures=" + pictures + ", reward=" + reward
-				+ ", serviceCost=" + serviceCost + ", status=" + status
-				+ ", storeDesc=" + storeDesc + ", stype=" + stype + ", vip="
-				+ vip + ", businessName=" + businessName + ", name=" + name
-				+ ", tel=" + tel + ", businessRegistrationNo="
-				+ businessRegistrationNo + ", category=" + category
-				+ ", province=" + province + ", city=" + city + ", area="
-				+ area + ", address=" + address + ", longitude=" + longitude
-				+ ", latitude=" + latitude + ", identityPicture="
-				+ identityPicture + ", industryType=" + industryType
-				+ ", parentName=" + parentName + ", discount=" + discount
-				+ ", integral=" + integral + "]";
+		return "BusinessInfo{" +
+				"address='" + address + '\'' +
+				", alreadyCollection=" + alreadyCollection +
+				", bankMessage=" + bankMessage +
+				", bankName='" + bankName + '\'' +
+				", bankNo='" + bankNo + '\'' +
+				", bankUserName='" + bankUserName + '\'' +
+				", businessArea='" + businessArea + '\'' +
+				", phone='" + phone + '\'' +
+				", businessDiscount=" + businessDiscount +
+				", businessStoreImages=" + businessStoreImages +
+				", cash=" + cash +
+				", changeIncome=" + changeIncome +
+				", freezeCash=" + freezeCash +
+				", id=" + id +
+				", integralScale=" + integralScale +
+				", isDouble='" + isDouble + '\'' +
+				", isExamine=" + isExamine +
+				", isExchange='" + isExchange + '\'' +
+				", isHavePay=" + isHavePay +
+				", isIntegral='" + isIntegral + '\'' +
+				", isValue='" + isValue + '\'' +
+				", isVip=" + isVip +
+				", limitCashOutQuota=" + limitCashOutQuota +
+				", menberCostCash=" + menberCostCash +
+				", menberCostIntegral=" + menberCostIntegral +
+				", messageCount=" + messageCount +
+				", messageMark=" + messageMark +
+				", projectDesc='" + projectDesc + '\'' +
+				", ptype='" + ptype + '\'' +
+				", pictures=" + pictures +
+				", reward='" + reward + '\'' +
+				", serviceCost=" + serviceCost +
+				", status=" + status +
+				", storeDesc='" + storeDesc + '\'' +
+				", stype='" + stype + '\'' +
+				", vip='" + vip + '\'' +
+				", businessName='" + businessName + '\'' +
+				", name='" + name + '\'' +
+				", tel='" + tel + '\'' +
+				", businessRegistrationNo='" + businessRegistrationNo + '\'' +
+				", category=" + category +
+				", province='" + province + '\'' +
+				", city='" + city + '\'' +
+				", area='" + area + '\'' +
+				", longitude=" + longitude +
+				", latitude=" + latitude +
+				", identityPicture=" + identityPicture +
+				", industryType='" + industryType + '\'' +
+				", parentName='" + parentName + '\'' +
+				", discount=" + discount +
+				", integral=" + integral +
+				", piList=" + piList +
+				'}';
 	}
 
 }

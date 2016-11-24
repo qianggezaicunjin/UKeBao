@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="20dp"
-                android:text="@{viewModel.businessInfo.tel}"
+                android:text="@{viewModel.businessInfo.phone}"
                 android:textColor="@color/white" />
         </LinearLayout>
 

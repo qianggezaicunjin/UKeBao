@@ -24,6 +24,7 @@ import com.HyKj.UKeBao.view.fragment.BaseFragment;
 import com.HyKj.UKeBao.viewModel.userInfoManage.BalanceViewModel;
 import com.HyKj.UKeBao.viewModel.userInfoManage.LeftMenuFragmentViewModel;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
@@ -207,9 +208,13 @@ public class BalanceRechargeFragment extends BaseFragment implements View.OnClic
 
         balanceCash=info.cash;
 
-        availableBalanceNumber.setText(info.cash + "元");
+        double cash=BigDecimal.valueOf(balanceCash).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();//可用余额保留两位小数
 
-        cashAccountNumber.setText(info.cash + info.freezeCash + "元");
+        double cashAccount=BigDecimal.valueOf(info.cash + info.freezeCash).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();//现金账户保留两位小数
+
+        availableBalanceNumber.setText(cash + "元");//可用余额
+
+        cashAccountNumber.setText(cashAccount + "元");//现金账户
 
         BufferCircleDialog.dialogcancel();
     }

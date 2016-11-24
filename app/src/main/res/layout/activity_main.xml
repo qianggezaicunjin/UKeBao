@@ -25,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y432"
                 android:fitsSystemWindows="true"/>
-
             <!-- 主页导航栏 -->
             <RadioGroup
                 android:id="@+id/radioGroup_guide"
@@ -56,13 +55,6 @@
                     android:layout_height="@dimen/y1"
                     android:layout_weight="1" />
 
-                <RadioButton
-                    android:id="@+id/radioButton_lang"
-                    android:layout_width="@dimen/x55"
-                    android:layout_height="@dimen/y55"
-                    android:background="@drawable/lana1"
-                    android:layout_marginTop="-5dp"
-                    android:button="@null" />
                 <!-- 营销管理 -->
 
                 <View
@@ -83,7 +75,15 @@
                     android:textColor="@color/selector_radiobutton__textcolor"
                     android:textSize="13sp" />
             </RadioGroup>
-
+            <RadioButton
+                android:id="@+id/radioButton_lang"
+                android:layout_width="@dimen/x55"
+                android:layout_height="@dimen/y55"
+                android:background="@drawable/lana1"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/y2"
+                android:button="@null" />
                 <!-- -15dp -->
         </RelativeLayout>
     </FrameLayout>

@@ -68,7 +68,7 @@ public class LeftMenuFragmentModel extends BaseModel{
 
                             businessInfo.setFreezeCash(freezeCash);
 
-                            businessInfo.setTel(obj.getString("tel"));
+                            businessInfo.setPhone(obj.getString("phone"));
 
                             JSONArray arr = obj.getJSONArray("businessStoreImages");
 

@@ -1,7 +1,9 @@
 package com.HyKj.UKeBao;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Color;
+import android.support.multidex.MultiDex;
 
 import com.HyKj.UKeBao.util.PicassoPauseOnScrollListener;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -64,5 +66,9 @@ public class MyApplication extends Application {
                 .setIconCamera(R.drawable.ic_gf_camera)
                 .build();
         themeConfig = theme;
+    }
+
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base); MultiDex.install(this);
     }
 }

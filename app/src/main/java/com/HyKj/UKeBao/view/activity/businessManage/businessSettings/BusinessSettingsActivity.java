@@ -3,6 +3,7 @@ package com.HyKj.UKeBao.view.activity.businessManage.businessSettings;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.view.View;
 
 
@@ -101,7 +102,13 @@ public class BusinessSettingsActivity extends BaseActiviy implements View.OnClic
             case R.id.rl_store_address_setting:
                 Intent intent_chooseCity= ChooseCityActivity.getStartIntent(this);
 
-                intent_chooseCity.putExtra("businessInfo_address",businessInfo);
+                intent_chooseCity.putExtra("province",businessInfo.province);
+
+                intent_chooseCity.putExtra("city",businessInfo.city);
+
+                intent_chooseCity.putExtra("area",businessInfo.area);
+
+                intent_chooseCity.putExtra("address",businessInfo.address);
 
                 startActivityForResult(intent_chooseCity,RESULT_Settings_ChooseCity);
 

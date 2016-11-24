@@ -340,11 +340,11 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 //
 //                break;
             //VIP取消框按钮
-            case R.id.bt_dialog_close:
-
-                vipDialog.dismiss();
-
-                break;
+//            case R.id.bt_dialog_close:
+//
+//                vipDialog.dismiss();
+//
+//                break;
             //VIP商户功能说明
             case R.id.tv_vip_function:
                 vipDialog.dismiss();
@@ -710,13 +710,13 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
         View dialogContentView = View.inflate(mContext, R.layout.view_vip_dialog, null);
 
-        bt_dialog_close = (Button) dialogContentView.findViewById(R.id.bt_dialog_close);//关闭
+//        bt_dialog_close = (Button) dialogContentView.findViewById(R.id.bt_dialog_close);//关闭
 
         bt_dialog_openVip = (Button) dialogContentView.findViewById(R.id.bt_dialog_openVip);//开通vip
 
         tv_vip_function = (TextView) dialogContentView.findViewById(R.id.tv_vip_function);//开通vip功能提示
 
-        bt_dialog_close.setOnClickListener(this);
+//        bt_dialog_close.setOnClickListener(this);
 
         bt_dialog_openVip.setOnClickListener(this);
 
@@ -742,9 +742,9 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
 
-        lp.height = (int) (display.getHeight() * 0.63); // 高度设置为屏幕的0.63
+        lp.height = (int) (display.getHeight() * 0.7); // 高度设置为屏幕的0.7
 
-        lp.width = (int) (display.getWidth() * 0.73); // 宽度设置为屏幕的0.73
+        lp.width = (int) (display.getWidth() * 0.9); // 宽度设置为屏幕的0.9
 
         dialogWindow.setAttributes(lp);
     }

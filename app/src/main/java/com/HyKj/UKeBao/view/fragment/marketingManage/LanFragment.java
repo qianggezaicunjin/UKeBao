@@ -66,6 +66,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 
 import java.util.ArrayList;
@@ -678,6 +679,11 @@ public class LanFragment extends BaseFragment implements OnClickListener, OnGetP
     @Override
     public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
         poiDetailResult.getLocation();
+    }
+
+    @Override
+    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+
     }
 
     //设置地图的中心点

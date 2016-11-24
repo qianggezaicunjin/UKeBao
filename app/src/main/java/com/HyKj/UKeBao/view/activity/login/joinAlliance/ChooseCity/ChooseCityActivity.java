@@ -2,6 +2,7 @@ package com.HyKj.UKeBao.view.activity.login.joinAlliance.ChooseCity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,7 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
 
     private ChooseCityViewModel viewModel;
 
-    private String  provinceName;//省
+    private String provinceName;//省
 
     private String cityName;//市
 
@@ -60,11 +61,11 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
 
         btn_confirmAddress = (Button) findViewById(R.id.btn_confirmAddress);
 
-        tv_province= (TextView) findViewById(R.id.tv_province);
+        tv_province = (TextView) findViewById(R.id.tv_province);
 
         et_address_detail = (EditText) findViewById(R.id.et_address_detail);
 
-        viewModel=new ChooseCityViewModel(new ChooseCityModel(),this);
+        viewModel = new ChooseCityViewModel(new ChooseCityModel(), this);
 
         //获取地址信息
         getAddressInfo();
@@ -107,20 +108,18 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
     }
 
     private void getAddressInfo() {
-        Intent intent=getIntent();
+        Intent intent = getIntent();
 
-        BusinessInfo businessInfo= (BusinessInfo) intent.getSerializableExtra("businessInfo_address");
+        provinceName = intent.getStringExtra("province");
 
-        provinceName=businessInfo.province;
+        cityName = intent.getStringExtra("city");
 
-        cityName=businessInfo.city;
+        area = intent.getStringExtra("area");
 
-        area=businessInfo.area;
-
-        if(provinceName!=null||cityName!=null||area!=null) {
+        if (provinceName != null || cityName != null || area != null) {
             tv_province.setText(provinceName + cityName + area);
 
-            et_address_detail.setText(businessInfo.address);
+            et_address_detail.setText(intent.getStringExtra("address"));
         }
     }
 
@@ -129,55 +128,56 @@ public class ChooseCityActivity extends BaseActiviy implements View.OnClickListe
         viewModel.chooseCity();
     }
 
-    public void chooseCity(){
-        if(viewModel.provinceList!=null){
-            Intent intent =ProvinceChooseActivity.getStartIntent(this);
+    public void chooseCity() {
+        if (viewModel.provinceList != null) {
+            Intent intent = ProvinceChooseActivity.getStartIntent(this);
 
-            intent.putExtra("provinceList",(Serializable)viewModel.provinceList);
+            intent.putExtra("provinceList", (Serializable) viewModel.provinceList);
 
             startActivityForResult(intent, 1);
         }
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1&&resultCode==RESULT_OK){
-            cityName=data.getStringExtra("cityName");
-            provinceName=data.getStringExtra("provinceName");
-            area=data.getStringExtra("area");
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            cityName = data.getStringExtra("cityName");
+            provinceName = data.getStringExtra("provinceName");
+            area = data.getStringExtra("area");
             //过滤信息
-            area=area.replaceAll("(县级市|地级市|、|)", "");
-            cityName=cityName.replaceAll("(县级市|地级市|、|)", "");
-            tv_province.setText(provinceName+cityName+area);
+            area = area.replaceAll("(县级市|地级市|、|)", "");
+            cityName = cityName.replaceAll("(县级市|地级市|、|)", "");
+            tv_province.setText(provinceName + cityName + area);
         }
     }
 
     //提交按钮执行的方法
     private void confirmAddress() {
-        address=et_address_detail.getText().toString().trim();
-        if(provinceName==null){
+        address = et_address_detail.getText().toString().trim();
+        if (provinceName == null) {
             Toast.makeText(this, "请选择省份", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(cityName==null){
+        if (cityName == null) {
             Toast.makeText(this, "请选择城市", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(address==null){
+        if (address == null) {
             Toast.makeText(this, "请输入详细地址", Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent =new Intent();
+        Intent intent = new Intent();
 
-        intent.putExtra("cityName",cityName);
+        intent.putExtra("cityName", cityName);
 
-        intent.putExtra("provinceName",provinceName);
+        intent.putExtra("provinceName", provinceName);
 
-        intent.putExtra("area",area);
+        intent.putExtra("area", area);
 
-        intent.putExtra("areaDetail",address);
+        intent.putExtra("areaDetail", address);
 
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
 
         finish();
 

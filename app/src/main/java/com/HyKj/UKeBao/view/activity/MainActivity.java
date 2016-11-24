@@ -367,6 +367,8 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
             case R.id.radioButton_lang:
                 LogUtil.d("执行揽onclick");
 
+                radioGroupGuide.clearCheck();
+
                 if(setCenter_flag){
                     langFragment.moveThePositon();
                 }else{
@@ -744,7 +746,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
         lp.height = (int) (display.getHeight() * 0.7); // 高度设置为屏幕的0.7
 
-        lp.width = (int) (display.getWidth() * 0.9); // 宽度设置为屏幕的0.9
+        lp.width = (int) (display.getWidth() * 0.91); // 宽度设置为屏幕的0.91
 
         dialogWindow.setAttributes(lp);
     }

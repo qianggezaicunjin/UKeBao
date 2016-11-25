@@ -12,6 +12,7 @@ import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.viewModel.login.SplashViewModel;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.baidu.android.pushservice.PushSettings;
 
 
 public class SplashActivity extends AppCompatActivity{
@@ -41,6 +42,8 @@ public class SplashActivity extends AppCompatActivity{
         LogUtil.d("11111111111_______11111111");
 
         mBinding= DataBindingUtil.setContentView(this,R.layout.activity_splash);
+
+//        PushSettings.enableDebugMode(this, true);//百度云推送调试
 
         PushManager.startWork(getApplicationContext(),
                 PushConstants.LOGIN_TYPE_API_KEY, "vmNlBqZY0MmPnIPMC4w1Aoof");

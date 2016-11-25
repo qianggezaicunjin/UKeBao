@@ -269,7 +269,8 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="@dimen/x10">
+                android:padding="@dimen/x10"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_pay_nodiscount_title"
@@ -291,6 +292,7 @@
             </LinearLayout>
             <!-- 服务费 -->
         <LinearLayout
+            android:id="@+id/ll_service_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -298,6 +300,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
+            android:visibility="gone"
             android:padding="@dimen/x10">
             <TextView
                 android:id="@+id/tv_service_charge"
@@ -390,7 +393,8 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/x10"
                 android:layout_marginTop="@dimen/y10"
-                android:textColor="#999999"/>
+                android:textColor="#999999"
+                android:visibility="gone"/>
             <!-- 创建时间 -->
 
             <LinearLayout

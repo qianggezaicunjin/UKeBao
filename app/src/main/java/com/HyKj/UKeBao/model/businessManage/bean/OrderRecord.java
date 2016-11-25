@@ -184,7 +184,7 @@ public class OrderRecord implements Serializable {
     }
 
     public String getCashQuota() {
-        return cashQuota+"元"+"(卡劵抵扣-"+couponQuota+"元)";
+        return cashQuota+"元"+"(卡劵抵扣:满"+deduction+"元"+"减"+couponQuota+"元)";
     }
 
     public void setCashQuota(String cashQuota) {

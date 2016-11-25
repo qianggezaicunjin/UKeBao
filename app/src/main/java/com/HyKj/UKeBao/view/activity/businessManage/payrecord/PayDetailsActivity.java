@@ -176,8 +176,11 @@ public class PayDetailsActivity extends BaseActiviy {
         dialogWindow.setAttributes(lp);
     }
 
+    //不参与优惠金额
     private void getNodiscount() {
         if (orderRecord.getFreeServiceQuota() != 0) {
+            mBinding.llPayNodiscount.setVisibility(View.VISIBLE);
+
             mBinding.tvPayNodiscount.setText(orderRecord.getFreeServiceQuota() + "元(不参与优惠)");
         } else {
             mBinding.llPayNodiscount.setVisibility(View.GONE);
@@ -202,22 +205,27 @@ public class PayDetailsActivity extends BaseActiviy {
 
         LogUtil.d("卡劵优惠id"+menberCou);
 
+        //有卡券优惠
         if (menberCou != 0) {
-            //有卡券优惠
-            double couponQuo = orderRecord.getCouponQuota();
+            mBinding.llIntegralDiscount.setVisibility(View.GONE);//隐藏积分折扣
 
-            double decuction = orderRecord.getDeduction();
+            mBinding.tvServiceMoneyDetail.setText(R.string.payRecord_detail_service_money);
 
-            mBinding.tvIntegralDiscountTitle.setText("卡券优惠");
+            mBinding.tvServiceMoneyDetail.setVisibility(View.VISIBLE);//显示服务费提示
 
-            mBinding.tvIntegralDiscountAmount.setText("-" + couponQuo + "元" + "（满" + decuction + "元减" + couponQuo + "元）");
+            mBinding.llRealMoney.setVisibility(View.VISIBLE);//显示实付金额
 
-            mBinding.tvServiceMoneyDetail.setText("服务费:(实付金额-免服务费金额)*1%");
+            mBinding.llServiceMoney.setVisibility(View.VISIBLE);//显示服务费栏
+        }
+        //会员折扣
+        else {
+            mBinding.llIntegralDiscount.setVisibility(View.VISIBLE);//显示积分折扣
 
-            mBinding.llRealMoney.setVisibility(View.VISIBLE);
-        } else {
-            //会员折扣
-            mBinding.tvIntegralDiscountTitle.setText("会员折扣");
+            mBinding.tvServiceMoneyDetail.setVisibility(View.GONE);//隐藏服务费提示
+
+            mBinding.llRealMoney.setVisibility(View.GONE);//显示实付金额
+
+            mBinding.llServiceMoney.setVisibility(View.GONE);//显示服务费栏
 
             mBinding.tvIntegralDiscountAmount.setText(orderRecord.getDiscount() + "折");
 

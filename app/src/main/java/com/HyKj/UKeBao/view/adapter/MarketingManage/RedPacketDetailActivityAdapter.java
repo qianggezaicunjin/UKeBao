@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +58,9 @@ public class RedPacketDetailActivityAdapter extends MyBaseAdapter<RedPacketDetai
                 .showImageForEmptyUri(R.drawable.default_coupons)
                 .showImageOnFail(R.drawable.default_coupons).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.ARGB_8888)
+                .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                .displayer(new FadeInBitmapDisplayer(388)).build();
+                .displayer(new RoundedBitmapDisplayer(10)).build();
 
         ImageLoader.getInstance().displayImage(list.get(position).getWxHeadImage() + "", mHolder.userIcon, optionse);
         mHolder.recordAmount.setText(list.get(position).getIntegral() + "积分");

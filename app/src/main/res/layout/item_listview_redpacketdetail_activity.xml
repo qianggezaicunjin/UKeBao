@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
+        android:layout_height="@dimen/y45"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/y5"
+        android:layout_marginBottom="@dimen/y5"
         android:weightSum="3" >
 
         <LinearLayout
@@ -20,10 +22,9 @@
 
             <ImageView
                 android:id="@+id/image_item_redPacketDetailActivity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/x10"
-                />
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/y40"
+                tools:src="@drawable/jifen_icon" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +51,8 @@
                     android:layout_marginLeft="@dimen/x5"
                     android:gravity="center_vertical"
                     android:textColor="#989898"
-                    android:textSize="18dp" />
+                    tools:text="111111111"
+                    android:textSize="14dp" />
 
                 <View
                     android:layout_width="0dp"
@@ -63,8 +65,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x22"
                     android:gravity="center"
+                    tools:text="intergral"
                     android:textColor="@color/text_color_grey"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,9 +82,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x5"
-                    android:layout_marginTop="@dimen/y5"
                     android:gravity="center_vertical"
                     android:textColor="#989898"
+                    tools:text="2016-2-5 18:45:12"
                     android:textSize="14sp" >
                 </TextView>
 

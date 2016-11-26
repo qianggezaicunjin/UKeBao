@@ -81,15 +81,20 @@ public class ForgetPasswordModel extends BaseModel {
                         action.action = Action.Login_ForgetPassword;
 
                         LogUtil.d("解析结果为" + jsonObject.toString());
-                            String msg = jsonObject.getString("msg");
 
-                            boolean success = jsonObject.getBoolean("success");
+                        String msg = jsonObject.getString("msg");
 
+                        boolean success = jsonObject.getBoolean("success");
+
+                        if (success) {
+                            action.t = msg;
+
+                            mRequestView.onRequestSuccess(action);
+                        } else {
                             LogUtil.d("找回密码模块出现异常了......");
 
-                        action.t = msg;
-
-                        mRequestView.onRequestSuccess(action);
+                            mRequestView.onRequestErroInfo(msg);
+                        }
 
                         LogUtil.d("找回密码网络请求成功，返回状态：" + msg + success);
                     }
@@ -116,7 +121,7 @@ public class ForgetPasswordModel extends BaseModel {
 
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        LogUtil.d("验证手机号回调成功,回调数据为:"+jsonObject.toString());
+                        LogUtil.d("验证手机号回调成功,回调数据为:" + jsonObject.toString());
 
                         if (jsonObject.getIntValue("status") == 0) {
                             mRequestView.onRequestErroInfo(jsonObject.getString("msg"));

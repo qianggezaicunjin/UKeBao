@@ -123,8 +123,6 @@ public class ForgetPasswordActivity extends BaseActiviy {
         completeFindPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BufferCircleDialog.show(ForgetPasswordActivity.this,"正在加载,请稍候~",false,null);
-
                 //拿到EdiText数据
                 String code=securityCodeInput.getText().toString().trim();
 

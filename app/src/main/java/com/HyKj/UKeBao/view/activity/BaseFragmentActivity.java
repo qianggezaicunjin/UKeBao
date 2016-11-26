@@ -21,9 +21,10 @@ import com.HyKj.UKeBao.util.SystemBarUtil;
 import com.HyKj.UKeBao.view.activity.businessManage.payrecord.PayRecordActivity;
 import com.HyKj.UKeBao.viewModel.BaseFragmentViewModel;
 import com.baidu.android.pushservice.PushMessageReceiver;
-import com.iflytek.speech.SpeechError;
-import com.iflytek.speech.SynthesizerPlayer;
-import com.iflytek.speech.SynthesizerPlayerListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ import java.util.List;
  * Created by Administrator on 2016/8/22.
  */
 @SuppressLint("NewApi")
-public abstract class BaseFragmentActivity extends FragmentActivity implements SynthesizerPlayerListener {
+public abstract class BaseFragmentActivity extends FragmentActivity {
     private TextView tv_title;
 
     private ImageButton ib_back;
@@ -40,11 +41,12 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements S
 
     private static BaseFragmentActivity mActivity;
 
-    public static SynthesizerPlayer mSynthesizerPlayer;
+    public static SpeechSynthesizer mSynthesizerPlayer;
 
     private static SharedPreferences sharedPreferences;
 
     private static SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,35 +105,61 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements S
 
     //拿到服务器推送的JSON数据
     private static void getContent(String data) {
-        BaseFragmentViewModel viewModel=new BaseFragmentViewModel(new BaseFragmentModel(), mActivity);
+        BaseFragmentViewModel viewModel = new BaseFragmentViewModel(new BaseFragmentModel(), mActivity);
         //解析数据并播报推送信息
         viewModel.getContent(data);
     }
 
     //将接收到的推送消息播放为语音
-    public  static void getVoice(String content) {
-
-        String voiceName = "xiaoqi";
+    public static void getVoice(String content) {
         //设置播放声音的人物
-        mSynthesizerPlayer.setVoiceName(voiceName);
+        mSynthesizerPlayer.setParameter(SpeechConstant.VOICE_NAME, "xiaoqi");
         //设置播放语速
-        mSynthesizerPlayer.setSpeed((40));
+        mSynthesizerPlayer.setParameter(SpeechConstant.SPEED, "40");
+        ////设置音量，范围0~100
+        mSynthesizerPlayer.setParameter(SpeechConstant.VOLUME, "80");
+        //设置云端
+        mSynthesizerPlayer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
 
-        mSynthesizerPlayer.setVolume(50);
+        mSynthesizerPlayer.startSpeaking(content, new com.iflytek.cloud.SynthesizerListener() {
+            //会话结束回调接口，没有错误时，error为null
+            public void onCompleted(SpeechError error) {
+            }
 
-        String music = "0";
+            //缓冲进度回调
+            //percent为缓冲进度0~100，beginPos为缓冲音频在文本中开始位置，endPos表示缓冲音频在文本中结束位置，info为附加信息。
+            public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
+            }
 
-        mSynthesizerPlayer.setBackgroundSound(music);
+            //开始播放
+            public void onSpeakBegin() {
+            }
 
-        mSynthesizerPlayer.playText(content, null, mActivity);
+            //暂停播放
+            public void onSpeakPaused() {
+            }
+
+            //播放进度回调
+            //percent为播放进度0~100,beginPos为播放音频在文本中开始位置，endPos表示播放音频在文本中结束位置.
+            public void onSpeakProgress(int percent, int beginPos, int endPos) {
+            }
+
+            //恢复播放回调接口
+            public void onSpeakResumed() {
+            }
+
+            //会话事件回调接口
+            public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+            }
+        });
     }
 
     public static class MyPushMessageReceiver extends PushMessageReceiver {
         @Override
         public void onBind(Context context, int i, String s, String s1, String s2, String s3) {
-            LogUtil.d("百度云推送绑定结果"+i+"设备号为:"+s2);
+            LogUtil.d("百度云推送绑定结果" + i + "设备号为:" + s2);
             //将百度云返回的推送识别id存储起来
-            MyApplication.channelId=s2;
+            MyApplication.channelId = s2;
         }
 
         @Override
@@ -156,13 +184,13 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements S
 
         @Override
         public void onMessage(Context context, String s, String s1) {
-            LogUtil.d("接收到透传消息"+s);
+            LogUtil.d("接收到透传消息" + s);
         }
 
         @Override
         public void onNotificationClicked(Context context, String s, String s1, String s2) {
-            if(MyApplication.flag_pay) {
-                Intent mIntent=new Intent();
+            if (MyApplication.flag_pay) {
+                Intent mIntent = new Intent();
 
                 mIntent.setAction("CLEAR_NUM");
 
@@ -172,7 +200,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements S
 
                 editor.commit();
 
-                Intent intent=PayRecordActivity.getStartIntent(mContext);
+                Intent intent = PayRecordActivity.getStartIntent(mContext);
 
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -184,49 +212,21 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements S
         public void onNotificationArrived(Context context, String s, String s1, String s2) {
             //将接收到的推送消息播放为语音
 //            getVoice(s1);//测试用于接收百度控制台推送的消息
-            LogUtil.d("接收到服务器消息"+s2);
+            LogUtil.d("接收到服务器消息" + s2);
             getContent(s2);
         }
     }
 
     @Override
-    public void onBufferPercent(int arg0, int arg1, int arg2) {
-
-    }
-
-    @Override
-    public void onEnd(SpeechError arg0) {
-
-    }
-
-    @Override
-    public void onPlayBegin() {
-
-    }
-
-    @Override
-    public void onPlayPaused() {
-
-    }
-
-    @Override
-    public void onPlayPercent(int arg0, int arg1, int arg2) {
-
-    }
-
-    @Override
-    public void onPlayResumed() {
-
-    }
-
-    @Override
-    protected void onStop() {
+    protected void onDestroy() {
         // TODO Auto-generated method stub
         if (null != mSynthesizerPlayer) {
-            mSynthesizerPlayer.cancel();
+            mSynthesizerPlayer.destroy();
         }
-        super.onStop();
+        super.onDestroy();
     }
+
+
 
     @Override
     protected void onResume() {

@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.HyKj.UKeBao.model.BaseFragmentModel;
 import com.HyKj.UKeBao.util.LogUtil;
 import com.HyKj.UKeBao.view.activity.BaseFragmentActivity;
-import com.iflytek.speech.SynthesizerPlayer;
+import com.iflytek.cloud.SpeechSynthesizer;
 
 import org.json.JSONObject;
 
@@ -44,7 +44,7 @@ public class BaseFragmentViewModel extends BaseViewModel {
                 mActivity.sendBroadcast(intent);
                 //判断语音合成类是否存在
                 if (mActivity.mSynthesizerPlayer == null) {
-                    mActivity.mSynthesizerPlayer = SynthesizerPlayer.createSynthesizerPlayer(mActivity, "appid=" + "51e76378");
+                    mActivity.mSynthesizerPlayer = SpeechSynthesizer.createSynthesizer(mActivity, null);
 
                     BaseFragmentActivity.getVoice(voiceContext);
                 } else {

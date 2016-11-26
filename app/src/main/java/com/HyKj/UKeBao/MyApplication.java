@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.support.multidex.MultiDex;
 
 import com.HyKj.UKeBao.util.PicassoPauseOnScrollListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.testin.agent.TestinAgent;
@@ -69,7 +71,11 @@ public class MyApplication extends Application {
                 .setIconCamera(R.drawable.ic_gf_camera)
                 .build();
         themeConfig = theme;
+
+        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=51e76378");
     }
+
+
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base); MultiDex.install(this);

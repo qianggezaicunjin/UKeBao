@@ -41,35 +41,41 @@ public class ForgetPasswordViewModel extends BaseViewModel {
 
 
     //找回密码
-    public void forgetPassword(String code, String password, String phone,String confirm) {
-        if (!TextUtils.isEmpty(code)&&!TextUtils.isEmpty(password)&&!TextUtils.isEmpty(phone)&&phone.length()>6) {
-            BufferCircleDialog.show(mActivity,"提交中..",false,null);
-
-            mModel.forgetPassword(code,password,phone);
-        }else if(phone.length()<6){
+    public void forgetPassword(String code, String password, String phone, String confirm) {
+        if (password.length() < 6) {
             mActivity.toast("密码必须要大于6位数哦~");
-        }else if (confirm.equals(password)){
+
+            return;
+        } else if (!confirm.equals(password)) {
             mActivity.toast("密码不一致~");
-        }
-        else {
+
+            return;
+        } else if (TextUtils.isEmpty(code) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(confirm)) {
             mActivity.toast("请填写完整的信息~");
+
+            return;
+        } else if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(phone) && phone.length() > 6) {
+            BufferCircleDialog.show(mActivity, "提交中..", false, null);
+
+            mModel.forgetPassword(code, password, phone);
         }
     }
 
     @Override
     public void onRequestSuccess(ModelAction data) {
-        if (BufferCircleDialog.isShowDialog()) {
-            BufferCircleDialog.dialogcancel();
-        }
         if (data.action == Action.Login_ForgetPassword_getVerificationCode) {
             baseInfo = (BaseInfo) data.t;
 
             mActivity.toast(baseInfo.msg);
-        }else if(data.action==Action.Login_ForgetPassword){
-            String msg= (String) data.t;
+        } else if (data.action == Action.Login_ForgetPassword) {
+            String msg = (String) data.t;
+
+            BufferCircleDialog.dialogcancel();
 
             mActivity.toast(msg);
-        }else if(data.action==Action.Login_ForgetPassword_isExistence){
+        } else if (data.action == Action.Login_ForgetPassword_isExistence) {
+            BufferCircleDialog.dialogcancel();
+
             mActivity.getSecurityCode();
         }
     }

@@ -1,8 +1,13 @@
 package com.HyKj.UKeBao.util;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 
 import com.baoyz.actionsheet.ActionSheet;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -23,7 +28,7 @@ public class GalleryFinalUtil {
 
     private static final int REQUEST_CODE_GALLERY = 1001;
     //单选打开相册
-    public static void go(Context mContext,
+    public static void go(final Context mContext,
                           FragmentManager fm,
                           final FunctionConfig functionConfig,
                           final GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback) {
@@ -41,9 +46,11 @@ public class GalleryFinalUtil {
                         switch (index) {
                             case 0:
                                 GalleryFinal.openGallerySingle(REQUEST_CODE_GALLERY, functionConfig, mOnHanlderResultCallback);
+
                                 break;
                             case 1:
                                 GalleryFinal.openCamera(REQUEST_CODE_CAMERA, functionConfig, mOnHanlderResultCallback);
+
                                 break;
                         }
                     }
@@ -54,9 +61,9 @@ public class GalleryFinalUtil {
 
     //单选打开相册
     public static void openMuti(Context mContext,
-                          FragmentManager fm,
-                          final FunctionConfig functionConfig,
-                          final GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback) {
+                                FragmentManager fm,
+                                final FunctionConfig functionConfig,
+                                final GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback) {
         ActionSheet.createBuilder(mContext, fm)
                 .setOtherButtonTitles("打开相册(Open Gallery)", "拍照(Camera)")
                 .setCancelableOnTouchOutside(true)
@@ -81,6 +88,7 @@ public class GalleryFinalUtil {
         initImageLoader(mContext);
         initFresco(mContext);
     }
+
     //初始化图片加载器
     private static void initImageLoader(Context context) {
         // This configuration tuning is custom. You can tune every option, you may tune some of them,

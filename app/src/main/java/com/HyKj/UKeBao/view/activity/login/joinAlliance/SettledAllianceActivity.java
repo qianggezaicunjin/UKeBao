@@ -1,8 +1,13 @@
 package com.HyKj.UKeBao.view.activity.login.joinAlliance;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -124,6 +129,9 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
     public final static int COMMIT_APPLY = 4;
 
     public final static int UPLOAD_PICTURE = 5;
+
+    private static final int MY_PERMISSIONS_REQUEST_CALL_CAMERA = 0x16;//请求码，自己定义
+
 
     public SettledAllianceViewModel viewModel;
     private String feedBack;
@@ -290,18 +298,27 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
                 break;
             //上传营业执照
             case R.id.iv_businessLicense:
-                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 0;
+
+                //授权
+                jurisdiction();
+
                 break;
             //手持身份证
             case R.id.iv_identityCard_obverse:
-                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 1;
+
+                //授权
+                jurisdiction();
+
                 break;
             //身份证背面
             case R.id.iv_identityCard_reverse:
-                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
                 photoNo = 2;
+
+                //授权
+                jurisdiction();
+
                 break;
             //下一步
             case R.id.btn_fillNext:
@@ -325,6 +342,18 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
         }
     }
 
+    //授权
+    private void jurisdiction() {
+        //检查权限
+        if (ContextCompat.checkSelfPermission(SettledAllianceActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //如果没有授权，则请求授权
+            ActivityCompat.requestPermissions(SettledAllianceActivity.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CALL_CAMERA);
+        } else {
+            //有授权，直接开启摄像头
+            GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
+        }
+    }
+
     @Override
     public void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -335,11 +364,11 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
         hasSetCoordinate = true;
 
 
-        for (int i=0;i<businessInfo.identityPicture.size();i++) {
+        for (int i = 0; i < businessInfo.identityPicture.size(); i++) {
             mPhotoList.get(i).setPhotoPath(businessInfo.identityPicture.get(i));
         }
 
-        LogUtil.d("审核失败，mPhotoList："+mPhotoList.toString());
+        LogUtil.d("审核失败，mPhotoList：" + mPhotoList.toString());
 
         storeNameInput.setText(businessInfo.businessName);
 
@@ -350,11 +379,11 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
         regisNumberInput.setText(businessInfo.businessRegistrationNo);
 
         if (businessInfo.identityPicture.size() == 3) {
-            Picasso.with(this).load(businessInfo.identityPicture.get(0)).resize(100,60).config(Bitmap.Config.RGB_565).into(iv_businessLicense);
+            Picasso.with(this).load(businessInfo.identityPicture.get(0)).resize(100, 60).config(Bitmap.Config.RGB_565).into(iv_businessLicense);
 
-            Picasso.with(this).load(businessInfo.identityPicture.get(1)).resize(100,60).config(Bitmap.Config.RGB_565).into(iv_identityCard_obverse);
+            Picasso.with(this).load(businessInfo.identityPicture.get(1)).resize(100, 60).config(Bitmap.Config.RGB_565).into(iv_identityCard_obverse);
 
-            Picasso.with(this).load(businessInfo.identityPicture.get(2)).resize(100,60).config(Bitmap.Config.RGB_565).into(iv_identityCard_reverse);
+            Picasso.with(this).load(businessInfo.identityPicture.get(2)).resize(100, 60).config(Bitmap.Config.RGB_565).into(iv_identityCard_reverse);
         }
         if (businessInfo.businessStoreImages != null) {
             tv_storeSignage_status.setText("已上传");
@@ -409,7 +438,7 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
                     case 0:
                         mPhotoList.set(photoNo, resultList.get(0));
                         LogUtil.d("文件路径为:" + mPhotoList.get(photoNo).getPhotoPath());
-                        ImageLoader.getInstance().displayImage("file:/" + mPhotoList.get(photoNo).getPhotoPath(),iv_businessLicense,options);
+                        ImageLoader.getInstance().displayImage("file:/" + mPhotoList.get(photoNo).getPhotoPath(), iv_businessLicense, options);
                         break;
                     case 1:
                         mPhotoList.set(photoNo, resultList.get(0));
@@ -523,4 +552,21 @@ public class SettledAllianceActivity extends BaseActiviy implements View.OnClick
 
         BufferCircleDialog.dialogcancel();
     }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //判断请求码
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_CAMERA) {
+            //grantResults授权结果
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //成功，开启摄像头
+                GalleryFinalUtil.go(this, getSupportFragmentManager(), functionConfig, mOnHanlderResultCallback);//弹出冒泡框选择跳转方向
+            } else {
+                //授权失败
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 }

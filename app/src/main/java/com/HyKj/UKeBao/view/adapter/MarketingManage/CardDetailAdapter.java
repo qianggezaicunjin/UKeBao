@@ -52,14 +52,14 @@ public class CardDetailAdapter extends MyBaseAdapter<MemberCardInfo> {
 			mHolder = (ViewHolder) convertView.getTag();
 		}
 		
-		String name=dataList.get(position).getName();
+		String name=dataList.get(position).getMenber().getName();
 
 		if(TextUtils.isEmpty(name)){
 			mHolder.tv_name.setText("用户昵称");
 		}else{
 			mHolder.tv_name.setText(name);
 		}
-		String path=dataList.get(position).getWxHeadimage();
+		String path=dataList.get(position).getMenber().getWxHeadimage();
 
 		optionse = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.default_coupons)
@@ -82,11 +82,6 @@ public class CardDetailAdapter extends MyBaseAdapter<MemberCardInfo> {
 		String withTime=dataList.get(position).getWithTime();
 
 		mHolder.tv_date.setText(withTime);
-		
-		
-		
-		
-		
 		
 		return convertView;
 	}

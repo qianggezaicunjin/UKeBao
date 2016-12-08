@@ -1,7 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="view"
             type="com.HyKj.UKeBao.view.activity.marketingManage.RedPacketAttractCustomeActivity" />
@@ -117,11 +116,9 @@
 
                     <LinearLayout
                         android:id="@+id/backGroundRed_RedPacketAttractCustome_Activity"
-                        android:layout_width="@dimen/x258"
-                        android:layout_height="@dimen/y240"
+                        android:layout_width="@dimen/x280"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/x31"
-                        android:layout_marginRight="@dimen/x31"
                         android:layout_marginTop="@dimen/y10"
                         android:background="@drawable/lanred_pocket_red"
                         android:orientation="vertical">
@@ -129,13 +126,12 @@
 
                         <ImageView
                             android:id="@+id/adImag_RedPacketAttractCustome_Activity"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/y178"
+                            android:layout_width="@dimen/x240"
+                            android:layout_height="@dimen/y140"
                             android:scaleType="centerInside"
                             android:layout_marginTop="@dimen/y10"
-                            android:layout_marginLeft="@dimen/x9"
-                            android:layout_marginRight="@dimen/x9"
-                            android:src="@drawable/big_white_camera" />
+                            android:src="@drawable/big_white_camera"
+                            android:layout_gravity="center_horizontal"/>
 
                         <TextView
                             android:id="@+id/showAdContent_RedPacketAttractCustome_Activity"
@@ -325,6 +321,7 @@
                         android:gravity="center"
                         android:padding="@dimen/x10"
                         android:text="发揽客红包"
+                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 

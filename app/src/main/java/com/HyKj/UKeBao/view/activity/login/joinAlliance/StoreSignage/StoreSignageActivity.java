@@ -1,13 +1,18 @@
 package com.HyKj.UKeBao.view.activity.login.joinAlliance.StoreSignage;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -56,9 +61,14 @@ public class StoreSignageActivity extends BaseActiviy implements View.OnClickLis
     private Button btn_uploadPhoto;
 
     private static final int FLAG_CHOOSE_IMG = 0x11;
+
     private static final int FLAG_MODIFY_FINISH = 7;
+
     private static final int FLAG_CHOOSE_CAMERA = 0x17;
+
     private static int PHOTO_REQUEST_CUT = 0x88;
+
+    private static final int MY_PERMISSIONS_REQUEST_CALL_CAMERA = 0x16;//请求码，自己定义
 
     private FunctionConfig functionConfig;
 
@@ -171,11 +181,14 @@ public class StoreSignageActivity extends BaseActiviy implements View.OnClickLis
                 break;
                 // 拍照
             case R.id.btn_pz:
-                photoview.dismiss();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // 指定调用相机拍照后的照片存储的路径
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "test.jpg")));
-                startActivityForResult(intent, FLAG_CHOOSE_CAMERA);
+                //检查权限
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //如果没有授权，则请求授权
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CALL_CAMERA);
+                } else {
+                    //有授权，直接开启摄像头
+                    callCamera();
+                }
 
                 break;
             case R.id.btn_xc:
@@ -186,6 +199,14 @@ public class StoreSignageActivity extends BaseActiviy implements View.OnClickLis
 
                 break;
         }
+    }
+
+    private void callCamera() {
+        photoview.dismiss();
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 指定调用相机拍照后的照片存储的路径
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "test.jpg")));
+        startActivityForResult(intent, FLAG_CHOOSE_CAMERA);
     }
 
     //弹出对话框
@@ -368,6 +389,22 @@ public class StoreSignageActivity extends BaseActiviy implements View.OnClickLis
     @Override
     public void toast(String msg) {
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //判断请求码
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_CAMERA) {
+            //grantResults授权结果
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //成功，开启摄像头
+                callCamera();
+            } else {
+                //授权失败
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 }

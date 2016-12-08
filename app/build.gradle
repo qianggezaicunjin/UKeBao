@@ -24,8 +24,8 @@ android {
         applicationId "com.HyKj.UKeBao"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 8
-        versionName "2.0.4"
+        versionCode 11
+        versionName "2.0.7"
         signingConfig signingConfigs.debug
         multiDexEnabled true
     }

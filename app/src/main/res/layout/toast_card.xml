@@ -1,205 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/finish_card"
+    android:layout_width="@dimen/x268"
+    android:layout_height="@dimen/y301"
+    android:background="@drawable/card_background">
+    <TextView
+        android:id="@+id/coupon_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginRight="@dimen/x5"
-        android:layout_marginTop="@dimen/y5"
-        android:background="@drawable/signout"
-        android:scaleType="fitXY" />
-
+        android:text="@string/card_advertisement_title"
+        android:layout_marginTop="@dimen/y20"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:layout_centerHorizontal="true"/>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_marginRight="@dimen/x10"
-        android:layout_weight="6"
-        android:background="@drawable/discount"
-        android:orientation="vertical">
+        android:id="@+id/coupon"
+        android:layout_width="@dimen/x260"
+        android:layout_height="@dimen/y106"
+        android:background="@drawable/coupon"
+        android:orientation="horizontal"
+        android:layout_below="@id/coupon_title"
+        android:layout_marginTop="@dimen/y43"
+        android:paddingLeft="@dimen/x55"
+        android:paddingTop="@dimen/y15">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="¥"
+            android:textColor="#27afe4"
+            android:layout_marginTop="@dimen/y10"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/cardNum_toatst_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:gravity="center"
+            android:textColor="#26aee4"
+            android:textSize="30sp"
+            tool:text="50" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y1"
-                android:layout_weight="0.2" />
-
-            <com.HyKj.UKeBao.view.customView.CircleImageView
-                android:id="@+id/userImage_toast_card"
-                android:layout_width="@dimen/x34"
-                android:layout_height="@dimen/y34"
-                android:src="@drawable/default_1"
-                app:border_color="@color/transparent"
-                app:border_width="0dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/x20">
 
             <TextView
                 android:id="@+id/venctureName_toast_card"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/x5"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                tool:text="名丝发艺"
-                android:textColor="#fff" />
+                android:textColor="#666666"
+                tool:text="名丝发艺" />
+
+            <TextView
+                android:id="@+id/expenseNum_toast_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#999999"
+                android:layout_marginTop="@dimen/y7"
+                android:textSize="10sp"
+                tool:text="消费满100元可以使用" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y7">
+
+                <TextView
+                    android:id="@+id/startTime_toast_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:textSize="10sp"
+                    tool:hint="2015-5-01" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:gravity="center"
+                    android:text="至"
+                    android:textColor="#999999"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/endTime_toast_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:textSize="10sp"
+                    tool:hint="2015-5-01" />
+            </LinearLayout>
+
         </LinearLayout>
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="¥"
-                android:textColor="#fff"
-                android:textSize="25sp" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y1"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y1"
-                android:layout_weight="0.1" />
-
-            <TextView
-                android:id="@+id/cardNum_toatst_card"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                tool:text="50"
-                android:textColor="#fff"
-                android:textSize="40sp"
-                android:layout_marginBottom="@dimen/y5"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y1"
-                android:layout_weight="0.1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="现金券"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y1"
-                android:layout_weight="0.1" />
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/x15"
-        android:layout_marginBottom="@dimen/y5"
-        android:layout_marginTop="@dimen/y5"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:text="使用规则" />
-
-    <TextView
-        android:id="@+id/expenseNum_toast_card"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/x15"
-        android:layout_marginBottom="@dimen/y5"
-        android:layout_marginTop="@dimen/y5"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        tool:text="消费满100元可以使用" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/x15"
-        android:layout_marginBottom="@dimen/y5"
-        android:layout_marginTop="@dimen/y5"
-        android:layout_weight="1.2"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="有效期  :" />
-
-        <TextView
-            android:id="@+id/startTime_toast_card"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            tool:hint="2015-5-01" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/x5"
-            android:gravity="center"
-            android:text="到" />
-
-        <TextView
-            android:id="@+id/endTime_toast_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x10"
-            android:gravity="center"
-            tool:hint="2015-5-01" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5" />
 
     <TextView
         android:id="@+id/sendCard_toast_card"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/x20"
-        android:layout_weight="2"
-        android:background="#EFBC3D"
+        android:layout_width="@dimen/x245"
+        android:layout_height="@dimen/y45"
+        android:layout_below="@id/coupon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y20"
+        android:background="#27afe4"
         android:gravity="center"
-        android:text="发卡券"
+        android:text="@string/card_advertisement_button_hint"
         android:textColor="#fff"
         android:textSize="18sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sendCard_toast_card"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y20"
+        android:drawableLeft="@drawable/hook_bule"
+        android:text="@string/card_advertisement_hint"
+        android:drawablePadding="3dp"
+        android:textColor="#27afe4"
+        android:textSize="16sp" />
+</RelativeLayout>

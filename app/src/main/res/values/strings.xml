@@ -168,4 +168,9 @@
     <string name="withdrawals_sure">交易确认</string>
     <string name="withdrawals_sure1">确认</string>
     <string name="withdrawals_sure2">取消</string>
+    <string name="red_packets_advertisement_hint">随机推送给周边会员</string>
+    <string name="red_packets_advertisement_button_content">发红包</string>
+    <string name="card_advertisement_hint">同步推送给本店会员</string>
+    <string name="card_advertisement_button_hint">立即发送</string>
+    <string name="card_advertisement_title">代金券预览</string>
 </resources>

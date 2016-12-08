@@ -6,34 +6,34 @@
     android:clickable="true"
     android:fitsSystemWindows="true">
 
-    <!-- The main content view -->
-
     <FrameLayout
-        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+        <!-- The main content view -->
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <!-- 标题栏 -->
             <FrameLayout
                 android:id="@+id/fl_mainActivity"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y432"
-                android:fitsSystemWindows="true"/>
+                android:layout_height="0dp"
+                android:layout_weight="9" />
+
             <!-- 主页导航栏 -->
             <RadioGroup
                 android:id="@+id/radioGroup_guide"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/y48"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:background="@drawable/mainactivity_bottom_background"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
+                android:orientation="horizontal">
 
                 <!-- 店铺管理 -->
 
@@ -43,9 +43,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/x45"
                     android:button="@null"
-                    android:drawablePadding="3dp"
-                    android:paddingTop="@dimen/y5"
                     android:drawableTop="@drawable/selector_radiobutton__store"
+                    android:paddingTop="@dimen/y5"
                     android:text="@string/store_manager"
                     android:textColor="@color/selector_radiobutton__textcolor"
                     android:textSize="13sp" />
@@ -67,27 +66,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/x45"
-                    android:paddingTop="@dimen/y5"
                     android:button="@null"
                     android:drawablePadding="3dp"
                     android:drawableTop="@drawable/selector_radiobutton__market"
+                    android:paddingTop="@dimen/y5"
                     android:text="@string/market_manager"
                     android:textColor="@color/selector_radiobutton__textcolor"
                     android:textSize="13sp" />
             </RadioGroup>
-            <RadioButton
-                android:id="@+id/radioButton_lang"
-                android:layout_width="@dimen/x55"
-                android:layout_height="@dimen/y55"
-                android:background="@drawable/lana1"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/y2"
-                android:button="@null" />
-                <!-- -15dp -->
-        </RelativeLayout>
-    </FrameLayout>
+            <!-- -15dp -->
+        </LinearLayout>
 
+        <RadioButton
+            android:id="@+id/radioButton_lang"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y55"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/y3"
+            android:background="@drawable/lana1"
+            android:button="@null" />
+    </FrameLayout>
     <!-- Fragment 填充布局 -->
 
 
@@ -97,5 +95,6 @@
         android:layout_height="fill_parent"
         android:layout_gravity="start" />
     <!-- The navigation view -->
+
 
 </android.support.v4.widget.DrawerLayout>

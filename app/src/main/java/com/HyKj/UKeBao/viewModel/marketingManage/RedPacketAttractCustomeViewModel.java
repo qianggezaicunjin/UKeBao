@@ -91,8 +91,16 @@ public class RedPacketAttractCustomeViewModel extends BaseViewModel {
 
         this.count = count;
 
-        //模块类型 1:产品图2:商家图3:临时图片4:广告图片
-        mModel.getImagePath(new File(redPacketImage), 4);
+        String tag=redPacketImage.substring(0,4);
+
+        if(!tag.equals("http")) {
+            //模块类型 1:产品图2:商家图3:临时图片4:广告图片
+            mModel.getImagePath(new File(redPacketImage), 4);
+        }else {
+            BufferCircleDialog.dialogcancel();
+
+            mActivity.initPopupWindow(redPacketImage);
+        }
     }
 
     //发送揽客红包

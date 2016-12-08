@@ -1,5 +1,6 @@
 package com.HyKj.UKeBao.view.activity.marketingManage;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -8,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +20,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -35,8 +40,9 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.HyKj.UKeBao.MyApplication;
+
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityRedpacketAttractCustomeBinding;
 import com.HyKj.UKeBao.model.login.baen.BusinessInfo;
@@ -46,15 +52,12 @@ import com.HyKj.UKeBao.model.marketingManage.bean.PayInfo;
 import com.HyKj.UKeBao.model.marketingManage.bean.PayResult;
 import com.HyKj.UKeBao.model.marketingManage.bean.WXPayInfo;
 import com.HyKj.UKeBao.util.BufferCircleDialog;
-import com.HyKj.UKeBao.util.GalleryFinalUtil;
 import com.HyKj.UKeBao.util.ImageCacheUtils;
 import com.HyKj.UKeBao.util.LogUtil;
-import com.HyKj.UKeBao.util.PicassoImageLoader;
 import com.HyKj.UKeBao.util.SaveBitMapToSD;
 import com.HyKj.UKeBao.util.TimeCount;
 import com.HyKj.UKeBao.view.activity.BaseActiviy;
 import com.HyKj.UKeBao.view.activity.MainActivity;
-import com.HyKj.UKeBao.view.activity.login.joinAlliance.StoreSignage.StoreSignageActivity;
 import com.HyKj.UKeBao.view.customView.CircleImageView;
 import com.HyKj.UKeBao.view.customView.SelectPhotoDialog;
 import com.HyKj.UKeBao.viewModel.marketingManage.RedPacketAttractCustomeViewModel;
@@ -67,12 +70,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
 
-import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
  * 红包揽客
@@ -98,10 +97,6 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
     private BusinessInfo businessInfo;
 
-    private TextView tv_efficientMoney;
-
-    private TextView tv_efficientIntegral;
-
     private TextView tv_price;
 
     private TextView certain_payTypeFromRedPacket;
@@ -114,7 +109,7 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
     private RadioButton buttonZhifubao;
 
-    private CircleImageView senRedPacket_toast_reddialog;
+    private CircleImageView sendRedPacket_toast_reddialog;
 
     private ImageView finish_red;
 
@@ -162,6 +157,23 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
     private static int PHOTO_REQUEST_CUT = 0x88;
 
+    private static final int MY_PERMISSIONS_REQUEST_CALL_CAMERA = 0x16;//拍照请求码
+
+    private static final int MY_PERMISSIONS_REQUEST_SETTINGS_IMAGE = 0x19;//设置红包图片请求码
+
+    private static final int MY_PERMISSIONS_REQUEST_CHOOSE_IMAGE = 0x20;//设置选择相册请求码
+
+    private String path;//裁剪后图片存储路径
+
+    private CircleImageView businessStore_Image;
+
+    private TextView tv_businessName;
+
+    private ImageView iv_red_packets_image;
+
+    private TextView tv_advertisement_content;
+    private Intent image_intent;
+
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, RedPacketAttractCustomeActivity.class);
 
@@ -194,7 +206,7 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         viewModel = new RedPacketAttractCustomeViewModel(new RedPacketAttractCustomeModel(), this);
 
-        photoview=new SelectPhotoDialog(this);
+        photoview = new SelectPhotoDialog(this);
     }
 
     @Override
@@ -345,7 +357,7 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
                 context = mBinding.inPutAdRedPacketAttractCustomeActivity.getText().toString();
 
                 ObjectAnimator aniamtionRoyal = ObjectAnimator.ofFloat(
-                        senRedPacket_toast_reddialog, "rotationY", 0.0f, 360.0f)
+                        sendRedPacket_toast_reddialog, "rotationY", 0.0f, 360.0f)
                         .setDuration(600);
                 aniamtionRoyal.start();
 
@@ -382,21 +394,45 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
                 break;
             // 拍照
             case R.id.btn_pz:
-                photoview.dismiss();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // 指定调用相机拍照后的照片存储的路径
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "test.jpg")));
-                startActivityForResult(intent, FLAG_CHOOSE_CAMERA);
+                //检查权限
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //如果没有授权，则请求授权
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CALL_CAMERA);
+                } else {
+                    //有授权，直接开启摄像头
+                    callCamera();
+                }
 
                 break;
             case R.id.btn_xc:
-                photoview.dismiss();
-                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
-                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent1, FLAG_CHOOSE_IMG);
+                //检查权限
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //如果没有授权，则请求授权
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_CHOOSE_IMAGE);
+                } else {
+                    chooseImage();//选择照片
+                }
 
                 break;
         }
+    }
+
+    private void chooseImage() {
+        photoview.dismiss();
+        Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+        intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent1, FLAG_CHOOSE_IMG);
+    }
+
+    private void callCamera() {
+        photoview.dismiss();
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // 指定调用相机拍照后的照片存储的路径
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "test.jpg")));
+
+        startActivityForResult(intent, FLAG_CHOOSE_CAMERA);
     }
 
     // 弹出红包页面
@@ -413,13 +449,23 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         dialog.setContentView(R.layout.toast_redpacket);
 
-        senRedPacket_toast_reddialog = (CircleImageView) dialog.findViewById(R.id.senRedPacket_toast_reddialog);
+        sendRedPacket_toast_reddialog = (CircleImageView) dialog.findViewById(R.id.senRedPacket_toast_reddialog);
+
+        businessStore_Image = (CircleImageView) dialog.findViewById(R.id.senRedPacket_toast_reddialog_businessStoreImage);//商家头像
+
+        tv_businessName = (TextView) dialog.findViewById(R.id.tv_advertisement_businessName);//商家姓名
+
+        iv_red_packets_image = (ImageView) dialog.findViewById(R.id.iv_advertisement);//广告图片
+
+        tv_advertisement_content = (TextView) dialog.findViewById(R.id.tv_advertisement_content);//广告内容
 
         finish_red = (ImageView) dialog.findViewById(R.id.finish_red);
 
         finish_red.setOnClickListener(this);
 
-        senRedPacket_toast_reddialog.setOnClickListener(this);
+        sendRedPacket_toast_reddialog.setOnClickListener(this);
+
+        initdata();//初始化数据
 
         dialog.setCanceledOnTouchOutside(true);
 
@@ -429,9 +475,9 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
 
-        p.height = (int) (d.getHeight() * 0.6); // 高度设置为屏幕的0.6
+        p.height = (int) (d.getHeight() * 0.8); // 高度设置为屏幕的0.8
 
-        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.65
+        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.8
 
         dialogWindow.setAttributes(p);
 
@@ -440,6 +486,33 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
         certain_payTypeFromRedPacket.setEnabled(true);
 
         dialog.show();
+    }
+
+    //初始化dialog数据
+    private void initdata() {
+        //加载用户头像
+        Picasso.with(this)
+                .load(businessInfo.getBusinessStoreImages().get(0))
+                .fit()
+                .config(Bitmap.Config.RGB_565)
+                .placeholder(R.drawable.user)
+                .error(R.drawable.user)
+                .into(businessStore_Image);
+
+        //加载店铺名称
+        tv_businessName.setText(businessInfo.businessName);
+
+        //加载广告图片
+        Picasso.with(this)
+                .load(new File(path))
+                .fit()
+                .config(Bitmap.Config.RGB_565)
+                .placeholder(R.color.text_color_red)
+                .error(R.color.text_color_red)
+                .into(iv_red_packets_image);
+
+        //广告语
+        tv_advertisement_content.setText(mBinding.inPutAdRedPacketAttractCustomeActivity.getText().toString());
     }
 
     //初始化数据
@@ -456,10 +529,6 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.activity_paytype_fromredpacket, null);
-
-        tv_efficientMoney = (TextView) view.findViewById(R.id.balanceCatsh_payTypeFromRedPacket);
-
-        tv_efficientIntegral = (TextView) view.findViewById(R.id.balanceScore_payTypeFromRedPacket);
 
         tv_price = (TextView) view.findViewById(R.id.integralQuota_payTypeFromRedPacket);
 
@@ -487,9 +556,9 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         rg_payType.check(R.id.buttonScore_payTypeFromRedPacket);//默认勾选
 
-        tv_efficientMoney.setText("可用余额" + businessInfo.cash + "元");
+        buttonCatsh.setText("现金账户(可用余额:" + businessInfo.cash + "元)");
 
-        tv_efficientIntegral.setText("可用积分" + businessInfo.integral + "分");
+        buttonScore.setText("积分账户(可用积分:" + businessInfo.integral + "分)");
 
         tv_price.setText("需要支付:" + mBinding.inPutScoreRedPacketAttractCustomeActivity.getText().toString() + "积分");
 
@@ -497,7 +566,15 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         view.setFocusableInTouchMode(true);
 
-        final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        WindowManager m = getWindowManager();
+
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+
+        int width = (int) (d.getWidth() * 0.85);
+
+        int height = (int) (d.getHeight() * 0.8);
+
+        final PopupWindow popupWindow = new PopupWindow(view, width, height);
 
         popupWindow.setFocusable(true);//是否能获得焦点
 
@@ -832,17 +909,15 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
             imageCut(Uri.fromFile(temp));
 
         } else if (requestCode == FLAG_MODIFY_FINISH && resultCode == RESULT_OK) {
+            image_intent = data;
 
-            if (data != null) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    photo = extras.getParcelable("data");
-                }
-                String path = SaveBitMapToSD.saveBitmap(photo, this)
-                        .getPath();
-                mBinding.adImagRedPacketAttractCustomeActivity.setImageBitmap(ImageCacheUtils
-                        .decodeBitmap(path));
-                redPacketImage=path;
+            //检查权限
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授权，则请求授权
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_SETTINGS_IMAGE);
+            } else {
+                //有授权，设置揽客红包图片
+                setRedPacketsImage(data);
             }
         } else if (requestCode == PHOTO_REQUEST_CUT && resultCode == RESULT_OK) {
             // 将Uri图片转换为Bitmap
@@ -851,19 +926,19 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 //				uploadFilePath = getRealFilePath(mContext, uritempFile);
                 Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uritempFile));
                 // 将裁剪的bitmap显示在imageview控件上
-                String path = SaveBitMapToSD.saveBitmap(bitmap, this).getPath();
+                path = SaveBitMapToSD.saveBitmap(bitmap, this).getPath();
 
                 Log.d("上传图片得路径为", path);
 
                 Picasso.with(RedPacketAttractCustomeActivity.this)
-                    .load(new File(path))
-                    .placeholder(R.drawable.default_picture)
-                    .error(R.drawable.default_picture)
-                    .config(Bitmap.Config.ARGB_8888)
-                    .fit()
-                    .into(mBinding.adImagRedPacketAttractCustomeActivity);
+                        .load(new File(path))
+                        .placeholder(R.drawable.default_picture)
+                        .error(R.drawable.default_picture)
+                        .config(Bitmap.Config.RGB_565)
+                        .fit()
+                        .into(mBinding.adImagRedPacketAttractCustomeActivity);
 
-                redPacketImage=path;
+                redPacketImage = path;
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -872,6 +947,20 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
 
         }
 
+    }
+
+    private void setRedPacketsImage(Intent data) {
+        if (data != null) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                photo = extras.getParcelable("data");
+            }
+            String path = SaveBitMapToSD.saveBitmap(photo, this)
+                    .getPath();
+            mBinding.adImagRedPacketAttractCustomeActivity.setImageBitmap(ImageCacheUtils
+                    .decodeBitmap(path));
+            redPacketImage = path;
+        }
     }
 
     private void imageCut(Uri uri) {
@@ -906,5 +995,41 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
 
+    }
+
+    //动态授权返回结果
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //判断请求码
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_CAMERA) {
+            //grantResults授权结果
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //成功，开启摄像头
+                callCamera();
+            } else {
+                //授权失败
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        } else if (requestCode == MY_PERMISSIONS_REQUEST_SETTINGS_IMAGE) {
+            //grantResults授权结果
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //成功，设置揽客红包背景
+                setRedPacketsImage(image_intent);
+            } else {
+                //授权失败
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        } else if (requestCode == MY_PERMISSIONS_REQUEST_CHOOSE_IMAGE) {
+            //grantResults授权结果
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                chooseImage();//选择相册
+            } else {
+                //授权失败
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

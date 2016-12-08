@@ -1,10 +1,16 @@
 package com.HyKj.UKeBao.view.activity.businessManage.businessSettings;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.HyKj.UKeBao.R;
 import com.HyKj.UKeBao.databinding.ActivityBusinessstoreGoodsImagesBinding;
@@ -38,6 +44,9 @@ public class BusinessStoreGoodsActivity extends BusinessStoreImageActivity {
     private List<Integer> goodsImageid_list=new ArrayList<>();
 
     public int addGoods_position;
+
+    private static final int MY_PERMISSIONS_REQUEST_CALL_CAMERA = 0x16;//请求码，自己定义
+
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, BusinessStoreGoodsActivity.class);
@@ -134,11 +143,19 @@ public class BusinessStoreGoodsActivity extends BusinessStoreImageActivity {
 
                         break;
                     case R.id.addphoto:
-                        initGalleryFinal();
 
                         addGoods_position = postion;
 
-                        viewModel.addData(adapter, postion, data, functionConfig, mOnHanlderResultCallback);
+                        //检查权限
+                        if (ContextCompat.checkSelfPermission(BusinessStoreGoodsActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            //如果没有授权，则请求授权
+                            ActivityCompat.requestPermissions(BusinessStoreGoodsActivity.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CALL_CAMERA);
+                        } else {
+                            //有授权，直接开启摄像头
+                            initGalleryFinal();
+
+                            viewModel.addData(adapter, postion, data, functionConfig, mOnHanlderResultCallback);
+                        }
                 }
             }
         });
@@ -195,5 +212,23 @@ public class BusinessStoreGoodsActivity extends BusinessStoreImageActivity {
         BufferCircleDialog.dialogcancel();
 
         finish();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //判断请求码
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_CAMERA) {
+            //grantResults授权结果
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //成功，开启摄像头
+                initGalleryFinal();
+
+                viewModel.addData(adapter, addGoods_position, data, functionConfig, mOnHanlderResultCallback);
+            } else {
+                //授权失败
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

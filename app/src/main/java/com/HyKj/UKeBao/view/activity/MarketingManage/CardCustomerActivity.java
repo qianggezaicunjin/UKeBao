@@ -40,8 +40,6 @@ public class CardCustomerActivity extends BaseActiviy implements View.OnClickLis
         return intent;
     }
 
-    private CircleImageView userImage;//卡劵头像
-
     private TextView venctureName;
 
     private TextView startTime_toast_card;//卡劵开始时间
@@ -354,11 +352,6 @@ public class CardCustomerActivity extends BaseActiviy implements View.OnClickLis
                 viewModel.verification(full_cut_money, discount_money, card_num, card_limit, startTimesrc, endTimesrc, businessInfo);
 
                 break;
-            case R.id.finish_card:
-                dialog.dismiss();
-
-                break;
-
             //发送卡劵
             case R.id.sendCard_toast_card:
 
@@ -384,11 +377,7 @@ public class CardCustomerActivity extends BaseActiviy implements View.OnClickLis
 
         dialog.setContentView(R.layout.toast_card);
 
-        userImage = (CircleImageView) dialog.findViewById(R.id.userImage_toast_card);
-
         venctureName = (TextView) dialog.findViewById(R.id.venctureName_toast_card);
-
-        finish_card = (ImageView) dialog.findViewById(R.id.finish_card);
 
         startTime_toast_card = (TextView) dialog.findViewById(R.id.startTime_toast_card);
 
@@ -402,8 +391,6 @@ public class CardCustomerActivity extends BaseActiviy implements View.OnClickLis
 
         sendCard_toast_card.setOnClickListener(this);
 
-        finish_card.setOnClickListener(this);
-
         dialog.setCanceledOnTouchOutside(true);
 
         WindowManager m = getWindowManager();
@@ -412,15 +399,13 @@ public class CardCustomerActivity extends BaseActiviy implements View.OnClickLis
 
         WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
 
-        p.height = (int) (d.getHeight() * 0.75); // 高度设置为屏幕的0.75
+        p.height = (int) (d.getHeight() * 0.68); // 高度设置为屏幕的0.68
 
-        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.65
+        p.width = (int) (d.getWidth() * 0.92); // 宽度设置为屏幕的0.92
 
         dialogWindow.setAttributes(p);
 
         dialog.show();
-
-        loadImage(userImage);//加载头像
 
         venctureName.setText(businessInfo.getBusinessName());//加载名字
 
@@ -432,14 +417,6 @@ public class CardCustomerActivity extends BaseActiviy implements View.OnClickLis
 
         endTime_toast_card.setText(endTimesrc);
 
-    }
-
-    public void loadImage(ImageView iv) {
-        Picasso.with(iv.getContext())
-                .load(businessInfo.getBusinessStoreImages().get(0))
-                .placeholder(R.drawable.default_picture)
-                .error(R.drawable.default_picture)
-                .into(iv);
     }
 
     //跳转到主界面

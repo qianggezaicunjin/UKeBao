@@ -1,49 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
+    android:background="@drawable/red_packets_background"
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/finish_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="5dp"
-        android:id="@+id/finish_red"
+        android:layout_marginRight="@dimen/x5"
+        android:layout_marginTop="@dimen/y5"
         android:background="@drawable/get_rid_of" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+    <com.HyKj.UKeBao.view.customView.CircleImageView
+        android:id="@+id/senRedPacket_toast_reddialog_businessStoreImage"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/y40"
+        android:layout_gravity="center" />
 
     <TextView
+        android:id="@+id/tv_advertisement_businessName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y6"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        tools:text="汇一城星巴克" />
+
+    <ImageView
+        android:id="@+id/iv_advertisement"
+        android:layout_width="@dimen/x217"
+        android:layout_height="@dimen/y121"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y10" />
+
+    <TextView
+        android:id="@+id/tv_advertisement_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y11"
         android:gravity="center"
-        android:text="广告红包已完成"
-        android:textColor="#fff"
-        android:textSize="16sp" />
+        android:textColor="#e6bb84"
+        android:textSize="16sp"
+        tools:text="广告红包已完成" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <com.HyKj.UKeBao.view.customView.CircleImageView
-        android:id="@+id/senRedPacket_toast_reddialog"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/hongbao_01" />
+        android:layout_marginTop="@dimen/y40">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <com.HyKj.UKeBao.view.customView.CircleImageView
+            android:id="@+id/senRedPacket_toast_reddialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/red_packets_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/red_packets_advertisement_button_content"
+            android:textColor="@color/text_drak_red"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y12"
+        android:drawableLeft="@drawable/hook_gold"
+        android:drawablePadding="@dimen/x5"
+        android:text="@string/red_packets_advertisement_hint"
+        android:textColor="#e6bb84"
+        android:textSize="16sp" />
 
 </LinearLayout>

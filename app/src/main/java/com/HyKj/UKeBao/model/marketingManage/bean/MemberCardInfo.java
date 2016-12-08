@@ -9,16 +9,14 @@ public class MemberCardInfo {
 
     public String withTime;//领取卡劵时间
 
-    public String name;//会员名称
+    public Menber menber;
 
-    public String wxHeadimage;//会员头像地址
-
-    public String getName() {
-        return name;
+    public Menber getMenber() {
+        return menber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMenber(Menber menber) {
+        this.menber = menber;
     }
 
     public String getStatusName() {
@@ -37,21 +35,12 @@ public class MemberCardInfo {
         this.withTime = withTime;
     }
 
-    public String getWxHeadimage() {
-        return wxHeadimage;
-    }
-
-    public void setWxHeadimage(String wxHeadimage) {
-        this.wxHeadimage = wxHeadimage;
-    }
-
     @Override
     public String toString() {
         return "MemberCardInfo{" +
-                "name='" + name + '\'' +
+                "menber=" + menber +
                 ", statusName='" + statusName + '\'' +
                 ", withTime='" + withTime + '\'' +
-                ", wxHeadimage='" + wxHeadimage + '\'' +
                 '}';
     }
 }

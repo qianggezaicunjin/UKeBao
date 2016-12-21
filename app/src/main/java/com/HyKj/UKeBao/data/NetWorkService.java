@@ -389,6 +389,7 @@ public interface NetWorkService {
     Observable<JSONObject> getAllCardInfo(@Query("rows")int rows,@Query("page")int page,@Query("token")String token);
 
     /**
+     *  商家揽客红包记录
      *  businessStoreId 	是 	int 	商家ID
      *  page 	是 	int 	页数
      *  rows 	是 	int 	每页行数
@@ -454,7 +455,7 @@ public interface NetWorkService {
     Observable<JSONObject> getCodeInfo(@Query("checkNo")int checkNo,@Query("token")String token);
 
     /**
-     * 积分支付-确认收款
+     * 兑换-确认收款
      *  checkNo 	是 	string 	验证码
      * */
     @POST("offlineOrders!checkOrderNo.do")
@@ -519,18 +520,4 @@ public interface NetWorkService {
      * */
     @POST("businessStore!appRechargeIntegral.do")
     Observable<JSONObject> cashCharge(@Query("integral")String integral,@Query("payType")int payType,@Query("token")String token);
-
-
-
-    /**
-     * 商品列表
-     *  businessStoreId 	是 	int 	商家id
-     *  page 	是 	int 	页数
-     *  rows 	是 	int 	每页显示行数
-     *  status 	否 	int 	商品状态 （上架1，下架0，未审核3，全部99）
-     * */
-    @POST("product!listByBusinessStore.do")
-    Observable<JSONObject> getGoodsImage(@Query("businessStoreId")int id, @Query("page")int page, @Query("rows")int rows, @Query("token")String token);
-
-
 }

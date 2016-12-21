@@ -77,11 +77,25 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 			BufferCircleDialog.dialogcancel();
 
+			Intent intent = new Intent(getApplicationContext(),
+					RedPacketAttractCustomeActivity.class);
+
+			intent.putExtra("wechat_pay", false);
+
+			startActivity(intent);
+
 			finish();
 		} else if (resp.errCode == -2) {
 			Toast.makeText(getApplicationContext(), "交易取消", Toast.LENGTH_SHORT).show();
 
 			BufferCircleDialog.dialogcancel();
+
+			Intent intent = new Intent(getApplicationContext(),
+					RedPacketAttractCustomeActivity.class);
+
+			intent.putExtra("wechat_pay", false);
+
+			startActivity(intent);
 
 			finish();
 		}else if(resp.errCode==0 && MyApplication.payTpye==1){

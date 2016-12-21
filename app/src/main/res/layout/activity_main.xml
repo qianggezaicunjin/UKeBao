@@ -82,7 +82,7 @@
             android:layout_width="@dimen/x60"
             android:layout_height="@dimen/y55"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/y3"
+            android:layout_marginBottom="3dp"
             android:background="@drawable/lana1"
             android:button="@null" />
     </FrameLayout>

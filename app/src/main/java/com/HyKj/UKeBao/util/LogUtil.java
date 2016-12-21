@@ -11,7 +11,7 @@ public class LogUtil {
     private LogUtil(){}
 
     public static void d(String msg){
-//       logUtil.outLog(msg);//关闭debug输出
+       logUtil.outLog(msg);//关闭debug输出
     }
 
     private void outLog(String msg){

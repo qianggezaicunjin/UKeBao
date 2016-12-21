@@ -37,8 +37,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitHelp {
 
-    public final static String BASE_URL = "https://www.51ujf.cn/";//正式版端口
-//    public final static String BASE_URL = "https://test.51ujf.cn/";//测试端口
+//    public final static String BASE_URL = "https://www.51ujf.cn/";//正式版端口
+    public final static String BASE_URL = "https://test.51ujf.cn/";//测试端口
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

@@ -100,12 +100,9 @@ public class DatabindingAdapter {
 
     @BindingAdapter({"erroInfo"})
     public static void toastErroInfo(View view, String erroInfo) {
-        LogUtil.d("databinding冒泡调用成功");
-
         if (erroInfo != null) {
             CustomToast.makeText(view.getContext(), erroInfo, Toast.LENGTH_SHORT).show();
         }
-
     }
 
 

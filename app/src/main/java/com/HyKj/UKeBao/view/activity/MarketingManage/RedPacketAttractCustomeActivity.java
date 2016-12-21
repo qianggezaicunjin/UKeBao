@@ -172,6 +172,7 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
     private ImageView iv_red_packets_image;
 
     private TextView tv_advertisement_content;
+
     private Intent image_intent;
 
     public static Intent getStartIntent(Context context) {
@@ -788,10 +789,14 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
                         if (TextUtils.equals(resultStatus, "8000")) {
                             toast("支付结果确认中", RedPacketAttractCustomeActivity.this);
                         } else if (TextUtils.equals(resultStatus, "6001")) {
+                            toast("支付取消~", RedPacketAttractCustomeActivity.this);
 
+                            canClickFlag = true;
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             toast("支付失败", RedPacketAttractCustomeActivity.this);
+
+                            canClickFlag = true;
                         }
                     }
                     break;
@@ -894,6 +899,11 @@ public class RedPacketAttractCustomeActivity extends BaseActiviy implements View
             LogUtil.d("微信支付成功，执行跳转!");
 
             jump(viewModel.wxPayInfo, 2);
+        } else {
+            LogUtil.d("微信支付交易取消或者交易失败时，被调用~");
+
+            //将调用支付工具开关置为true
+            canClickFlag=true;
         }
     }
 
